@@ -1,7 +1,6 @@
-package Util
+package DrawHelper
 
 import (
-	"MusicalTyper-Go/Game/Constants"
 	"MusicalTyper-Go/Game/Logger"
 	"fmt"
 	"github.com/veandco/go-sdl2/sdl"
@@ -30,7 +29,7 @@ const (
 )
 
 func getTextureCacheKey(Text string, Color *sdl.Color) string {
-	return fmt.Sprintf("%s,%d,%d,%d,%d", Text, Color.R, Color.B, Color.B, Color.A)
+	return fmt.Sprintf("%s,%d,%d,%d", Text, Color.R, Color.B, Color.B)
 }
 
 func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) *TextureCache {
@@ -120,11 +119,6 @@ func DrawLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color) {
 func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) (int, int) {
 	Texture := makeTexture(Renderer, Size, Text, Color)
 	return int(Texture.Width), int(Texture.Height)
-}
-
-func DrawTypingText(Renderer *sdl.Renderer, x, y int, Font FontSize, TypedText, RemainingText string) {
-	DrawText(Renderer, x, y, RightAlign, Font, TypedText, Constants.TypedTextColor)
-	DrawText(Renderer, x, y, LeftAlign, Font, RemainingText, Constants.RemainingTextColor)
 }
 
 func DrawFillRect(Renderer *sdl.Renderer, Color *sdl.Color, x, y, width, height int) {

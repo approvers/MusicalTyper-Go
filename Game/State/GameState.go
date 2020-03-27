@@ -1,4 +1,4 @@
-package Game
+package Struct
 
 import (
 	"MusicalTyper-Go/Game/Beatmap"
@@ -44,18 +44,6 @@ func (s *GameState) Update(CurrentTime float64) {
 		fmt.Println("Updated index")
 		s.CurrentSentenceIndex++
 	}
-}
-
-func (s *GameState) GetSentenceTimeRemainRatio() float64 {
-	if len(s.Beatmap.Notes) <= s.CurrentSentenceIndex+1 {
-		return 1
-	}
-
-	CurrentSentenceStartTime := s.Beatmap.Notes[s.CurrentSentenceIndex].Time
-	NextSentenceStartTime := s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time
-	CurrentSentenceDuration := NextSentenceStartTime - CurrentSentenceStartTime
-	CurrentTimeInCurrentSentence := CurrentSentenceDuration - s.CurrentTime + CurrentSentenceStartTime
-	return CurrentTimeInCurrentSentence / CurrentSentenceDuration
 }
 
 func (s *GameState) GetAccuracy() float64 {

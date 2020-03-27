@@ -1,4 +1,4 @@
-package Util
+package DrawHelper
 
 import (
 	"MusicalTyper-Go/Game/Constants"
@@ -16,7 +16,6 @@ const (
 
 var (
 	KeyboardKeys = [...]string{"1234567890-\\^", "qwertyuiop@[", "asdfghjkl;:]", "zxcvbnm,./\\"}
-	HomePosition = [...]string{"f", "j"}
 )
 
 func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *sdl.Color) {

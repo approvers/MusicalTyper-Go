@@ -1,7 +1,7 @@
 package Beatmap
 
 import (
-	"MusicalTyper-Go/Game/Util"
+	"MusicalTyper-Go/Game/DrawHelper"
 )
 
 type Sentence struct {
@@ -36,11 +36,11 @@ func NewSentence(OriginalSentence, HiraganaSentence string) Sentence {
 }
 
 func (s *Sentence) GetTypedText() string {
-	return Util.Substring(s.HiraganaSentence, 0, s.CurrentCharacterIndex)
+	return DrawHelper.Substring(s.HiraganaSentence, 0, s.CurrentCharacterIndex)
 }
 
 func (s *Sentence) GetRemainingText() string {
-	return Util.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, Util.Length(s.HiraganaSentence))
+	return DrawHelper.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, DrawHelper.Length(s.HiraganaSentence))
 }
 
 func (s *Sentence) GetTypedRoma() string {
@@ -56,7 +56,7 @@ func (s *Sentence) GetTypedRoma() string {
 		}
 
 		if i == s.CurrentCharacterIndex {
-			Result += Util.Substring(CurrentCharacter.RomaStyles[RomaIndex], 0, CurrentCharacter.TypingIndex)
+			Result += DrawHelper.Substring(CurrentCharacter.RomaStyles[RomaIndex], 0, CurrentCharacter.TypingIndex)
 		} else {
 			Result += CurrentCharacter.RomaStyles[RomaIndex]
 		}
@@ -79,7 +79,7 @@ func (s *Sentence) GetRemainingRoma() string {
 
 		Result += CurrentCharacter.RomaStyles[RomaIndex]
 	}
-	return Util.Substring(Result, Util.Length(s.GetTypedRoma()), Util.Length(Result))
+	return DrawHelper.Substring(Result, DrawHelper.Length(s.GetTypedRoma()), DrawHelper.Length(Result))
 }
 
 func (s *Sentence) GetRoma() string {

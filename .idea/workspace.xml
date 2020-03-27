@@ -2,13 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06aa61ba-09eb-42aa-89cf-0f4ed86b7feb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Caller/Draw.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Drawable.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/KeyboardArea/KeyboardArea.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/AccGauge.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/AchievementGauge.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/ComboText.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TimeGauge.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TypeText.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/AchievementRate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/CorrectRateText.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/SpeedGauge.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/TopArea/Score.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/TopArea/SongInfo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Game/Constants/Constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Constants/Constants.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Game/Game.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Game.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/GameState.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/GameState.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Keyboard.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Util/Keyboard.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Text.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Util/Text.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Types.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Util/Types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/GameState.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/State/GameState.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/Color.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Color.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/Keyboard.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Keyboard.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/Math.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Math.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/SoundEffect.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/SoundEffect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/StringUtils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/StringUtils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/Text.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Text.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/Util/Types.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Test/Util_test.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,11 +73,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Game/Constants" />
-      <recent name="$PROJECT_DIR$/Game" />
-      <recent name="$PROJECT_DIR$/Game/Util" />
-      <recent name="$PROJECT_DIR$/Game/Util/Color" />
-      <recent name="$PROJECT_DIR$/Params" />
+      <recent name="$PROJECT_DIR$/../Game/DrawComponents/Caller" />
+      <recent name="$PROJECT_DIR$/../Game" />
+      <recent name="$PROJECT_DIR$/../Game/Struct" />
+      <recent name="$PROJECT_DIR$/../Game/Game" />
+      <recent name="$PROJECT_DIR$/../Game/DrawComponents/MainArea" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.." />
@@ -114,22 +133,22 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2878" y="515" width="631" height="399" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584365529573" />
-    <state width="2514" height="120" key="GridCell.Tab.0.bottom" timestamp="1585336468382">
+    <state width="2514" height="146" key="GridCell.Tab.0.bottom" timestamp="1585353375030">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="120" key="GridCell.Tab.0.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585336468382" />
-    <state width="2514" height="120" key="GridCell.Tab.0.center" timestamp="1585336468382">
+    <state width="2514" height="146" key="GridCell.Tab.0.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
+    <state width="2514" height="146" key="GridCell.Tab.0.center" timestamp="1585353375030">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="120" key="GridCell.Tab.0.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585336468382" />
-    <state width="2514" height="120" key="GridCell.Tab.0.left" timestamp="1585336468382">
+    <state width="2514" height="146" key="GridCell.Tab.0.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
+    <state width="2514" height="146" key="GridCell.Tab.0.left" timestamp="1585353375030">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="120" key="GridCell.Tab.0.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585336468382" />
-    <state width="2514" height="120" key="GridCell.Tab.0.right" timestamp="1585336468382">
+    <state width="2514" height="146" key="GridCell.Tab.0.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
+    <state width="2514" height="146" key="GridCell.Tab.0.right" timestamp="1585353375030">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="120" key="GridCell.Tab.0.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585336468382" />
+    <state width="2514" height="146" key="GridCell.Tab.0.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
     <state width="2514" height="452" key="GridCell.Tab.1.bottom" timestamp="1584599893322">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -166,10 +185,10 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2020" y="100" width="2360" height="1240" key="dock-window-3/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584610088824" />
-    <state x="2863" y="329" width="672" height="678" key="search.everywhere.popup" timestamp="1585334715859">
+    <state x="2863" y="329" width="672" height="678" key="search.everywhere.popup" timestamp="1585339850321">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state x="2863" y="329" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585334715859" />
+    <state x="2863" y="329" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585339850321" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
