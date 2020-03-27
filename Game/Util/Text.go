@@ -77,16 +77,24 @@ func DrawText(Renderer *sdl.Renderer, x, y int, alignment AlignmentType, Size Fo
 	Texture := makeTexture(Renderer, Size, Text, Color)
 
 	var Rect sdl.Rect
-	if alignment == LeftAlign {
+	switch alignment {
+	case LeftAlign:
 		Rect = sdl.Rect{
 			X: int32(x),
 			Y: int32(y),
 			W: Texture.Width,
 			H: Texture.Height,
 		}
-	} else {
+	case RightAlign:
 		Rect = sdl.Rect{
 			X: int32(x) - Texture.Width,
+			Y: int32(y),
+			W: Texture.Width,
+			H: Texture.Height,
+		}
+	case Center:
+		Rect = sdl.Rect{
+			X: int32(x) - Texture.Width/2,
 			Y: int32(y),
 			W: Texture.Width,
 			H: Texture.Height,
@@ -96,6 +104,17 @@ func DrawText(Renderer *sdl.Renderer, x, y int, alignment AlignmentType, Size Fo
 	Error := Renderer.Copy(Texture.Texture, nil, &Rect)
 	logger.CheckError(Error)
 	return int(Texture.Width), int(Texture.Height)
+}
+
+//fixme: 計算ガバガバなので斜めの線とか引くと多分バグる
+func DrawThickLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color, Thickness int) {
+	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
+	X, Y, DistX, DistY := int32(x), int32(y), int32(dstx), int32(dsty)
+	Renderer.DrawRect(&sdl.Rect{X, Y, DistX - X, DistY - Y})
+}
+
+func DrawLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color) {
+	DrawThickLine(Renderer, x, y, dstx, dsty, Color, 1)
 }
 
 func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) (int, int) {

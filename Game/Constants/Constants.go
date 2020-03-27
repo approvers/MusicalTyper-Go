@@ -11,8 +11,6 @@ const (
 	FrameRate    = 60
 
 	Margin = 15
-
-	IsFontCacheEnabled = true
 )
 
 var (
@@ -22,6 +20,7 @@ var (
 	ComboChainTextColor = &sdl.Color{126, 126, 132, 255}
 	TypedTextColor      = &sdl.Color{156, 156, 162, 255}
 	RemainingTextColor  = TextColor
+	GreenThinColor      = &sdl.Color{178, 255, 89, 255}
 	GreenThickColor     = &sdl.Color{0, 77, 64, 255}
 	BlueThickColor      = &sdl.Color{63, 81, 181, 255}
 	RedColor            = &sdl.Color{250, 119, 109, 255}

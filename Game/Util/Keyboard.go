@@ -10,7 +10,7 @@ const (
 	startY       = 193
 	fontSize     = FullFont
 	keyMargin    = 5
-	keySize      = 42
+	keySize      = 40
 	keyLineWidth = 2 //fixme: name?
 )
 

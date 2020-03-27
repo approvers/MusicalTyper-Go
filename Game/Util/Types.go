@@ -5,6 +5,7 @@ type AlignmentType uint8
 const (
 	RightAlign AlignmentType = iota
 	LeftAlign
+	Center
 )
 
 func (t AlignmentType) String() string {
@@ -13,6 +14,8 @@ func (t AlignmentType) String() string {
 		return "RightAlign"
 	case LeftAlign:
 		return "LeftAlign"
+	case Center:
+		return "Center"
 	default:
 		panic("Unknown alignment type")
 	}

@@ -39,7 +39,7 @@ func Run(beatmap *Beatmap.Beatmap) int {
 		mix.VolumeMusic(mix.MAX_VOLUME / 3)
 		Music, Error := mix.LoadMUS("/home/kawak/Documents/Github/MusicalTyper-Go/kkiminochikara-edited.mp3")
 		Logger.CheckError(Error)
-		Logger.CheckError(Music.Play(1))
+		//Logger.CheckError(Music.Play(1))
 		MusicStartTime := time.Now()
 		defer Music.Free()
 
@@ -59,7 +59,7 @@ func Run(beatmap *Beatmap.Beatmap) int {
 
 		var (
 			Running                  = true
-			FrameCounter             = 0
+			FrameCount               = 0
 			AuthorText               = fmt.Sprintf("%s/%s", beatmap.Properties["song_author"], beatmap.Properties["singer"])
 			GameState                = NewGameState(beatmap)
 			isTmpNextLyricsPrinting  = false //fixme: test
@@ -86,8 +86,8 @@ func Run(beatmap *Beatmap.Beatmap) int {
 				CurrentSentence         = GameState.Beatmap.Notes[GameState.CurrentSentenceIndex].Sentence
 				RankPosX                = int(Constants.WindowWidth * GameState.GetAchievementRate(true))
 			)
-			FrameCounter = (FrameCounter + 1) % Constants.FrameRate
-			if FrameCounter == 0 {
+			FrameCount = (FrameCount + 1) % Constants.FrameRate
+			if FrameCount == 0 {
 				//Util.PlaySE(Util.TleSE)
 			}
 
@@ -149,14 +149,62 @@ func Run(beatmap *Beatmap.Beatmap) int {
 					Util.DrawText(Renderer, 5, 230+60*i, Util.LeftAlign, Util.SystemFont, Note.Sentence.GetRoma(), Constants.TextColor)
 				}
 			} else {
-				//todo: has_to_prevent_miss
-				//fmt.Println(Util.Substring(CurrentSentence.GetRemainingRoma(), 0, 1))
-				Util.DrawKeyboard(Renderer, Util.Substring(CurrentSentence.GetRemainingRoma(), 0, 1), nil) //&sdl.Color{192, 192, 192, 255}
+				if GameState.IsInputDisabled {
+					Util.DrawKeyboard(Renderer, "", nil)
+				} else {
+					Util.DrawKeyboard(Renderer, Util.Substring(CurrentSentence.GetRemainingRoma(), 0, 1), nil)
+				}
 			}
 
+			//スコア表示
+			Text := fmt.Sprintf("%08d", GameState.Point)
+			if GameState.Point < 0 {
+				ScoreColor := Constants.BlueThickColor
+				if FrameCount%20 < 10 {
+					ScoreColor = Constants.RedColor
+				}
+				Util.DrawText(Renderer, 5, 20, Util.LeftAlign, Util.AlphabetFont, Text, ScoreColor)
+			} else {
+				Util.DrawText(Renderer, 5, 20, Util.LeftAlign, Util.AlphabetFont, Text, Constants.BlueThickColor)
+			}
+
+			//キーボードの下の線
+			Util.DrawThickLine(Renderer, 0, 375, Constants.WindowWidth, 375, Constants.TypedTextColor, 2)
+
+			//タイプ速度の表示とバー
+			Util.DrawText(Renderer, Constants.Margin, 382, Util.LeftAlign, Util.SystemFont, "タイピング速度", Constants.TypedTextColor)
+			if GameState.GetKeyTypePerSecond() > 4 {
+				Color := Constants.RedColor
+				if !(FrameCount%10 < 5) {
+					Color = Util.GetMoreBlackishColor(Color, 30)
+				}
+				Util.DrawFillRect(Renderer, Color, Constants.Margin, 405, Constants.WindowWidth-Constants.Margin*2, 20)
+			} else {
+				Util.DrawFillRect(Renderer, Constants.GreenThinColor, Constants.Margin, 405, Constants.WindowWidth-Constants.Margin*2, 20)
+				Color := Util.GetMoreBlackishColor(Constants.GreenThinColor, 50)
+				Util.DrawFillRect(Renderer, Color, Constants.Margin, 405, int(GameState.GetKeyTypePerSecond()/4*(Constants.WindowWidth*2)), 20)
+			}
+			Text = fmt.Sprintf("%4.2f Char/sec", GameState.GetKeyTypePerSecond())
+			Util.DrawText(Renderer, Constants.WindowWidth/2, 402, Util.Center, Util.SystemFont, Text, Constants.TextColor)
+
+			//正解率
+			Util.DrawText(Renderer, Constants.Margin, 430, Util.LeftAlign, Util.SystemFont, "正解率", Constants.TypedTextColor)
+			Color := Util.GetMoreBlackishColor(Constants.RedColor, 50)
+			Util.DrawFillRect(Renderer, Color, Constants.Margin+5, 510, int(GameState.GetAccuracy()*250), 3)
+			Acc := GameState.GetAccuracy()
+			Text = fmt.Sprintf("%05.1f%%", Acc*100)
+			Red := Constants.RedColor
+			Color = &sdl.Color{uint8(Acc) * Red.R, uint8(Acc) * Red.G, uint8(Acc) * Red.B, 255}
+			Util.DrawText(Renderer, Constants.Margin+5, 430, Util.LeftAlign, Util.BigFont, Text, Color)
+
+			//ランク
+			Util.DrawText(Renderer, Constants.Margin+320, 430, Util.LeftAlign, Util.SystemFont, "達成率", Constants.TypedTextColor)
+			Text = fmt.Sprintf("%05.1f%%", GameState.GetAchievementRate(false))
+			Util.DrawText(Renderer, Constants.Margin+330, 430, Util.LeftAlign, Util.BigFont, Text, Constants.BlueThickColor)
+
 			//DrawTime
-			_ = fmt.Sprintf("%4d μs", int(time.Now().Sub(DrawBegin).Microseconds()))
-			//Util.DrawText(Renderer, 3, -3, Util.LeftAlign, Util.SystemFont, DrawTimeStr, Constants.TextColor)
+			DrawTimeStr := fmt.Sprintf("%4d μs", int(time.Now().Sub(DrawBegin).Microseconds()))
+			Util.DrawText(Renderer, 3, -3, Util.LeftAlign, Util.SystemFont, DrawTimeStr, Constants.TextColor)
 
 			Renderer.Present()
 			//fmt.Println("Drawtime:", DrawFinish.Sub(DrawBegin).Microseconds(), "μs")

@@ -22,13 +22,18 @@ type GameState struct {
 	Point        int
 	PerfectPoint int
 
-	TotalTypeCount int
-	TotalMissCount int
+	TotalCorrectCount int
+	TotalMissCount    int
+
+	IsInputDisabled bool
+
+	KeyInputs []int
 }
 
 func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	r := GameState{}
 	r.Beatmap = Map
+	r.KeyInputs = make([]int, 0)
 	return &r
 }
 
@@ -54,9 +59,9 @@ func (s *GameState) GetSentenceTimeRemainRatio() float64 {
 }
 
 func (s *GameState) GetAccuracy() float64 {
-	Misses, Types := 1, 1
-	if s.TotalTypeCount > 0 {
-		Types = s.TotalTypeCount
+	Misses, Types := 0, 1
+	if s.TotalCorrectCount > 0 {
+		Types = s.TotalCorrectCount
 	}
 	if s.TotalMissCount > 0 {
 		Misses = s.TotalMissCount
@@ -67,7 +72,7 @@ func (s *GameState) GetAccuracy() float64 {
 
 func (s *GameState) GetAchievementRate(Limit bool) float64 {
 	Acc := s.GetAccuracy()
-	PerfectScore := s.PerfectPoint + s.TotalTypeCount*45
+	PerfectScore := s.PerfectPoint + s.TotalCorrectCount*45
 	Score := float64(s.Point) * Acc
 	if Score <= 0 {
 		return 0
@@ -87,4 +92,15 @@ func (s *GameState) GetRank() int {
 		}
 	}
 	return len(Constants.RankPoints) - 1
+}
+
+func (s *GameState) GetKeyTypePerSecond() float64 {
+	if len(s.KeyInputs) == 0 {
+		return 0
+	}
+	Sum := 0
+	for _, v := range s.KeyInputs {
+		Sum += v
+	}
+	return 1.0 / (float64(Sum) / float64(len(s.KeyInputs)))
 }
