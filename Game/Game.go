@@ -62,7 +62,7 @@ func Run(beatmap *Beatmap.Beatmap) int {
 			FrameCounter             = 0
 			AuthorText               = fmt.Sprintf("%s/%s", beatmap.Properties["song_author"], beatmap.Properties["singer"])
 			GameState                = NewGameState(beatmap)
-			isTmpNextLyricsPrinting  = true //fixme: test
+			isTmpNextLyricsPrinting  = false //fixme: test
 			isContNextLyricsPrinting = false
 			//DrawBegin    time.Time
 			//DrawFinish time.Time
@@ -82,7 +82,7 @@ func Run(beatmap *Beatmap.Beatmap) int {
 
 			var (
 				DrawBegin               = time.Now()
-				RemainingTimeGaugeWidth = int32(math.Floor(GameState.GetSentenceTimeRemainRatio() * Constants.WindowWidth))
+				RemainingTimeGaugeWidth = int(math.Floor(GameState.GetSentenceTimeRemainRatio() * Constants.WindowWidth))
 				CurrentSentence         = GameState.Beatmap.Notes[GameState.CurrentSentenceIndex].Sentence
 				RankPosX                = int(Constants.WindowWidth * GameState.GetAchievementRate(true))
 			)
@@ -102,8 +102,8 @@ func Run(beatmap *Beatmap.Beatmap) int {
 			Util.DrawText(Renderer, Constants.WindowWidth-5, 33, Util.RightAlign, Util.SystemFont, AuthorText, Constants.TypedTextColor)
 
 			//残り時間ゲージ
-			Util.DrawRect(Renderer, Util.GetMoreBlackishColor(Constants.BackgroundColor, 25), 0, 60, Constants.WindowWidth, 130)
-			Util.DrawRect(Renderer, Util.GetMoreBlackishColor(Constants.BackgroundColor, 50), 0, 60, RemainingTimeGaugeWidth, 130)
+			Util.DrawFillRect(Renderer, Util.GetMoreBlackishColor(Constants.BackgroundColor, 25), 0, 60, Constants.WindowWidth, 130)
+			Util.DrawFillRect(Renderer, Util.GetMoreBlackishColor(Constants.BackgroundColor, 50), 0, 60, RemainingTimeGaugeWidth, 130)
 
 			//タイプする文字(ひらがな), ローマ字, 歌詞
 			Util.DrawTypingText(Renderer, Constants.WindowWidth/2, 80, Util.JapaneseFont, CurrentSentence.GetTypedText(), CurrentSentence.GetRemainingText())
@@ -117,9 +117,9 @@ func Run(beatmap *Beatmap.Beatmap) int {
 
 			//正解率ゲージ　100%なら赤色
 			if Acc := CurrentSentence.GetAccuracy(); Acc == 1 {
-				Util.DrawRect(Renderer, Constants.RedColor, 0, 60, int32(Acc), 3)
+				Util.DrawFillRect(Renderer, Constants.RedColor, 0, 60, int(Acc), 3)
 			} else {
-				Util.DrawRect(Renderer, Constants.GreenThickColor, 0, 60, int32(Acc), 3)
+				Util.DrawFillRect(Renderer, Constants.GreenThickColor, 0, 60, int(Acc), 3)
 			}
 			//正解率ゲージの上に出るランク
 			Util.DrawText(Renderer, RankPosX, 168, Util.RightAlign, Util.SystemFont, Constants.RankTexts[GameState.GetRank()], Constants.TypedTextColor)
@@ -127,12 +127,12 @@ func Run(beatmap *Beatmap.Beatmap) int {
 			//達成率ゲージ
 			if GotRank := GameState.GetRank(); GotRank > 0 {
 				Rate := Constants.RankPoints[GotRank-1] / 100
-				Util.DrawRect(Renderer, Constants.RedColor, 0, 187, int32(Constants.WindowWidth*Rate), 3)
+				Util.DrawFillRect(Renderer, Constants.RedColor, 0, 187, int(Constants.WindowWidth*Rate), 3)
 			}
 			if GameState.GetAchievementRate(false) < 0.8 {
-				Util.DrawRect(Renderer, Constants.GreenThickColor, 0, 187, int32(Constants.WindowWidth*GameState.GetAchievementRate(true)), 3)
+				Util.DrawFillRect(Renderer, Constants.GreenThickColor, 0, 187, int(Constants.WindowWidth*GameState.GetAchievementRate(true)), 3)
 			} else {
-				Util.DrawRect(Renderer, Constants.BlueThickColor, 0, 187, int32(Constants.WindowWidth*GameState.GetAchievementRate(true)), 3)
+				Util.DrawFillRect(Renderer, Constants.BlueThickColor, 0, 187, int(Constants.WindowWidth*GameState.GetAchievementRate(true)), 3)
 			}
 
 			//キーボード
@@ -149,12 +149,14 @@ func Run(beatmap *Beatmap.Beatmap) int {
 					Util.DrawText(Renderer, 5, 230+60*i, Util.LeftAlign, Util.SystemFont, Note.Sentence.GetRoma(), Constants.TextColor)
 				}
 			} else {
-
+				//todo: has_to_prevent_miss
+				//fmt.Println(Util.Substring(CurrentSentence.GetRemainingRoma(), 0, 1))
+				Util.DrawKeyboard(Renderer, Util.Substring(CurrentSentence.GetRemainingRoma(), 0, 1), nil) //&sdl.Color{192, 192, 192, 255}
 			}
 
 			//DrawTime
-			DrawTimeStr := fmt.Sprintf("%4d μs", int(time.Now().Sub(DrawBegin).Microseconds()))
-			Util.DrawText(Renderer, 3, -3, Util.LeftAlign, Util.SystemFont, DrawTimeStr, Constants.TextColor)
+			_ = fmt.Sprintf("%4d μs", int(time.Now().Sub(DrawBegin).Microseconds()))
+			//Util.DrawText(Renderer, 3, -3, Util.LeftAlign, Util.SystemFont, DrawTimeStr, Constants.TextColor)
 
 			Renderer.Present()
 			//fmt.Println("Drawtime:", DrawFinish.Sub(DrawBegin).Microseconds(), "μs")

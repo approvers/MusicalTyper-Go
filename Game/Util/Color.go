@@ -21,3 +21,12 @@ func GetMoreBlackishColor(base *sdl.Color, delta uint8) *sdl.Color {
 		A: base.A,
 	}
 }
+
+func GetInvertColor(base *sdl.Color) *sdl.Color {
+	return &sdl.Color{
+		R: 255 - base.R,
+		G: 255 - base.G,
+		B: 255 - base.B,
+		A: 255 - base.A,
+	}
+}
