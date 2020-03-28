@@ -2,32 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06aa61ba-09eb-42aa-89cf-0f4ed86b7feb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Caller/Draw.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Drawable.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/KeyboardArea/KeyboardArea.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/AccGauge.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/AchievementGauge.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/ComboText.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TimeGauge.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TypeText.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/AchievementRate.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/CorrectRateText.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/SpeedGauge.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/TopArea/Score.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/TopArea/SongInfo.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Constants/Constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Constants/Constants.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Game.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Game.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/GameState.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/State/GameState.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Color.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Color.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Keyboard.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Keyboard.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Math.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Math.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/SoundEffect.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/SoundEffect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/StringUtils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/StringUtils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Text.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Text.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Util/Types.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Test/Util_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Beatmap/Beatmap.go" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Beatmap/Beatmap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/Game.go" beforeDir="false" afterPath="$PROJECT_DIR$/Game/Game.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampleScore.tsc" beforeDir="false" afterPath="$PROJECT_DIR$/sampleScore.tsc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,9 +21,9 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/lib/go" />
+  <component name="GOROOT" path="/usr/local/Cellar/go/1.14/libexec" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
@@ -68,7 +48,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
@@ -117,6 +97,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="560" y="265" key="#GOROOT" timestamp="1585390736805">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="560" y="265" key="#GOROOT/0.0.1920.1200@0.0.1920.1200" timestamp="1585390736805" />
     <state x="2795" y="381" width="800" height="673" key="#Go_Modules_(vgo)" timestamp="1584365293592">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -125,46 +109,60 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2795" y="381" width="800" height="673" key="#Vim_Emulation/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585309675268" />
-    <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584516217492">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state x="554" y="315" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585390863172">
+      <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584516217492" />
-    <state x="2878" y="515" width="631" height="399" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584365529573">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state x="554" y="315" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1585390863172" />
+    <state x="754" y="444" width="676" height="327" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585392872913">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state x="2878" y="515" width="631" height="399" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584365529573" />
-    <state width="2514" height="146" key="GridCell.Tab.0.bottom" timestamp="1585353375030">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state x="754" y="444" width="676" height="327" key="#com.intellij.fileTypes.FileTypeChooser/56.23.1864.1177@56.23.1864.1177" timestamp="1585392872913" />
+    <state width="480" height="646" key="DebuggerActiveHint" timestamp="1585392660562">
+      <screen x="56" y="23" width="1864" height="1177" />
+    </state>
+    <state width="480" height="646" key="DebuggerActiveHint/56.23.1864.1177@56.23.1864.1177" timestamp="1585392660562" />
+    <state width="1822" height="298" key="GridCell.Tab.0.bottom" timestamp="1585392867794">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="146" key="GridCell.Tab.0.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
-    <state width="2514" height="146" key="GridCell.Tab.0.center" timestamp="1585353375030">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="1822" height="298" key="GridCell.Tab.0.bottom/56.23.1864.1177@56.23.1864.1177" timestamp="1585392867794" />
+    <state width="1822" height="298" key="GridCell.Tab.0.center" timestamp="1585392867793">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="146" key="GridCell.Tab.0.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
-    <state width="2514" height="146" key="GridCell.Tab.0.left" timestamp="1585353375030">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="1822" height="298" key="GridCell.Tab.0.center/56.23.1864.1177@56.23.1864.1177" timestamp="1585392867793" />
+    <state width="1822" height="298" key="GridCell.Tab.0.left" timestamp="1585392867793">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="146" key="GridCell.Tab.0.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
-    <state width="2514" height="146" key="GridCell.Tab.0.right" timestamp="1585353375030">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="1822" height="298" key="GridCell.Tab.0.left/56.23.1864.1177@56.23.1864.1177" timestamp="1585392867793" />
+    <state width="1822" height="298" key="GridCell.Tab.0.right" timestamp="1585392867794">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="146" key="GridCell.Tab.0.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585353375030" />
-    <state width="2514" height="452" key="GridCell.Tab.1.bottom" timestamp="1584599893322">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="1822" height="298" key="GridCell.Tab.0.right/56.23.1864.1177@56.23.1864.1177" timestamp="1585392867794" />
+    <state width="911" height="389" key="GridCell.Tab.1.bottom" timestamp="1585392822367">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="452" key="GridCell.Tab.1.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584599893322" />
-    <state width="2514" height="452" key="GridCell.Tab.1.center" timestamp="1584599893322">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="911" height="389" key="GridCell.Tab.1.bottom/56.23.1864.1177@56.23.1864.1177" timestamp="1585392822367" />
+    <state width="911" height="389" key="GridCell.Tab.1.center" timestamp="1585392822367">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="452" key="GridCell.Tab.1.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584599893322" />
-    <state width="2514" height="452" key="GridCell.Tab.1.left" timestamp="1584599893322">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="911" height="389" key="GridCell.Tab.1.center/56.23.1864.1177@56.23.1864.1177" timestamp="1585392822367" />
+    <state width="911" height="389" key="GridCell.Tab.1.left" timestamp="1585392822367">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="452" key="GridCell.Tab.1.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584599893322" />
-    <state width="2514" height="452" key="GridCell.Tab.1.right" timestamp="1584599893322">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state width="911" height="389" key="GridCell.Tab.1.left/56.23.1864.1177@56.23.1864.1177" timestamp="1585392822367" />
+    <state width="911" height="389" key="GridCell.Tab.1.right" timestamp="1585392822367">
+      <screen x="56" y="23" width="1864" height="1177" />
     </state>
     <state width="2514" height="452" key="GridCell.Tab.1.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584599893322" />
+    <state width="911" height="389" key="GridCell.Tab.1.right/56.23.1864.1177@56.23.1864.1177" timestamp="1585392822367" />
     <state x="2689" y="65" width="1022" height="1019" key="SettingsEditor" timestamp="1584368806580">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -197,6 +195,11 @@
           <url>file://$PROJECT_DIR$/../../Game/Beatmap/Solve.go</url>
           <line>70</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/Game/Beatmap/Beatmap.go</url>
+          <line>159</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

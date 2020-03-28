@@ -38,7 +38,7 @@ func Run(beatmap *Beatmap.Beatmap) int {
 		defer mix.CloseAudio()
 
 		mix.VolumeMusic(mix.MAX_VOLUME / 3)
-		Music, Error := mix.LoadMUS("/home/kawak/Documents/Github/MusicalTyper-Go/kkiminochikara-edited.mp3")
+		Music, Error := mix.LoadMUS(beatmap.Properties["song_data"])
 		Logger.CheckError(Error)
 		Logger.CheckError(Music.Play(1))
 		MusicStartTime := time.Now()

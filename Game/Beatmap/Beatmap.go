@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -32,10 +33,10 @@ func NewBeatmap() *Beatmap {
 }
 
 func LoadMap(path string) *Beatmap {
-	Logger := Logger.NewLogger("LoadMap")
+	logger := Logger.NewLogger("LoadMap")
 
 	File, Err := os.OpenFile(path, os.O_RDONLY, 0666)
-	Logger.CheckError(Err)
+	logger.CheckError(Err)
 	defer File.Close()
 
 	var Scanner *bufio.Scanner
@@ -76,12 +77,12 @@ func LoadMap(path string) *Beatmap {
 				if Command := parseSpecialCommand(Line); Command == "start" {
 					isInSong = true
 				} else {
-					Logger.Warn(fmt.Sprintf("Line%d: Unknown command \"%s\" outside of song section.", LineCount, Command))
+					logger.Warn(fmt.Sprintf("Line%d: Unknown command \"%s\" outside of song section.", LineCount, Command))
 				}
 
 			default:
 				isDetectedError = true
-				Logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Unknown text \"%s\" outside of song section.", LineCount, Line))
+				logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Unknown text \"%s\" outside of song section.", LineCount, Line))
 			}
 
 		} else {
@@ -108,14 +109,14 @@ func LoadMap(path string) *Beatmap {
 						Result.Notes = append(Result.Notes, newNote(CurrentTime, TempLyric, TempPron))
 					} else {
 						isDetectedError = true
-						Logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Lyric provided, but pronunciation data doensn't provided.", LineCount))
+						logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Lyric provided, but pronunciation data doensn't provided.", LineCount))
 					}
 				}
 				TempLyric = ""
 				TempPron = ""
 
 				NewSec, Error := strconv.ParseFloat(Line[1:], 64)
-				Logger.CheckError(Error)
+				logger.CheckError(Error)
 				CurrentTime = float64(60*CurrentMinute) + NewSec
 
 			case strings.HasPrefix(Line, "@"):
@@ -131,7 +132,7 @@ func LoadMap(path string) *Beatmap {
 					Result.Zones = append(Result.Zones, newZone(CurrentTime, false, ZoneName))
 				default:
 					isDetectedError = true
-					Logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Zone flag \"%s\" is invalid. Allowed values are only \"start\" and \"end\".", LineCount, Flag))
+					logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Zone flag \"%s\" is invalid. Allowed values are only \"start\" and \"end\".", LineCount, Flag))
 				}
 
 			case strings.HasPrefix(Line, ":"):
@@ -144,13 +145,27 @@ func LoadMap(path string) *Beatmap {
 		}
 		LineCount++
 	}
-	if _, Exist := Result.Properties["song_data"]; !Exist {
+	if v, Exist := Result.Properties["song_data"]; !Exist {
 		isDetectedError = true
-		Logger.FatalErrorWithoutExit("The song_data property is not defined. It is required to play a song.")
+		logger.FatalErrorWithoutExit("The song_data property is not defined. It is required to play a song.")
+	} else {
+		Path, Error := filepath.Abs(path)
+		logger.CheckError(Error)
+
+		Dir := filepath.Dir(Path)
+		SongPath := filepath.Join(Dir, v)
+		Info, Error := os.Stat(SongPath)
+		if Error != nil || !Info.Mode().IsRegular() {
+			isDetectedError = true
+			logger.FatalErrorWithoutExit("The path which is in song_data property is invalid.")
+			logger.FatalErrorWithoutExit("Path: " + SongPath)
+		} else {
+			Result.Properties["song_data"] = SongPath
+		}
 	}
 
 	if isDetectedError {
-		Logger.FatalError("Please fix above issues. Exiting.")
+		logger.FatalError("Please fix above issues. Exiting.")
 	}
 
 	return Result
