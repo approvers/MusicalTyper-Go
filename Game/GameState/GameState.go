@@ -53,15 +53,11 @@ func (s *GameState) Update(CurrentTime float64) {
 }
 
 func (s *GameState) GetAccuracy() float64 {
-	Misses, Types := 0, 1
-	if s.TotalCorrectCount > 0 {
-		Types = s.TotalCorrectCount
-	}
-	if s.TotalMissCount > 0 {
-		Misses = s.TotalMissCount
+	if s.TotalCorrectCount == 0 {
+		return 0
 	}
 
-	return float64(Types) / float64(Misses+Types)
+	return float64(s.TotalCorrectCount) / float64(s.TotalMissCount+s.TotalCorrectCount)
 }
 
 func (s *GameState) GetAchievementRate(Limit bool) float64 {
