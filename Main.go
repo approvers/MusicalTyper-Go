@@ -4,8 +4,8 @@ import (
 	"MusicalTyper-Go/Game"
 	"MusicalTyper-Go/Game/Beatmap"
 	Logger "MusicalTyper-Go/Game/Logger"
-	"github.com/veandco/go-sdl2/sdl"
 	"os"
+	"runtime"
 )
 
 func InitMap() *Beatmap.Beatmap {
@@ -26,9 +26,9 @@ func InitMap() *Beatmap.Beatmap {
 }
 
 func main() {
-	Map := InitMap()
+	//Be sure this goroutine to run on main thread.
+	runtime.LockOSThread()
 
-	sdl.Main(func() {
-		Game.Run(Map)
-	})
+	Map := InitMap()
+	Game.Run(Map)
 }
