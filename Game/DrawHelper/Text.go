@@ -1,6 +1,7 @@
 package DrawHelper
 
 import (
+	"MusicalTyper-Go/Game/Constants"
 	"MusicalTyper-Go/Game/Logger"
 	"fmt"
 	"github.com/veandco/go-sdl2/sdl"
@@ -62,7 +63,9 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 
 		textureCache[Size][CacheKey] = Result
 		Texture = Result
-		fmt.Printf("Created \"%s\" texture. Key: %s Size:%d. Took %dμs\n", Text, CacheKey, Size, time.Now().Sub(Begin).Microseconds())
+		if Constants.PrintTextureLog {
+			fmt.Printf("Created \"%s\" texture. Key: %s Size:%d. Took %dμs\n", Text, CacheKey, Size, time.Now().Sub(Begin).Microseconds())
+		}
 	}
 	return Texture
 }

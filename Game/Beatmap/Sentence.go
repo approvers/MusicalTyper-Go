@@ -2,15 +2,20 @@ package Beatmap
 
 import (
 	"MusicalTyper-Go/Game/DrawHelper"
+	"fmt"
+	"strings"
 )
 
 type Sentence struct {
-	OriginalSentence      string
-	HiraganaSentence      string
-	SolvedSentence        []Character
+	OriginalSentence string
+	HiraganaSentence string
+
+	SolvedSentence []*Character
+
 	CurrentCharacterIndex int
-	TypeCount             int
-	MissCount             int
+
+	TypeCount int
+	MissCount int
 }
 
 type Character struct {
@@ -19,16 +24,13 @@ type Character struct {
 
 	//ti chi
 	RomaStyles []string
-	//特定されたローマ字。 未特定の場合は-1 0:ti 1:chi
-	RomaStyleIndex int
-	//ローマ字を特定するポイント。 tiとchiなら最初の文字で特定できるので0。siとshiなら、2文字目で特定できるので1。
-	RomaStyleCheckPoint int
+
 	//どこまで入力したか。
 	TypingIndex int
 }
 
-func NewSentence(OriginalSentence, HiraganaSentence string) Sentence {
-	Result := Sentence{}
+func NewSentence(OriginalSentence, HiraganaSentence string) *Sentence {
+	Result := new(Sentence)
 	Result.HiraganaSentence = HiraganaSentence
 	Result.OriginalSentence = OriginalSentence
 	Result.SolvedSentence = Solve(HiraganaSentence)
@@ -44,46 +46,41 @@ func (s *Sentence) GetRemainingText() string {
 }
 
 func (s *Sentence) GetTypedRoma() string {
+	if len(s.SolvedSentence) == 0 {
+		return ""
+	}
+
 	Result := ""
 	for i := 0; i < s.CurrentCharacterIndex; i++ {
-		CurrentCharacter := s.SolvedSentence[i]
-		var RomaIndex int
+		Result += s.SolvedSentence[i].RomaStyles[0]
+	}
 
-		if CurrentCharacter.RomaStyleIndex == -1 {
-			RomaIndex = 0
-		} else {
-			RomaIndex = CurrentCharacter.RomaStyleIndex
-		}
-
-		if i == s.CurrentCharacterIndex {
-			Result += DrawHelper.Substring(CurrentCharacter.RomaStyles[RomaIndex], 0, CurrentCharacter.TypingIndex)
-		} else {
-			Result += CurrentCharacter.RomaStyles[RomaIndex]
-		}
+	if len(s.SolvedSentence) > s.CurrentCharacterIndex {
+		CurrentCharacter := s.SolvedSentence[s.CurrentCharacterIndex]
+		Result += DrawHelper.Substring(CurrentCharacter.RomaStyles[0], 0, CurrentCharacter.TypingIndex)
 	}
 
 	return Result
 }
 
 func (s *Sentence) GetRemainingRoma() string {
+	if len(s.SolvedSentence) == 0 {
+		return ""
+	}
+
 	Result := ""
-	for i := 0; i < len(s.SolvedSentence); i++ {
-		CurrentCharacter := s.SolvedSentence[i]
-		var RomaIndex int
-
-		if CurrentCharacter.RomaStyleIndex == -1 {
-			RomaIndex = 0
-		} else {
-			RomaIndex = CurrentCharacter.RomaStyleIndex
-		}
-
-		Result += CurrentCharacter.RomaStyles[RomaIndex]
+	for _, v := range s.SolvedSentence {
+		Result += v.RomaStyles[0]
 	}
 	return DrawHelper.Substring(Result, DrawHelper.Length(s.GetTypedRoma()), DrawHelper.Length(Result))
 }
 
 func (s *Sentence) GetRoma() string {
-	return s.GetTypedRoma() + s.GetRemainingRoma()
+	Result := ""
+	for i := 0; i < s.CurrentCharacterIndex; i++ {
+		Result += s.SolvedSentence[i].RomaStyles[0]
+	}
+	return Result
 }
 
 func (s *Sentence) GetAccuracy() float64 {
@@ -96,4 +93,41 @@ func (s *Sentence) GetAccuracy() float64 {
 	}
 
 	return float64(Misses) / float64(Types)
+}
+
+func (s *Sentence) IsExceptedKey(input string) (ok, isThisSentenceEnded bool) {
+	CurrentChar := s.SolvedSentence[s.CurrentCharacterIndex]
+	fmt.Printf("Char:%d Typ: %d\n", s.CurrentCharacterIndex, CurrentChar.TypingIndex)
+
+	var (
+		RemainSuggests = make([]string, 0)
+		Len            = 0
+		isCharEnded    = false
+	)
+
+	fmt.Print(CurrentChar.RomaStyles)
+	for _, v := range CurrentChar.RomaStyles {
+		if strings.Split(v, "")[CurrentChar.TypingIndex] == input {
+			if CurrentChar.TypingIndex+1 == len(v) {
+				isCharEnded = true
+				break
+			}
+
+			RemainSuggests = append(RemainSuggests, v)
+		}
+	}
+	fmt.Println(Len)
+
+	if !isCharEnded {
+		if len(RemainSuggests) == 0 {
+			return false, false
+		}
+
+		CurrentChar.RomaStyles = RemainSuggests
+		CurrentChar.TypingIndex++
+		return true, false
+	} else {
+		s.CurrentCharacterIndex++
+		return true, len(s.SolvedSentence) == s.CurrentCharacterIndex
+	}
 }

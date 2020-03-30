@@ -1,4 +1,4 @@
-package DrawHelper
+package SEHelper
 
 import (
 	"MusicalTyper-Go/Game/Logger"
@@ -23,8 +23,8 @@ var (
 	seCache = map[SEType]*mix.Chunk{}
 )
 
-func PlaySE(seType SEType) {
-	logger := Logger.NewLogger("PlaySE")
+func Play(seType SEType) {
+	logger := Logger.NewLogger("Play")
 	SE, Exists := seCache[seType]
 	if !Exists {
 		LoadedSE, Err := mix.LoadWAV(string(seType))

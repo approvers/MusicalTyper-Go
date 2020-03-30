@@ -11,7 +11,7 @@ const (
 type Note struct {
 	Type     NoteType
 	Time     float64
-	Sentence Sentence
+	Sentence *Sentence
 	isEnd    bool
 	Caption  string
 }
@@ -21,53 +21,40 @@ type Section struct {
 	ID   string
 }
 
-type Zone struct {
-	Time    float64
-	Name    string
-	isBegin bool
-}
-
-func newNote(Sec float64, Lyric, Pron string) Note {
-	Result := Note{}
+func newNote(Sec float64, Lyric, Pron string) *Note {
+	Result := new(Note)
 	Result.Time = Sec
 	Result.Sentence = NewSentence(Lyric, Pron)
 	Result.Type = NORMAL
 	return Result
 }
 
-func newBlankNote(Sec float64) Note {
-	Result := Note{}
+func newBlankNote(Sec float64) *Note {
+	Result := new(Note)
 	Result.Type = BLANK
 	Result.Time = Sec
 	return Result
 }
 
-func newCaptionNote(Sec float64, Caption string) Note {
-	Result := Note{}
+func newCaptionNote(Sec float64, Caption string) *Note {
+	Result := new(Note)
 	Result.Type = CAPTION
 	Result.Time = Sec
 	Result.Caption = Caption
+	Result.Sentence = NewSentence("", "")
 	return Result
 }
 
-func endMap(Sec float64) Note {
-	Result := Note{}
+func endMap(Sec float64) *Note {
+	Result := new(Note)
 	Result.Time = Sec
 	Result.isEnd = true
 	return Result
 }
 
-func newSection(Sec float64, ID string) Section {
-	Result := Section{}
+func newSection(Sec float64, ID string) *Section {
+	Result := new(Section)
 	Result.Time = Sec
 	Result.ID = ID
-	return Result
-}
-
-func newZone(Sec float64, isBegin bool, Name string) Zone {
-	Result := Zone{}
-	Result.Time = Sec
-	Result.isBegin = isBegin
-	Result.Name = Name
 	return Result
 }

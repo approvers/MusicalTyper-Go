@@ -27,9 +27,9 @@ func (s CorrectRateText) Draw(c *DrawComponents.DrawContext) {
 
 	Text := fmt.Sprintf("%05.1f%%", Acc*100)
 	TextColor := &sdl.Color{
-		R: uint8(Acc) * Constants.RedColor.R,
-		G: uint8(Acc) * Constants.RedColor.G,
-		B: uint8(Acc) * Constants.RedColor.B,
+		R: uint8(Acc * float64(Constants.RedColor.R)),
+		G: uint8(Acc * float64(Constants.RedColor.G)),
+		B: uint8(Acc * float64(Constants.RedColor.B)),
 		A: 255}
 
 	DrawHelper.DrawText(c.Renderer,

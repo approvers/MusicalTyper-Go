@@ -10,11 +10,11 @@ func Max(a, b uint8) uint8 {
 	}
 }
 
-func MinUInt8(a, b uint8) uint8 {
+func MinUInt8(a, b int) uint8 {
 	if a < b {
-		return a
+		return uint8(a)
 	} else {
-		return b
+		return uint8(b)
 	}
 }
 

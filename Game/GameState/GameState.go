@@ -1,11 +1,14 @@
-package Struct
+package GameState
 
 import (
 	"MusicalTyper-Go/Game/Beatmap"
 	"MusicalTyper-Go/Game/Constants"
 	"fmt"
 	"math"
+	"time"
 )
+
+type ResultType int
 
 type Result struct {
 	Count     int
@@ -27,14 +30,15 @@ type GameState struct {
 
 	IsInputDisabled bool
 
-	KeyInputs []int
+	KeyInputs []time.Time
 }
 
 func NewGameState(Map *Beatmap.Beatmap) *GameState {
-	r := GameState{}
+	r := new(GameState)
 	r.Beatmap = Map
-	r.KeyInputs = make([]int, 0)
-	return &r
+	r.KeyInputs = make([]time.Time, 0)
+	r.IsInputDisabled = Map.Notes[0].Type != Beatmap.NORMAL
+	return r
 }
 
 //Sync between GameState's current time and realtime, then Update current note.
@@ -42,7 +46,9 @@ func (s *GameState) Update(CurrentTime float64) {
 	s.CurrentTime = CurrentTime
 	if len(s.Beatmap.Notes) > s.CurrentSentenceIndex+1 && s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time <= CurrentTime {
 		fmt.Println("Updated index")
+
 		s.CurrentSentenceIndex++
+		s.IsInputDisabled = s.Beatmap.Notes[s.CurrentSentenceIndex].Type != Beatmap.NORMAL
 	}
 }
 
@@ -55,7 +61,7 @@ func (s *GameState) GetAccuracy() float64 {
 		Misses = s.TotalMissCount
 	}
 
-	return float64(Misses) / float64(Types)
+	return float64(Types) / float64(Misses+Types)
 }
 
 func (s *GameState) GetAchievementRate(Limit bool) float64 {
@@ -82,13 +88,49 @@ func (s *GameState) GetRank() int {
 	return len(Constants.RankPoints) - 1
 }
 
-func (s *GameState) GetKeyTypePerSecond() float64 {
-	if len(s.KeyInputs) == 0 {
-		return 0
-	}
-	Sum := 0
+func (s *GameState) CountKeyType() {
+	s.KeyInputs = append(s.KeyInputs, time.Now())
+}
+
+func (s *GameState) GetKeyTypePerSecond() int {
+	now := time.Now()
+	remains := make([]time.Time, 0, len(s.KeyInputs))
+
 	for _, v := range s.KeyInputs {
-		Sum += v
+		if now.Sub(v).Milliseconds() < 1000 {
+			remains = append(remains, v)
+		}
 	}
-	return 1.0 / (float64(Sum) / float64(len(s.KeyInputs)))
+	s.KeyInputs = remains
+	return len(remains)
+}
+
+func (s *GameState) AddPoint(isTypeOK, isThisSentenceEnded bool) (point int) {
+	CurrentSentence := s.Beatmap.Notes[s.CurrentSentenceIndex].Sentence
+
+	if isTypeOK {
+		s.TotalCorrectCount++
+		s.Combo++
+
+		point = int(float64(Constants.OneCharPoint*10*s.GetKeyTypePerSecond()) * float64(s.Combo/10))
+		s.Point += point
+		s.PerfectPoint += Constants.OneCharPoint * 10 * Constants.IdealTypeSpeed * s.Combo / 10
+
+		if isThisSentenceEnded {
+			s.PerfectPoint += Constants.ClearPoint + Constants.PerfectPoint
+			s.Point += Constants.ClearPoint
+			if CurrentSentence.MissCount == 0 {
+				s.Point += Constants.PerfectPoint
+			}
+		} else {
+			CurrentSentence.TypeCount++
+		}
+	} else {
+		s.TotalMissCount++
+		CurrentSentence.MissCount++
+		point = Constants.MissPoint
+		s.Point += point
+		s.Combo = 0
+	}
+	return
 }

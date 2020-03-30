@@ -10,25 +10,17 @@ var (
 	SmallCharacters = []string{"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "っ", "ゃ", "ゅ", "ょ"}
 )
 
-func Solve(HiraganaSentence string) []Character {
-	Result := make([]Character, 0)
+func Solve(HiraganaSentence string) []*Character {
+	Result := make([]*Character, 0)
 	for _, c := range strings.Split(HiraganaSentence, "") {
 		var (
-			Roma           = getRoma(c)
-			RomaStyleIndex int
+			Roma = getRoma(c)
 		)
 
-		if len(Roma) == 1 {
-			RomaStyleIndex = 0
-		} else {
-			RomaStyleIndex = -1
-		}
-
-		Result = append(Result, Character{
-			Character:      c,
-			RomaStyles:     Roma,
-			RomaStyleIndex: RomaStyleIndex,
-			TypingIndex:    0,
+		Result = append(Result, &Character{
+			Character:   c,
+			RomaStyles:  Roma,
+			TypingIndex: 0,
 		})
 	}
 	return Result
@@ -218,7 +210,8 @@ func getRoma(Character string) []string {
 		return []string{"."}
 	case "ー":
 		return []string{"-"}
-
+	case " ", "　":
+		return []string{" "}
 	default:
 		log := Logger.NewLogger("GetRoma")
 		log.FatalError(fmt.Sprintf("fixme: Unknown charcter \"%s\"", Character))

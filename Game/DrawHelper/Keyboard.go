@@ -49,3 +49,16 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *
 		}
 	}
 }
+
+func GetKeyPlace(key string) (x, y int) {
+	Size := keySize + keyMargin
+	for i, v := range KeyboardKeys {
+		Index := strings.Index(v, key)
+		if Index != -1 {
+			y = startY + i*Size
+			x = (Constants.WindowWidth - Size*len(v)) + Index*Size + keySize/2
+			return
+		}
+	}
+	return 0, 0
+}

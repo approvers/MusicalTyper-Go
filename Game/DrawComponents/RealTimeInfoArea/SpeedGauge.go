@@ -40,7 +40,7 @@ func (s SpeedGauge) Draw(c *DrawComponents.DrawContext) {
 			Constants.Margin, 405,
 			int(GaugeWidth), 20)
 	}
-	Text := fmt.Sprintf("%4.2f Char/sec", c.GameState.GetKeyTypePerSecond())
+	Text := fmt.Sprintf("%2d Char/sec", c.GameState.GetKeyTypePerSecond())
 	DrawHelper.DrawText(c.Renderer,
 		Constants.WindowWidth/2, 402,
 		DrawHelper.Center, DrawHelper.SystemFont,

@@ -4,11 +4,11 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-func GetMoreWhitishColor(base *sdl.Color, delta uint8) *sdl.Color {
+func GetMoreWhitishColor(base *sdl.Color, delta int) *sdl.Color {
 	return &sdl.Color{
-		R: MinUInt8(base.R+delta, 255),
-		G: MinUInt8(base.G+delta, 255),
-		B: MinUInt8(base.B+delta, 255),
+		R: MinUInt8(int(base.R)+delta, 255),
+		G: MinUInt8(int(base.G)+delta, 255),
+		B: MinUInt8(int(base.B)+delta, 255),
 		A: base.A,
 	}
 }

@@ -11,6 +11,8 @@ const (
 	FrameRate    = 60
 
 	Margin = 15
+
+	PrintTextureLog = false
 )
 
 var (
@@ -26,6 +28,15 @@ var (
 
 	BackgroundColor = &sdl.Color{255, 243, 224, 0}
 
-	RankPoints = []float64{200, 150, 125, 100, 99.50, 99, 98, 97, 94, 90, 80, 60, 40, 20, 10, 0}
-	RankTexts  = []string{"Wow", "Unexpected", "Very God", "God", "Pro", "Genius", "Geki-tsuyo", "tsuyotusyo", "AAA", "AA", "A", "B", "C", "D", "E", "F"}
+	RankPoints = [...]float64{200, 150, 125, 100, 99.50, 99, 98, 97, 94, 90, 80, 60, 40, 20, 10, 0}
+	RankTexts  = [...]string{"Wow", "Unexpected", "Very God", "God", "Pro", "Genius", "Geki-tsuyo", "tsuyotusyo", "AAA", "AA", "A", "B", "C", "D", "E", "F"}
+
+	OneCharPoint        = 10
+	PerfectPoint        = 100
+	SectionPerfectPoint = 300
+	SpecialPoint        = 50
+	ClearPoint          = 50
+	MissPoint           = -30
+	CouldntTypeCount    = -2
+	IdealTypeSpeed      = 3
 )

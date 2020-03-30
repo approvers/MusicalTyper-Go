@@ -1,7 +1,7 @@
 package DrawComponents
 
 import (
-	"MusicalTyper-Go/Game/State"
+	"MusicalTyper-Go/Game/GameState"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -11,7 +11,8 @@ type Drawable interface {
 
 type DrawContext struct {
 	Renderer        *sdl.Renderer
-	GameState       *Struct.GameState
+	Window          *sdl.Window
+	GameState       *GameState.GameState
 	PrintNextLyrics bool
 	FrameCount      int
 }

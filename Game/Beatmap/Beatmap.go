@@ -17,18 +17,16 @@ import (
 
 type Beatmap struct {
 	Properties map[string]string
-	Notes      []Note
-	Zones      []Zone
-	Sections   []Section
+	Notes      []*Note
+	Sections   []*Section
 }
 
 func NewBeatmap() *Beatmap {
 	Result := Beatmap{}
 
 	Result.Properties = map[string]string{}
-	Result.Notes = make([]Note, 0)
-	Result.Zones = make([]Zone, 0)
-	Result.Sections = make([]Section, 0)
+	Result.Notes = make([]*Note, 0)
+	Result.Sections = make([]*Section, 0)
 	return &Result
 }
 
@@ -122,19 +120,6 @@ func LoadMap(path string) *Beatmap {
 			case strings.HasPrefix(Line, "@"):
 				Result.Sections = append(Result.Sections, newSection(CurrentTime, Line[1:]))
 
-			case strings.HasPrefix(Line, "!"):
-				Split := strings.Split(Line[1:], " ")
-				Flag, ZoneName := Split[0], Split[1]
-				switch Flag := strings.ToLower(Flag); Flag {
-				case "start":
-					Result.Zones = append(Result.Zones, newZone(CurrentTime, true, ZoneName))
-				case "end":
-					Result.Zones = append(Result.Zones, newZone(CurrentTime, false, ZoneName))
-				default:
-					isDetectedError = true
-					logger.FatalErrorWithoutExit(fmt.Sprintf("Line%d: Zone flag \"%s\" is invalid. Allowed values are only \"start\" and \"end\".", LineCount, Flag))
-				}
-
 			case strings.HasPrefix(Line, ":"):
 				TempPron += Line[1:]
 
@@ -188,7 +173,10 @@ func detectEncoding(path string) bool {
 	Logger.CheckError(Err)
 
 	Encoding, Err := chardet.NewTextDetector().DetectBest(Data)
-	Logger.CheckError(Err)
+	if Err != nil {
+		Logger.Warn("Failed to detect Beatmap's text encoding. Trying to parse as UTF-8.")
+		return true //consider as UTF-8
+	}
 
 	switch Encoding.Charset {
 	case "UTF-8":

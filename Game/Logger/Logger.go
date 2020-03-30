@@ -14,14 +14,12 @@ func NewLogger(Entryname string) logger {
 
 func (e *logger) CheckError(err error) {
 	if err != nil {
-		log.Printf("[%s/Fatal] %s\n", e.SectionName, err)
-		panic("") //for call stack.
+		panic(err) //for call stack.
 	}
 }
 
 func (e *logger) FatalError(msg string) {
-	log.Printf("[%s/Fatal] %s\n", e.SectionName, msg)
-	panic("") //for call stack.
+	panic(msg) //for call stack.
 }
 
 func (e *logger) FatalErrorWithoutExit(msg string) {

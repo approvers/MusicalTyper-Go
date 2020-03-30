@@ -15,7 +15,7 @@ func (s AchievementRate) Draw(c *DrawComponents.DrawContext) {
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
 		"達成率", Constants.TypedTextColor)
 
-	Text := fmt.Sprintf("%05.1f%%", c.GameState.GetAchievementRate(false))
+	Text := fmt.Sprintf("%05.1f%%", c.GameState.GetAchievementRate(false)*100)
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin+330, 430,
 		DrawHelper.LeftAlign, DrawHelper.BigFont,

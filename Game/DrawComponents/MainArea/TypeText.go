@@ -20,7 +20,8 @@ const (
 )
 
 func (s TypeText) Draw(c *DrawComponents.DrawContext) {
-	CurrentSentence := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex].Sentence
+	CurrentNote := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex]
+	CurrentSentence := CurrentNote.Sentence
 
 	//ひらがな
 	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.RightAlign, DrawHelper.JapaneseFont, CurrentSentence.GetTypedText(), Constants.TypedTextColor)
