@@ -62,6 +62,19 @@ func AddEffector(Pos EffectorPos, Duration int, Effector DrawComponents.Drawable
 	}
 }
 
+func EffectorCount(Pos EffectorPos) int {
+	switch Pos {
+	case FOREGROUND:
+		return len(ForegroundEffectors)
+
+	case BACKGROUND:
+		return len(BackgroundEffectors)
+
+	default:
+		panic("Unknown effector pos has passed to DrawManager.EffectorCount()")
+	}
+}
+
 //コンポーネントとエフェクトを描画して残ったエフェクトを返す
 func drawEffectors(ctx *DrawComponents.DrawContext, components []DrawComponents.Drawable, effectors []*effectorEntry) []*effectorEntry {
 	for _, v := range components {

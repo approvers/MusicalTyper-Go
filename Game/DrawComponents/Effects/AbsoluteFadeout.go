@@ -16,10 +16,10 @@ type absoluteFadeout struct {
 	Movement int
 }
 
-func NewAbsoluteFadeout(Text string, Color *sdl.Color, Size DrawHelper.FontSize, BaseX, BaseY, Movement int) *absoluteFadeout {
+func NewAbsoluteFadeout(Text string, Color sdl.Color, Size DrawHelper.FontSize, BaseX, BaseY, Movement int) *absoluteFadeout {
 	Result := absoluteFadeout{
 		Text:     Text,
-		Color:    Color,
+		Color:    &Color,
 		FontSize: Size,
 		BaseX:    BaseX,
 		BaseY:    BaseY,
@@ -36,5 +36,6 @@ func (Self absoluteFadeout) Draw(ctx *DrawComponents.EffectDrawContext) {
 	DrawHelper.DrawText(ctx.Renderer,
 		Self.BaseX, Self.BaseY-int(float64(Self.Movement)*Ratio),
 		DrawHelper.LeftAlign, Self.FontSize,
-		Self.Text, Color)
+		Self.Text,
+		Color)
 }

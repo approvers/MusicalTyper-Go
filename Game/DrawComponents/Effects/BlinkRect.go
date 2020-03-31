@@ -10,9 +10,9 @@ type blinkRect struct {
 	Rect  *sdl.Rect
 }
 
-func NewBlinkRect(Color *sdl.Color, Rect *sdl.Rect) *blinkRect {
+func NewBlinkRect(Color sdl.Color, Rect *sdl.Rect) *blinkRect {
 	Result := blinkRect{
-		Color: Color,
+		Color: &Color,
 		Rect:  Rect,
 	}
 	return &Result

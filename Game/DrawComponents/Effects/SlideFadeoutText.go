@@ -17,10 +17,10 @@ type slideFadeoutText struct {
 	Movement int
 }
 
-func NewSlideFadeoutText(Text string, Color *sdl.Color, Size DrawHelper.FontSize, OffsetX, OffsetY, Movement int) *slideFadeoutText {
+func NewSlideFadeoutText(Text string, Color sdl.Color, Size DrawHelper.FontSize, OffsetX, OffsetY, Movement int) *slideFadeoutText {
 	Result := slideFadeoutText{
 		Text:     Text,
-		Color:    Color,
+		Color:    &Color,
 		FontSize: Size,
 		OffsetX:  OffsetX,
 		OffsetY:  OffsetY,

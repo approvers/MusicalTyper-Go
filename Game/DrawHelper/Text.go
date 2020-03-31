@@ -30,7 +30,7 @@ const (
 )
 
 func getTextureCacheKey(Text string, Color *sdl.Color) string {
-	return fmt.Sprintf("%s,%d,%d,%d", Text, Color.R, Color.B, Color.B)
+	return fmt.Sprintf("%s,%d,%d,%d,%d", Text, Color.R, Color.B, Color.B, Color.A)
 }
 
 func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) *TextureCache {
@@ -38,6 +38,8 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 	CacheKey := getTextureCacheKey(Text, Color)
 
 	Texture, TextureExists := textureCache[Size][CacheKey]
+	//fmt.Printf("\"%s\" was %t \n", CacheKey, TextureExists)
+
 	if !TextureExists {
 		Begin := time.Now()
 

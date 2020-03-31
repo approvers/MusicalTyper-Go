@@ -19,11 +19,11 @@ A. To prevent from cyclic dependencies.
 var (
 	successEffect = Effects.NewSlideFadeoutText(
 		"Pass",
-		DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50),
+		*DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50),
 		DrawHelper.AlphabetFont,
 		-150, -383, 10)
 
-	pointOnKeyboardEffect = *Effects.NewAbsoluteFadeout("", Constants.TextColor, DrawHelper.FullFont, 0, 0, 15)
+	pointOnKeyboardEffect = *Effects.NewAbsoluteFadeout("", *Constants.TextColor, DrawHelper.FullFont, 0, 0, 15)
 )
 
 func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keycode, PrintLyric bool) {
