@@ -2,14 +2,14 @@ package RealTimeInfoArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
 )
 
 type AchievementRate struct{}
 
-func (s AchievementRate) Draw(c *DrawComponents.DrawContext) {
+func (s AchievementRate) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin+320, 430,
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,

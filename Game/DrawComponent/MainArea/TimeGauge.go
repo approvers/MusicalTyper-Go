@@ -2,7 +2,7 @@ package MainArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"math"
 )
@@ -14,7 +14,7 @@ var (
 	backgroundColor = DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 25)
 )
 
-func (s TimeGauge) Draw(c *DrawComponents.DrawContext) {
+func (s TimeGauge) Draw(c *DrawComponent.DrawContext) {
 	var Ratio float64
 	if len(c.GameState.Beatmap.Notes) <= c.GameState.CurrentSentenceIndex+1 {
 		Ratio = 1

@@ -1,7 +1,7 @@
 package Effects
 
 import (
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -18,10 +18,10 @@ func NewBlinkRect(Color sdl.Color, Rect *sdl.Rect) *blinkRect {
 	return &Result
 }
 
-func (Self blinkRect) Draw(ctx *DrawComponents.EffectDrawContext) {
+func (Self blinkRect) Draw(ctx *DrawComponent.EffectDrawContext) {
 	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
 	Color := Self.Color
-	Color.A = uint8(255 - 255*Ratio)
+	Color.A = uint8(256 - 255*Ratio)
 
 	ctx.Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
 	ctx.Renderer.SetDrawBlendMode(sdl.BLENDMODE_BLEND)

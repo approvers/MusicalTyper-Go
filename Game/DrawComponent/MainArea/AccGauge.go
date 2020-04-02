@@ -2,13 +2,13 @@ package MainArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 )
 
 type AccGauge struct{}
 
-func (s AccGauge) Draw(c *DrawComponents.DrawContext) {
+func (s AccGauge) Draw(c *DrawComponent.DrawContext) {
 	CurrentSentence := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex].Sentence
 	RankPosX := int(Constants.WindowWidth * c.GameState.GetAchievementRate(true))
 

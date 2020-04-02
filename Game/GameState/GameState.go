@@ -3,7 +3,6 @@ package GameState
 import (
 	"MusicalTyper-Go/Game/Beatmap"
 	"MusicalTyper-Go/Game/Constants"
-	"fmt"
 	"math"
 	"time"
 )
@@ -39,17 +38,6 @@ func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	r.KeyInputs = make([]time.Time, 0)
 	r.IsInputDisabled = Map.Notes[0].Type != Beatmap.NORMAL
 	return r
-}
-
-//Sync between GameState's current time and realtime, then Update current note.
-func (s *GameState) Update(CurrentTime float64) {
-	s.CurrentTime = CurrentTime
-	if len(s.Beatmap.Notes) > s.CurrentSentenceIndex+1 && s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time <= CurrentTime {
-		fmt.Println("Updated index")
-
-		s.CurrentSentenceIndex++
-		s.IsInputDisabled = s.Beatmap.Notes[s.CurrentSentenceIndex].Type != Beatmap.NORMAL
-	}
 }
 
 func (s *GameState) GetAccuracy() float64 {
@@ -129,4 +117,14 @@ func (s *GameState) AddPoint(isTypeOK, isThisSentenceEnded bool) (point int) {
 		s.Combo = 0
 	}
 	return
+}
+
+func (s *GameState) AddTLEPoint() {
+	CurrentSentence := s.Beatmap.Notes[s.CurrentSentenceIndex].Sentence
+	TextLen := len(CurrentSentence.GetRemainingRoma())
+
+	s.Point += Constants.CouldntTypeCount * TextLen
+	s.PerfectPoint += Constants.OneCharPoint*TextLen*40 + Constants.ClearPoint + Constants.PerfectPoint
+	s.TotalMissCount += TextLen
+	CurrentSentence.MissCount += TextLen
 }

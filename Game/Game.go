@@ -3,17 +3,18 @@ package Game
 import (
 	"MusicalTyper-Go/Game/Beatmap"
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
-	"MusicalTyper-Go/Game/DrawComponents/DrawManager"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
+	"MusicalTyper-Go/Game/DrawManager"
 	GameState2 "MusicalTyper-Go/Game/GameState"
 	"MusicalTyper-Go/Game/GameSystem"
 	"MusicalTyper-Go/Game/Logger"
 	"fmt"
+	"time"
+
 	"github.com/veandco/go-sdl2/mix"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
-	"time"
 )
 
 func Run(beatmap *Beatmap.Beatmap) {
@@ -99,9 +100,9 @@ func Run(beatmap *Beatmap.Beatmap) {
 		}
 
 		FrameCount = (FrameCount + 1) % Constants.FrameRate
-		GameState.Update(float64(time.Now().Sub(MusicStartTime).Milliseconds()) / 1000.0)
+		GameSystem.Update(GameState, float64(time.Now().Sub(MusicStartTime).Milliseconds())/1000.0)
 
-		Context := DrawComponents.DrawContext{
+		Context := DrawComponent.DrawContext{
 			Renderer:        Renderer,
 			GameState:       GameState,
 			PrintNextLyrics: isContNextLyricsPrinting || isTmpNextLyricsPrinting,

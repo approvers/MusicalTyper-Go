@@ -14,8 +14,9 @@ type Sentence struct {
 
 	CurrentCharacterIndex int
 
-	TypeCount int
-	MissCount int
+	TypeCount  int
+	MissCount  int
+	IsFinished bool
 }
 
 type Character struct {
@@ -34,6 +35,7 @@ func NewSentence(OriginalSentence, HiraganaSentence string) *Sentence {
 	Result.HiraganaSentence = HiraganaSentence
 	Result.OriginalSentence = OriginalSentence
 	Result.SolvedSentence = Solve(HiraganaSentence)
+	Result.IsFinished = false
 	return Result
 }
 
@@ -95,7 +97,7 @@ func (s *Sentence) GetAccuracy() float64 {
 	return float64(Misses) / float64(Types)
 }
 
-func (s *Sentence) IsExceptedKey(input string) (ok, isThisSentenceEnded bool) {
+func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 	CurrentChar := s.SolvedSentence[s.CurrentCharacterIndex]
 	fmt.Printf("Char:%d Typ: %d\n", s.CurrentCharacterIndex, CurrentChar.TypingIndex)
 
@@ -128,6 +130,10 @@ func (s *Sentence) IsExceptedKey(input string) (ok, isThisSentenceEnded bool) {
 		return true, false
 	} else {
 		s.CurrentCharacterIndex++
-		return true, len(s.SolvedSentence) == s.CurrentCharacterIndex
+		if len(s.SolvedSentence) == s.CurrentCharacterIndex {
+			s.IsFinished = true
+			return true, true
+		}
+		return true, false
 	}
 }

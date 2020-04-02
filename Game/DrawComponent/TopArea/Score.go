@@ -2,14 +2,14 @@ package TopArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
 )
 
 type Score struct{}
 
-func (s Score) Draw(c *DrawComponents.DrawContext) {
+func (s Score) Draw(c *DrawComponent.DrawContext) {
 	Text := fmt.Sprintf("%08d", c.GameState.Point)
 	if c.GameState.Point < 0 {
 		ScoreColor := Constants.BlueThickColor

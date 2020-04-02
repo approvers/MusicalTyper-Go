@@ -2,7 +2,7 @@ package RealTimeInfoArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
 	"github.com/veandco/go-sdl2/sdl"
@@ -14,7 +14,7 @@ var (
 	correctRateTextBaseColor = DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50)
 )
 
-func (s CorrectRateText) Draw(c *DrawComponents.DrawContext) {
+func (s CorrectRateText) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin, 430,
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,

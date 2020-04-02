@@ -2,7 +2,7 @@ package MainArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 )
 
@@ -19,7 +19,7 @@ const (
 	lyricPosY = 60
 )
 
-func (s TypeText) Draw(c *DrawComponents.DrawContext) {
+func (s TypeText) Draw(c *DrawComponent.DrawContext) {
 	CurrentNote := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex]
 	CurrentSentence := CurrentNote.Sentence
 

@@ -2,7 +2,7 @@ package KeyboardArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
 	"github.com/veandco/go-sdl2/sdl"
@@ -10,7 +10,7 @@ import (
 
 type KeyboardArea struct{}
 
-func (s KeyboardArea) Draw(c *DrawComponents.DrawContext) {
+func (s KeyboardArea) Draw(c *DrawComponent.DrawContext) {
 	if c.PrintNextLyrics {
 		for i := 0; i < 3; i++ {
 			Index := i + c.GameState.CurrentSentenceIndex + 1

@@ -1,7 +1,7 @@
 package Effects
 
 import (
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -28,10 +28,10 @@ func NewAbsoluteFadeout(Text string, Color sdl.Color, Size DrawHelper.FontSize, 
 	return &Result
 }
 
-func (Self absoluteFadeout) Draw(ctx *DrawComponents.EffectDrawContext) {
+func (Self absoluteFadeout) Draw(ctx *DrawComponent.EffectDrawContext) {
 	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
 	Color := Self.Color
-	Color.A = uint8(255 * Ratio)
+	Color.A = uint8(256 - 255*Ratio)
 
 	DrawHelper.DrawText(ctx.Renderer,
 		Self.BaseX, Self.BaseY-int(float64(Self.Movement)*Ratio),

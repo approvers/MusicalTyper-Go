@@ -2,13 +2,13 @@ package MainArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 )
 
 type AchievementGauge struct{}
 
-func (s AchievementGauge) Draw(c *DrawComponents.DrawContext) {
+func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
 	//達成率ゲージ
 	if GotRank := c.GameState.GetRank(); GotRank > 0 {
 		Rate := Constants.RankPoints[GotRank-1] / 100

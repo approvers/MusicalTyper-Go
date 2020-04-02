@@ -2,7 +2,7 @@ package MainArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"github.com/veandco/go-sdl2/sdl"
 	"strconv"
@@ -14,7 +14,7 @@ var (
 	comboTextColor = &sdl.Color{126, 126, 132, 255}
 )
 
-func (s ComboText) Draw(c *DrawComponents.DrawContext) {
+func (s ComboText) Draw(c *DrawComponent.DrawContext) {
 	ComboTextWidth, _ :=
 		DrawHelper.DrawText(c.Renderer,
 			Constants.Margin-12, 157,

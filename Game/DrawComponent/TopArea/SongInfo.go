@@ -2,13 +2,13 @@ package TopArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 )
 
 type SongInfo struct{}
 
-func (s SongInfo) Draw(c *DrawComponents.DrawContext) {
+func (s SongInfo) Draw(c *DrawComponent.DrawContext) {
 	Title := c.GameState.Beatmap.Properties["title"]
 	Author, AuthorExists := c.GameState.Beatmap.Properties["song_author"]
 	Singer, SingerExists := c.GameState.Beatmap.Properties["singer"]

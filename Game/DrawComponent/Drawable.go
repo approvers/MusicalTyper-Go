@@ -1,4 +1,4 @@
-package DrawComponents
+package DrawComponent
 
 import (
 	"MusicalTyper-Go/Game/GameState"

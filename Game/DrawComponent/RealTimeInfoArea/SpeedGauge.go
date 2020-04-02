@@ -2,7 +2,7 @@ package RealTimeInfoArea
 
 import (
 	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponents"
+	"MusicalTyper-Go/Game/DrawComponent"
 	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
 )
@@ -14,7 +14,7 @@ var (
 	normalSpeedGaugeForegroundColor = DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50)
 )
 
-func (s SpeedGauge) Draw(c *DrawComponents.DrawContext) {
+func (s SpeedGauge) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin, 382,
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,

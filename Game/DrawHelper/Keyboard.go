@@ -11,7 +11,7 @@ const (
 	fontSize     = FullFont
 	keyMargin    = 5
 	keySize      = 40
-	keyLineWidth = 2 //fixme: name?
+	keyLineWidth = 2
 )
 
 var (
@@ -50,13 +50,13 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *
 	}
 }
 
-func GetKeyPlace(key string) (x, y int) {
+func GetKeyPos(key string) (x, y int) {
 	Size := keySize + keyMargin
 	for i, v := range KeyboardKeys {
 		Index := strings.Index(v, key)
 		if Index != -1 {
 			y = startY + i*Size
-			x = (Constants.WindowWidth - Size*len(v)) + Index*Size + keySize/2
+			x = (Constants.WindowWidth-Size*len(v))/2 + Index*Size + keySize/2
 			return
 		}
 	}
