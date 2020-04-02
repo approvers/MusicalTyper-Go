@@ -7,9 +7,11 @@ import (
 )
 
 var (
+	// SmallCharacters are small characters in hiragana
 	SmallCharacters = []string{"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "っ", "ゃ", "ゅ", "ょ"}
 )
 
+// Solve devides hiragana string to slice of Character
 func Solve(HiraganaSentence string) []*Character {
 	Result := make([]*Character, 0)
 	for _, c := range strings.Split(HiraganaSentence, "") {
