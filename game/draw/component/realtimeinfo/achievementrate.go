@@ -7,8 +7,10 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// AchievementRate presents achievement rate 
 type AchievementRate struct{}
 
+// Draw draws achievement rate by percent text
 func (s AchievementRate) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin+320, 430,
