@@ -6,6 +6,7 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// TypeText presents hiragana, roman, and japanese lyrics text
 type TypeText struct{}
 
 const (
@@ -19,6 +20,7 @@ const (
 	lyricPosY = 60
 )
 
+// Draw draws hiragana, roman, and japanese lyrics text
 func (s TypeText) Draw(c *DrawComponent.DrawContext) {
 	CurrentNote := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex]
 	CurrentSentence := CurrentNote.Sentence
