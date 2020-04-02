@@ -9,12 +9,14 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+// ComboText presents indication text when occured combo
 type ComboText struct{}
 
 var (
 	comboTextColor = &sdl.Color{126, 126, 132, 255}
 )
 
+// Draw draws combo indication text
 func (s ComboText) Draw(c *DrawComponent.DrawContext) {
 	ComboTextWidth, _ :=
 		DrawHelper.DrawText(c.Renderer,
