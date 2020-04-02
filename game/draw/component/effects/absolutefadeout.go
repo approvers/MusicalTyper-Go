@@ -17,6 +17,7 @@ type absoluteFadeout struct {
 	Movement int
 }
 
+// NewAbsoluteFadeout makes text renderer with fading out
 func NewAbsoluteFadeout(Text string, Color sdl.Color, Size DrawHelper.FontSize, BaseX, BaseY, Movement int) *absoluteFadeout {
 	Result := absoluteFadeout{
 		Text:     Text,
@@ -29,6 +30,7 @@ func NewAbsoluteFadeout(Text string, Color sdl.Color, Size DrawHelper.FontSize, 
 	return &Result
 }
 
+// Draw draws text with fading out
 func (Self absoluteFadeout) Draw(ctx *DrawComponent.EffectDrawContext) {
 	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
 	Color := Self.Color
