@@ -11,6 +11,7 @@ type blinkRect struct {
 	Rect  *sdl.Rect
 }
 
+// NewBlinkRect makes colored rect renderer with blinking
 func NewBlinkRect(Color sdl.Color, Rect *sdl.Rect) *blinkRect {
 	Result := blinkRect{
 		Color: &Color,
@@ -19,6 +20,7 @@ func NewBlinkRect(Color sdl.Color, Rect *sdl.Rect) *blinkRect {
 	return &Result
 }
 
+// Draw draws colored rect with blinking
 func (Self blinkRect) Draw(ctx *DrawComponent.EffectDrawContext) {
 	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
 	Color := Self.Color
