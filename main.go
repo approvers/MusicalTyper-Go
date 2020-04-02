@@ -8,6 +8,7 @@ import (
 	"runtime"
 )
 
+// InitMap makes Beatmap from commandline arguments
 func InitMap() *Beatmap.Beatmap {
 	logger := Logger.NewLogger("Main")
 
