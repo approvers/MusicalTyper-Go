@@ -4,6 +4,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+// GetMoreWhitishColor calculates more brighter color
 func GetMoreWhitishColor(base *sdl.Color, delta int) *sdl.Color {
 	return &sdl.Color{
 		R: MinUInt8(int(base.R)+delta, 255),
@@ -13,6 +14,7 @@ func GetMoreWhitishColor(base *sdl.Color, delta int) *sdl.Color {
 	}
 }
 
+// GetMoreBlackishColor calculates more darker color
 func GetMoreBlackishColor(base *sdl.Color, delta uint8) *sdl.Color {
 	return &sdl.Color{
 		R: Max(base.R-delta, 0),
@@ -22,6 +24,7 @@ func GetMoreBlackishColor(base *sdl.Color, delta uint8) *sdl.Color {
 	}
 }
 
+// GetInvertColor calculates inverted color
 func GetInvertColor(base *sdl.Color) *sdl.Color {
 	return &sdl.Color{
 		R: 255 - base.R,
