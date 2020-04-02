@@ -7,8 +7,10 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// Score presents current score
 type Score struct{}
 
+// Draw draws current score by colored text
 func (s Score) Draw(c *DrawComponent.DrawContext) {
 	Text := fmt.Sprintf("%08d", c.GameState.Point)
 	if c.GameState.Point < 0 {
