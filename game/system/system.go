@@ -82,7 +82,7 @@ var (
 	)
 )
 
-//Sync between GameState's current time and realtime, then Update current note.
+// Update overrides current time and updates current note
 func Update(s *GameState.GameState, CurrentTime float64) {
 	s.CurrentTime = CurrentTime
 	if len(s.Beatmap.Notes) > s.CurrentSentenceIndex+1 && s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time <= CurrentTime {
@@ -101,6 +101,7 @@ func Update(s *GameState.GameState, CurrentTime float64) {
 	}
 }
 
+// ParseKeyInput handles key input event from sdl
 func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keycode, PrintLyric bool) {
 	if !((code >= 'a' && code <= 'z') || (code >= '0' && code <= '9') || code == '[' || code == ']' || code == ',' || code == '.' || code == ' ') {
 		return
