@@ -6,8 +6,10 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// AchievementGauge presents achivement guage
 type AchievementGauge struct{}
 
+// Draw draws achivement guage
 func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
 	//達成率ゲージ
 	if GotRank := c.GameState.GetRank(); GotRank > 0 {
