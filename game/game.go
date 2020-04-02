@@ -25,7 +25,7 @@ func Run(beatmap *Beatmap.Beatmap) {
 	Logger.CheckError(sdl.Init(sdl.INIT_AUDIO))
 	defer sdl.Quit()
 
-	Logger.CheckError(mix.Init(mix.INIT_MP3))
+	Logger.CheckError(mix.Init(mix.INIT_OGG))
 	defer mix.Quit()
 
 	Logger.CheckError(ttf.Init())
