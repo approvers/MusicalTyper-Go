@@ -17,6 +17,7 @@ import (
 	"github.com/veandco/go-sdl2/ttf"
 )
 
+// Run runs game with Beatmap
 func Run(beatmap *Beatmap.Beatmap) {
 	Logger := Logger.NewLogger("GameRun")
 
