@@ -15,12 +15,14 @@ import (
 	"golang.org/x/text/transform"
 )
 
+// Beatmap has its properties, defined notes, and existing sections
 type Beatmap struct {
 	Properties map[string]string
 	Notes      []*Note
 	Sections   []*Section
 }
 
+// NewBeatmap makes empty Beatmap
 func NewBeatmap() *Beatmap {
 	Result := Beatmap{}
 
@@ -30,6 +32,7 @@ func NewBeatmap() *Beatmap {
 	return &Result
 }
 
+// LoadMap makes Beatmap from file in passed path
 func LoadMap(path string) *Beatmap {
 	logger := Logger.NewLogger("LoadMap")
 
