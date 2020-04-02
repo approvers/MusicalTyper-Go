@@ -8,6 +8,7 @@ type logger struct {
 	SectionName string
 }
 
+// NewLogger makes logger with entryname
 func NewLogger(Entryname string) logger {
 	return logger{SectionName: Entryname}
 }
