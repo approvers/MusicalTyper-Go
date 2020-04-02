@@ -1,13 +1,18 @@
 package beatmap
 
+// NoteType is a kind of Note
 type NoteType int
 
 const (
+	// NORMAL is a kind of Note, needs for user to type
 	NORMAL NoteType = iota
+	// CAPTION is a kind of Note, doesn't needs for user to do anything
 	CAPTION
+	// BLANK is a kind of Note, nothing presents
 	BLANK
 )
 
+// Note has Sentence and its timing
 type Note struct {
 	Type     NoteType
 	Time     float64
@@ -16,6 +21,7 @@ type Note struct {
 	Caption  string
 }
 
+// Section expresses time as concrete entity
 type Section struct {
 	Time float64
 	ID   string
