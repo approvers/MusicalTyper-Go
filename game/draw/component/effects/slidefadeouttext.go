@@ -18,6 +18,7 @@ type slideFadeoutText struct {
 	Movement int
 }
 
+// NewSlideFadeoutText makes text renderer with fading out and sliding
 func NewSlideFadeoutText(Text string, Color sdl.Color, Size DrawHelper.FontSize, OffsetX, OffsetY, Movement int) *slideFadeoutText {
 	Result := slideFadeoutText{
 		Text:     Text,
@@ -30,6 +31,7 @@ func NewSlideFadeoutText(Text string, Color sdl.Color, Size DrawHelper.FontSize,
 	return &Result
 }
 
+// Draw draws text with fading out and sliding
 func (Self slideFadeoutText) Draw(ctx *DrawComponent.EffectDrawContext) {
 	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
 
