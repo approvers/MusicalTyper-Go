@@ -9,8 +9,10 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+// KeyboardArea presents virtual keyboard area
 type KeyboardArea struct{}
 
+// Draw draws virtual keyboard area
 func (s KeyboardArea) Draw(c *DrawComponent.DrawContext) {
 	if c.PrintNextLyrics {
 		for i := 0; i < 3; i++ {
