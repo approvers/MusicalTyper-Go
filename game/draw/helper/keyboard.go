@@ -9,16 +9,18 @@ import (
 
 const (
 	startY       = 193
-	fontSize     = FullFont
+	fontSize     = Constants.FullFont
 	keyMargin    = 5
 	keySize      = 40
 	keyLineWidth = 2
 )
 
 var (
+	// KeyboardKeys is set of rows to present to virtual keyboard
 	KeyboardKeys = [...]string{"1234567890-\\^", "qwertyuiop@[", "asdfghjkl;:]", "zxcvbnm,./\\"}
 )
 
+// DrawKeyboard renders virtual keyboard
 func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *sdl.Color) {
 	HighlightKey = strings.ToLower(HighlightKey)
 	for Row := 0; Row < 4; Row++ {
@@ -51,6 +53,7 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *
 	}
 }
 
+// GetKeyPos calculates position from string of key
 func GetKeyPos(key string) (x, y int) {
 	Size := keySize + keyMargin
 	for i, v := range KeyboardKeys {
