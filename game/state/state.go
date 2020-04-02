@@ -7,13 +7,16 @@ import (
 	"time"
 )
 
+// ResultType is unused
 type ResultType int
 
+// Result is unused
 type Result struct {
 	Count     int
 	MissCount int
 }
 
+// GameState has whole of state to manage game logic
 type GameState struct {
 	Beatmap *Beatmap.Beatmap
 
@@ -32,6 +35,7 @@ type GameState struct {
 	KeyInputs []time.Time
 }
 
+// NewGameState makes GameState from Beatmap
 func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	r := new(GameState)
 	r.Beatmap = Map
@@ -40,6 +44,7 @@ func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	return r
 }
 
+// GetAccuracy calculates accuracy
 func (s *GameState) GetAccuracy() float64 {
 	if s.TotalCorrectCount == 0 {
 		return 0
@@ -48,6 +53,7 @@ func (s *GameState) GetAccuracy() float64 {
 	return float64(s.TotalCorrectCount) / float64(s.TotalMissCount+s.TotalCorrectCount)
 }
 
+// GetAchievementRate calculates achievement rate
 func (s *GameState) GetAchievementRate(Limit bool) float64 {
 	Acc := s.GetAccuracy()
 	PerfectScore := s.PerfectPoint + s.TotalCorrectCount*45
@@ -62,6 +68,7 @@ func (s *GameState) GetAchievementRate(Limit bool) float64 {
 	return Score / float64(PerfectScore)
 }
 
+// GetRank decides player rank
 func (s *GameState) GetRank() int {
 	Rate := s.GetAchievementRate(false)
 	for i, v := range Constants.RankPoints {
@@ -72,10 +79,12 @@ func (s *GameState) GetRank() int {
 	return len(Constants.RankPoints) - 1
 }
 
+// CountKeyType records time when typed any key
 func (s *GameState) CountKeyType() {
 	s.KeyInputs = append(s.KeyInputs, time.Now())
 }
 
+// GetKeyTypePerSecond calculates typed times per second from records from CountKeyType
 func (s *GameState) GetKeyTypePerSecond() int {
 	now := time.Now()
 	remains := make([]time.Time, 0, len(s.KeyInputs))
@@ -89,6 +98,7 @@ func (s *GameState) GetKeyTypePerSecond() int {
 	return len(remains)
 }
 
+// AddPoint decides and adds point with flags
 func (s *GameState) AddPoint(isTypeOK, isThisSentenceEnded bool) (point int) {
 	CurrentSentence := s.Beatmap.Notes[s.CurrentSentenceIndex].Sentence
 
@@ -119,6 +129,7 @@ func (s *GameState) AddPoint(isTypeOK, isThisSentenceEnded bool) (point int) {
 	return
 }
 
+// AddTLEPoint adds points when failed to type all
 func (s *GameState) AddTLEPoint() {
 	CurrentSentence := s.Beatmap.Notes[s.CurrentSentenceIndex].Sentence
 	TextLen := len(CurrentSentence.GetRemainingRoma())
