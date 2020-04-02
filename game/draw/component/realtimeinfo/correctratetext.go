@@ -2,18 +2,21 @@ package realtimeinfo
 
 import (
 	"fmt"
-	"github.com/veandco/go-sdl2/sdl"
 	Constants "musicaltyper-go/game/constants"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
+// CorrectRateText presents correctness rate
 type CorrectRateText struct{}
 
 var (
 	correctRateTextBaseColor = DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50)
 )
 
+// Draw draws correctness rate by percent text
 func (s CorrectRateText) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin, 430,
