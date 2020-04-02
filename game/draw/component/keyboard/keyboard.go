@@ -28,7 +28,7 @@ func (s KeyboardArea) Draw(c *DrawComponent.DrawContext) {
 		}
 	} else {
 		if c.GameState.IsInputDisabled {
-			DrawHelper.DrawKeyboard(c.Renderer, "", &sdl.Color{192, 192, 192, 255})
+			DrawHelper.DrawKeyboard(c.Renderer, "", &sdl.Color{R: 192, G: 192, B: 192, A: 255})
 		} else {
 			CurrentSentence := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex].Sentence
 			DrawHelper.DrawKeyboard(c.Renderer, DrawHelper.Substring(CurrentSentence.GetRemainingRoma(), 0, 1), nil)

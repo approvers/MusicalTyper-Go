@@ -13,7 +13,7 @@ import (
 type ComboText struct{}
 
 var (
-	comboTextColor = &sdl.Color{126, 126, 132, 255}
+	comboTextColor = &sdl.Color{R: 126, G: 126, B: 132, A: 255}
 )
 
 // Draw draws combo indication text

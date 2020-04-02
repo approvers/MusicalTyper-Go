@@ -126,7 +126,7 @@ func DrawText(Renderer *sdl.Renderer, x, y int, alignment AlignmentType, Size Fo
 func DrawThickLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color, Thickness int) {
 	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
 	X, Y, DistX, DistY := int32(x), int32(y), int32(dstx), int32(dsty)
-	Renderer.DrawRect(&sdl.Rect{X, Y, DistX - X, DistY - Y})
+	Renderer.DrawRect(&sdl.Rect{X: X, Y: Y, W: DistX - X, H: DistY - Y})
 }
 
 // DrawLine render line
@@ -143,7 +143,7 @@ func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 // DrawFillRect renders filled rect
 func DrawFillRect(Renderer *sdl.Renderer, Color *sdl.Color, x, y, width, height int) {
 	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
-	Renderer.FillRect(&sdl.Rect{int32(x), int32(y), int32(width), int32(height)})
+	Renderer.FillRect(&sdl.Rect{X: int32(x), Y: int32(y), W: int32(width), H: int32(height)})
 }
 
 // DrawLineRect render rect by lines
@@ -152,10 +152,10 @@ func DrawLineRect(Renderer *sdl.Renderer, Color *sdl.Color, x, y, width, height,
 	X, Y, Width, Height, Thickness := int32(x), int32(y), int32(width), int32(height), int32(thickness)
 
 	Rects := []sdl.Rect{
-		{X, Y, Width, Thickness},
-		{X, Y, Thickness, Height},
-		{X + Width - Thickness, Y, Thickness, Height},
-		{X, Y + Height - Thickness, Width, Thickness}}
+		{X: X, Y: Y, W: Width, H: Thickness},
+		{X: X, Y: Y, W: Thickness, H: Height},
+		{X: X + Width - Thickness, Y: Y, W: Thickness, H: Height},
+		{X: X, Y: Y + Height - Thickness, W: Width, H: Thickness}}
 	Renderer.DrawRects(Rects)
 }
 

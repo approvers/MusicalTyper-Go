@@ -23,26 +23,26 @@ const (
 
 var (
 	// TextColor is any text color
-	TextColor = &sdl.Color{56, 56, 62, 255}
+	TextColor = &sdl.Color{R: 56, G: 56, B: 62, A: 255}
 	// LyricTextColor is text color of japanese lyric
-	LyricTextColor = &sdl.Color{86, 86, 92, 255}
+	LyricTextColor = &sdl.Color{R: 86, G: 86, B: 92, A: 255}
 	// ComboTextColor is indication text color on occur combo
-	ComboTextColor = &sdl.Color{106, 106, 112, 255}
+	ComboTextColor = &sdl.Color{R: 106, G: 106, B: 112, A: 255}
 	// TypedTextColor is typed text color of roman
-	TypedTextColor = &sdl.Color{156, 156, 162, 255}
+	TypedTextColor = &sdl.Color{R: 156, G: 156, B: 162, A: 255}
 	// RemainingTextColor is text color of roman to be inputted
 	RemainingTextColor = TextColor
 	// GreenThinColor is light green
-	GreenThinColor = &sdl.Color{178, 255, 89, 255}
+	GreenThinColor = &sdl.Color{R: 178, G: 255, B: 89, A: 255}
 	// GreenThickColor is muddy green
-	GreenThickColor = &sdl.Color{0, 77, 64, 255}
+	GreenThickColor = &sdl.Color{R: 0, G: 77, B: 64, A: 255}
 	// BlueThickColor is muddy blue
-	BlueThickColor = &sdl.Color{63, 81, 181, 255}
+	BlueThickColor = &sdl.Color{R: 63, G: 81, B: 181, A: 255}
 	// RedColor is muddy red
-	RedColor = &sdl.Color{250, 119, 109, 255}
+	RedColor = &sdl.Color{R: 250, G: 119, B: 109, A: 255}
 
 	// BackgroundColor is background color of window
-	BackgroundColor = &sdl.Color{255, 243, 224, 0}
+	BackgroundColor = &sdl.Color{R: 255, G: 243, B: 224, A: 0}
 
 	// OneCharPoint is point per typed correct
 	OneCharPoint = 10
