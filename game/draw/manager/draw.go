@@ -8,10 +8,13 @@ import (
 	Top "musicaltyper-go/game/draw/component/top"
 )
 
+// EffectorPos is kind of effector's position
 type EffectorPos uint8
 
 const (
+	// FOREGROUND means effector in foreground
 	FOREGROUND EffectorPos = iota
+	// BACKGROUND means effector in background
 	BACKGROUND
 )
 
@@ -22,16 +25,16 @@ type effectorEntry struct {
 }
 
 var (
-	ForegroundEffectors = make([]*effectorEntry, 0)
-	BackgroundEffectors = make([]*effectorEntry, 0)
+	foregroundEffectors = make([]*effectorEntry, 0)
+	backgroundEffectors = make([]*effectorEntry, 0)
 
-	BackgroundComponents = []DrawComponent.Drawable{
+	backgroundComponents = []DrawComponent.Drawable{
 		Top.SongInfo{},
 		Top.Score{},
 		Body.TimeGauge{},
 	}
 
-	ForegroundComponents = []DrawComponent.Drawable{
+	foregroundComponents = []DrawComponent.Drawable{
 		Body.TypeText{},
 		Body.ComboText{},
 		Body.AccGauge{},
@@ -43,11 +46,13 @@ var (
 	}
 )
 
+// Draw draws components and caches them
 func Draw(ctx *DrawComponent.DrawContext) {
-	BackgroundEffectors = drawComponents(ctx, BackgroundComponents, BackgroundEffectors)
-	ForegroundEffectors = drawComponents(ctx, ForegroundComponents, ForegroundEffectors)
+	backgroundEffectors = drawComponents(ctx, backgroundComponents, backgroundEffectors)
+	foregroundEffectors = drawComponents(ctx, foregroundComponents, foregroundEffectors)
 }
 
+// AddEffector adds effector with position and duration
 func AddEffector(Pos EffectorPos, Duration int, Effector DrawComponent.DrawableEffect) {
 	NewEntry := new(effectorEntry)
 	NewEntry.Drawer = Effector
@@ -56,20 +61,20 @@ func AddEffector(Pos EffectorPos, Duration int, Effector DrawComponent.DrawableE
 
 	switch Pos {
 	case FOREGROUND:
-		ForegroundEffectors = append(ForegroundEffectors, NewEntry)
+		foregroundEffectors = append(foregroundEffectors, NewEntry)
 
 	case BACKGROUND:
-		BackgroundEffectors = append(BackgroundEffectors, NewEntry)
+		backgroundEffectors = append(backgroundEffectors, NewEntry)
 	}
 }
 
 func EffectorCount(Pos EffectorPos) int {
 	switch Pos {
 	case FOREGROUND:
-		return len(ForegroundEffectors)
+		return len(foregroundEffectors)
 
 	case BACKGROUND:
-		return len(BackgroundEffectors)
+		return len(backgroundEffectors)
 
 	default:
 		panic("Unknown effector pos has passed to DrawManager.EffectorCount()")
