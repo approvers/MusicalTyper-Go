@@ -6,8 +6,10 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// SongInfo presents title, author, and singer
 type SongInfo struct{}
 
+// Draw draws title, author, and singer
 func (s SongInfo) Draw(c *DrawComponent.DrawContext) {
 	Title := c.GameState.Beatmap.Properties["title"]
 	Author, AuthorExists := c.GameState.Beatmap.Properties["song_author"]
