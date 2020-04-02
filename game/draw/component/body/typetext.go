@@ -27,11 +27,11 @@ func (s TypeText) Draw(c *DrawComponent.DrawContext) {
 
 	//ひらがな
 	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.RightAlign, DrawHelper.JapaneseFont, CurrentSentence.GetTypedText(), Constants.TypedTextColor)
-	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.LeftAlign, DrawHelper.JapaneseFont, CurrentSentence.GetRebodyingText(), Constants.RebodyingTextColor)
+	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.LeftAlign, DrawHelper.JapaneseFont, CurrentSentence.GetRemainingText(), Constants.RemainingTextColor)
 
 	//ローマ字
 	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.RightAlign, DrawHelper.FullFont, CurrentSentence.GetTypedRoma(), Constants.TypedTextColor)
-	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.GetRebodyingRoma(), Constants.RebodyingTextColor)
+	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.GetRemainingRoma(), Constants.RemainingTextColor)
 
 	//歌詞
 	DrawHelper.DrawText(c.Renderer, lyricPosX, lyricPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.OriginalSentence, Constants.LyricTextColor)

@@ -24,5 +24,5 @@ func (s AccGauge) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		RankPosX, 168,
 		DrawHelper.RightAlign, DrawHelper.SystemFont,
-		Constants.RankTexts[c.GameState.GetRank()], Constants.TypedTextColor)
+		c.GameState.GetRank().Text(), Constants.TypedTextColor)
 }

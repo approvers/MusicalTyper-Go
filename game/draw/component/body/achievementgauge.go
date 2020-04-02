@@ -12,8 +12,7 @@ type AchievementGauge struct{}
 // Draw draws achivement guage
 func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
 	//達成率ゲージ
-	if GotRank := c.GameState.GetRank(); GotRank > 0 {
-		Rate := Constants.RankPoints[GotRank-1] / 100
+	if Rate := c.GameState.GetAchievementRate(false); Rate > 0 {
 		DrawHelper.DrawFillRect(c.Renderer, Constants.RedColor, 0, 187, int(Constants.WindowWidth*Rate), 3)
 	}
 

@@ -39,7 +39,7 @@ var (
 		Body.ComboText{},
 		Body.AccGauge{},
 		Body.AchievementGauge{},
-		Keyboard.Keyboard{},
+		Keyboard.KeyboardArea{},
 		RealTimeInfo.SpeedGauge{},
 		RealTimeInfo.CorrectRateText{},
 		RealTimeInfo.AchievementRate{},

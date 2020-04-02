@@ -4,6 +4,7 @@ import (
 	"math"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
+	Rank "musicaltyper-go/game/rank"
 	"time"
 )
 
@@ -69,14 +70,9 @@ func (s *GameState) GetAchievementRate(Limit bool) float64 {
 }
 
 // GetRank decides player rank
-func (s *GameState) GetRank() int {
+func (s *GameState) GetRank() Rank.Rank {
 	Rate := s.GetAchievementRate(false)
-	for i, v := range Constants.RankPoints {
-		if v < Rate*100 {
-			return i
-		}
-	}
-	return len(Constants.RankPoints) - 1
+	return Rank.FromAchievementRate(Rate)
 }
 
 // CountKeyType records time when typed any key

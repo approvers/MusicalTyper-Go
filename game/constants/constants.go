@@ -44,11 +44,6 @@ var (
 	// BackgroundColor is background color of window
 	BackgroundColor = &sdl.Color{255, 243, 224, 0}
 
-	// RankPoints are waypoints to decide rank
-	RankPoints = [...]float64{200, 150, 125, 100, 99.50, 99, 98, 97, 94, 90, 80, 60, 40, 20, 10, 0}
-	// RankTexts are expressions of rank
-	RankTexts = [...]string{"Wow", "Unexpected", "Very God", "God", "Pro", "Genius", "Geki-tsuyo", "tsuyotusyo", "AAA", "AA", "A", "B", "C", "D", "E", "F"}
-
 	// OneCharPoint is point per typed correct
 	OneCharPoint = 10
 	// PerfectPoint is extra point when no mistakes

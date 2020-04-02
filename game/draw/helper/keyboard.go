@@ -9,7 +9,7 @@ import (
 
 const (
 	startY       = 193
-	fontSize     = Constants.FullFont
+	fontSize     = FullFont
 	keyMargin    = 5
 	keySize      = 40
 	keyLineWidth = 2
