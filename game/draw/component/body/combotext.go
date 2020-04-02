@@ -1,11 +1,12 @@
-package MainArea
+package body
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawHelper"
-	"github.com/veandco/go-sdl2/sdl"
+	Constants "musicaltyper-go/game/constants"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	DrawHelper "musicaltyper-go/game/draw/helper"
 	"strconv"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 type ComboText struct{}

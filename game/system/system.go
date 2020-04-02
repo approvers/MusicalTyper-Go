@@ -1,14 +1,15 @@
-package GameSystem
+package system
 
 import (
-	"MusicalTyper-Go/Game/Beatmap"
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent/Effects"
-	"MusicalTyper-Go/Game/DrawHelper"
-	"MusicalTyper-Go/Game/DrawManager"
-	"MusicalTyper-Go/Game/GameState"
-	"MusicalTyper-Go/Game/SEHelper"
 	"fmt"
+	Beatmap "musicaltyper-go/game/beatmap"
+	Constants "musicaltyper-go/game/constants"
+	Effects "musicaltyper-go/game/draw/component/effects"
+	DrawHelper "musicaltyper-go/game/draw/helper"
+	DrawManager "musicaltyper-go/game/draw/manager"
+	SEHelper "musicaltyper-go/game/sehelper"
+	GameState "musicaltyper-go/game/state"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 

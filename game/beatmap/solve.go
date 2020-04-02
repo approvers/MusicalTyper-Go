@@ -1,8 +1,8 @@
-package Beatmap
+package beatmap
 
 import (
-	"MusicalTyper-Go/Game/Logger"
 	"fmt"
+	Logger "musicaltyper-go/game/logger"
 	"strings"
 )
 

@@ -1,4 +1,4 @@
-package Beatmap
+package beatmap
 
 type NoteType int
 

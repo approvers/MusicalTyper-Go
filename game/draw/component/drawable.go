@@ -1,7 +1,7 @@
-package DrawComponent
+package component
 
 import (
-	"MusicalTyper-Go/Game/GameState"
+	GameState "musicaltyper-go/game/state"
 	"github.com/veandco/go-sdl2/sdl"
 )
 

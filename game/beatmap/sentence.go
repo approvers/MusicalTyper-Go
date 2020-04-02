@@ -1,8 +1,8 @@
-package Beatmap
+package beatmap
 
 import (
-	"MusicalTyper-Go/Game/DrawHelper"
 	"fmt"
+	DrawHelper "musicaltyper-go/game/draw/helper"
 	"strings"
 )
 

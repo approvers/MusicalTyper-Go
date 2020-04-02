@@ -1,12 +1,13 @@
-package DrawHelper
+package helper
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/Logger"
 	"fmt"
+	Constants "musicaltyper-go/game/constants"
+	Logger "musicaltyper-go/game/logger"
+	"time"
+
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
-	"time"
 )
 
 type FontSize uint8

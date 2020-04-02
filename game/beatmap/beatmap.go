@@ -1,15 +1,15 @@
-package Beatmap
+package beatmap
 
 import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	Logger "musicaltyper-go/game/logger"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 
-	"MusicalTyper-Go/Game/Logger"
 	"github.com/saintfish/chardet"
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"

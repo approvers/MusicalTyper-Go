@@ -1,9 +1,9 @@
 package main
 
 import (
-	"MusicalTyper-Go/Game"
-	"MusicalTyper-Go/Game/Beatmap"
-	Logger "MusicalTyper-Go/Game/Logger"
+	Game "musicaltyper-go/game"
+	Beatmap "musicaltyper-go/game/beatmap"
+	Logger "musicaltyper-go/game/logger"
 	"os"
 	"runtime"
 )

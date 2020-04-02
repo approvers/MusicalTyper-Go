@@ -1,10 +1,10 @@
-package MainArea
+package body
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawHelper"
 	"math"
+	Constants "musicaltyper-go/game/constants"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
 type TimeGauge struct{}
@@ -26,7 +26,7 @@ func (s TimeGauge) Draw(c *DrawComponent.DrawContext) {
 		Ratio = CurrentTimeInCurrentSentence / CurrentSentenceDuration
 	}
 
-	RemainingTimeGaugeWidth := int(math.Floor(Ratio * Constants.WindowWidth))
+	RebodyingTimeGaugeWidth := int(math.Floor(Ratio * Constants.WindowWidth))
 	DrawHelper.DrawFillRect(c.Renderer, backgroundColor, 0, 60, Constants.WindowWidth, 130)
-	DrawHelper.DrawFillRect(c.Renderer, foregroundColor, 0, 60, RemainingTimeGaugeWidth, 130)
+	DrawHelper.DrawFillRect(c.Renderer, foregroundColor, 0, 60, RebodyingTimeGaugeWidth, 130)
 }

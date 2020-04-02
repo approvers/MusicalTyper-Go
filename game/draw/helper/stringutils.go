@@ -1,4 +1,4 @@
-package DrawHelper
+package helper
 
 import "unicode/utf8"
 

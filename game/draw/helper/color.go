@@ -1,4 +1,4 @@
-package DrawHelper
+package helper
 
 import (
 	"github.com/veandco/go-sdl2/sdl"

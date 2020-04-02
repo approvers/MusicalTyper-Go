@@ -1,9 +1,9 @@
-package MainArea
+package body
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawHelper"
+	Constants "musicaltyper-go/game/constants"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
 type TypeText struct{}
@@ -25,11 +25,11 @@ func (s TypeText) Draw(c *DrawComponent.DrawContext) {
 
 	//ひらがな
 	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.RightAlign, DrawHelper.JapaneseFont, CurrentSentence.GetTypedText(), Constants.TypedTextColor)
-	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.LeftAlign, DrawHelper.JapaneseFont, CurrentSentence.GetRemainingText(), Constants.RemainingTextColor)
+	DrawHelper.DrawText(c.Renderer, hiraganaPosX, hiraganaPosY, DrawHelper.LeftAlign, DrawHelper.JapaneseFont, CurrentSentence.GetRebodyingText(), Constants.RebodyingTextColor)
 
 	//ローマ字
 	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.RightAlign, DrawHelper.FullFont, CurrentSentence.GetTypedRoma(), Constants.TypedTextColor)
-	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.GetRemainingRoma(), Constants.RemainingTextColor)
+	DrawHelper.DrawText(c.Renderer, romaPosX, romaPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.GetRebodyingRoma(), Constants.RebodyingTextColor)
 
 	//歌詞
 	DrawHelper.DrawText(c.Renderer, lyricPosX, lyricPosY, DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.OriginalSentence, Constants.LyricTextColor)

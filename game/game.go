@@ -1,15 +1,15 @@
-package Game
+package game
 
 import (
-	"MusicalTyper-Go/Game/Beatmap"
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawHelper"
-	"MusicalTyper-Go/Game/DrawManager"
-	GameState2 "MusicalTyper-Go/Game/GameState"
-	"MusicalTyper-Go/Game/GameSystem"
-	"MusicalTyper-Go/Game/Logger"
 	"fmt"
+	Beatmap "musicaltyper-go/game/beatmap"
+	Constants "musicaltyper-go/game/constants"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	DrawHelper "musicaltyper-go/game/draw/helper"
+	DrawManager "musicaltyper-go/game/draw/manager"
+	Logger "musicaltyper-go/game/logger"
+	GameState2 "musicaltyper-go/game/state"
+	GameSystem "musicaltyper-go/game/system"
 	"time"
 
 	"github.com/veandco/go-sdl2/mix"

@@ -1,9 +1,10 @@
-package DrawHelper
+package helper
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"github.com/veandco/go-sdl2/sdl"
+	Constants "musicaltyper-go/game/constants"
 	"strings"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 const (

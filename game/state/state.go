@@ -1,9 +1,9 @@
-package GameState
+package state
 
 import (
-	"MusicalTyper-Go/Game/Beatmap"
-	"MusicalTyper-Go/Game/Constants"
 	"math"
+	Beatmap "musicaltyper-go/game/beatmap"
+	Constants "musicaltyper-go/game/constants"
 	"time"
 )
 

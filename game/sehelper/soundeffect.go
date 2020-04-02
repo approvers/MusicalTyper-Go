@@ -1,7 +1,8 @@
-package SEHelper
+package sehelper
 
 import (
-	"MusicalTyper-Go/Game/Logger"
+	Logger "musicaltyper-go/game/logger"
+
 	"github.com/veandco/go-sdl2/mix"
 )
 

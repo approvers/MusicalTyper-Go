@@ -1,4 +1,4 @@
-module MusicalTyper-Go
+module musicaltyper-go
 
 go 1.14
 

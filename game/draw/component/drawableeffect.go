@@ -1,4 +1,4 @@
-package DrawComponent
+package component
 
 import (
 	"github.com/veandco/go-sdl2/sdl"

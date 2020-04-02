@@ -1,9 +1,10 @@
-package Effects
+package effects
 
 import (
-	"MusicalTyper-Go/Game/Constants"
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawHelper"
+	Constants "musicaltyper-go/game/constants"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	DrawHelper "musicaltyper-go/game/draw/helper"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 

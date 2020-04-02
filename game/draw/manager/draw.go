@@ -1,11 +1,11 @@
-package DrawManager
+package manager
 
 import (
-	"MusicalTyper-Go/Game/DrawComponent"
-	"MusicalTyper-Go/Game/DrawComponent/KeyboardArea"
-	"MusicalTyper-Go/Game/DrawComponent/MainArea"
-	"MusicalTyper-Go/Game/DrawComponent/RealTimeInfoArea"
-	"MusicalTyper-Go/Game/DrawComponent/TopArea"
+	DrawComponent "musicaltyper-go/game/draw/component"
+	Body "musicaltyper-go/game/draw/component/body"
+	Keyboard "musicaltyper-go/game/draw/component/keyboard"
+	RealTimeInfo "musicaltyper-go/game/draw/component/realtimeinfo"
+	Top "musicaltyper-go/game/draw/component/top"
 )
 
 type EffectorPos uint8
@@ -26,20 +26,20 @@ var (
 	BackgroundEffectors = make([]*effectorEntry, 0)
 
 	BackgroundComponents = []DrawComponent.Drawable{
-		TopArea.SongInfo{},
-		TopArea.Score{},
-		MainArea.TimeGauge{},
+		Top.SongInfo{},
+		Top.Score{},
+		Body.TimeGauge{},
 	}
 
 	ForegroundComponents = []DrawComponent.Drawable{
-		MainArea.TypeText{},
-		MainArea.ComboText{},
-		MainArea.AccGauge{},
-		MainArea.AchievementGauge{},
-		KeyboardArea.KeyboardArea{},
-		RealTimeInfoArea.SpeedGauge{},
-		RealTimeInfoArea.CorrectRateText{},
-		RealTimeInfoArea.AchievementRate{},
+		Body.TypeText{},
+		Body.ComboText{},
+		Body.AccGauge{},
+		Body.AchievementGauge{},
+		Keyboard.Keyboard{},
+		RealTimeInfo.SpeedGauge{},
+		RealTimeInfo.CorrectRateText{},
+		RealTimeInfo.AchievementRate{},
 	}
 )
 
