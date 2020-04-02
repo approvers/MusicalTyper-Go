@@ -5,9 +5,7 @@ import (
 )
 
 // DrawableEffect is renderer with EffectDrawContext
-type DrawableEffect interface {
-	Draw(*EffectDrawContext)
-}
+type DrawableEffect func(ctx *EffectDrawContext)
 
 // EffectDrawContext is required state to present effect
 type EffectDrawContext struct {

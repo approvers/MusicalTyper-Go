@@ -134,10 +134,13 @@ func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keyc
 		textwidth, _ := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor)
 		x -= textwidth / 2
 
-		pointOnKeyboardEffect.Text = text
-		pointOnKeyboardEffect.BaseX = x
-		pointOnKeyboardEffect.BaseY = y
-		DrawManager.AddEffector(DrawManager.FOREGROUND, 30, *pointOnKeyboardEffect)
+		pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
+			text,
+			*Constants.BlueThickColor,
+			DrawHelper.FullFont,
+			x, y, 15,
+		)
+		DrawManager.AddEffector(DrawManager.FOREGROUND, 30, pointOnKeyboardEffect)
 	}
 
 	if SentenceEnded {

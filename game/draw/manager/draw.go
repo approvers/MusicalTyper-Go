@@ -96,7 +96,7 @@ func drawComponents(ctx *DrawComponent.DrawContext, components []DrawComponent.D
 		EffectorContext.FrameCount = v.FrameCount
 		EffectorContext.Duration = v.Duration
 
-		v.Drawer.Draw(EffectorContext)
+		v.Drawer(EffectorContext)
 		if v.FrameCount < v.Duration {
 			RemainEffectors = append(RemainEffectors, v)
 		}

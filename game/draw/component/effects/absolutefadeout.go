@@ -7,38 +7,16 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-type absoluteFadeout struct {
-	Text     string
-	Color    *sdl.Color
-	FontSize DrawHelper.FontSize
+// NewAbsoluteFadeout generates effect that draws text with fading out
+func NewAbsoluteFadeout(Text string, Color sdl.Color, FontSize DrawHelper.FontSize, BaseX, BaseY, Movement int) DrawComponent.DrawableEffect {
+	return func(ctx *DrawComponent.EffectDrawContext) {
+		Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
+		Color.A = uint8(256 - 255*Ratio)
 
-	BaseX    int
-	BaseY    int
-	Movement int
-}
-
-// NewAbsoluteFadeout makes text renderer with fading out
-func NewAbsoluteFadeout(Text string, Color sdl.Color, Size DrawHelper.FontSize, BaseX, BaseY, Movement int) *absoluteFadeout {
-	Result := absoluteFadeout{
-		Text:     Text,
-		Color:    &Color,
-		FontSize: Size,
-		BaseX:    BaseX,
-		BaseY:    BaseY,
-		Movement: Movement,
+		DrawHelper.DrawText(ctx.Renderer,
+			BaseX, BaseY-int(float64(Movement)*Ratio),
+			DrawHelper.LeftAlign, FontSize,
+			Text,
+			&Color)
 	}
-	return &Result
-}
-
-// Draw draws text with fading out
-func (Self absoluteFadeout) Draw(ctx *DrawComponent.EffectDrawContext) {
-	Ratio := float64(ctx.FrameCount) / float64(ctx.Duration)
-	Color := Self.Color
-	Color.A = uint8(256 - 255*Ratio)
-
-	DrawHelper.DrawText(ctx.Renderer,
-		Self.BaseX, Self.BaseY-int(float64(Self.Movement)*Ratio),
-		DrawHelper.LeftAlign, Self.FontSize,
-		Self.Text,
-		Color)
 }
