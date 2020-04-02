@@ -7,6 +7,7 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 )
 
+// SpeedGauge presents player's typing speed
 type SpeedGauge struct{}
 
 var (
@@ -14,6 +15,7 @@ var (
 	normalSpeedGaugeForegroundColor = DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50)
 )
 
+// Draw draws players's typing speed by text and color
 func (s SpeedGauge) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		Constants.Margin, 382,
