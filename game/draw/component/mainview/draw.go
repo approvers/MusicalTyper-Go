@@ -1,11 +1,13 @@
-package manager
+package mainview
 
 import (
-	DrawComponent "musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/draw/component"
 	Body "musicaltyper-go/game/draw/component/body"
 	Keyboard "musicaltyper-go/game/draw/component/keyboard"
 	RealTimeInfo "musicaltyper-go/game/draw/component/realtimeinfo"
 	Top "musicaltyper-go/game/draw/component/top"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 // EffectorPos is kind of effector's position
@@ -19,7 +21,7 @@ const (
 )
 
 type effectorEntry struct {
-	Drawer     DrawComponent.DrawableEffect
+	Drawer     component.DrawableEffect
 	FrameCount int
 	Duration   int
 }
@@ -27,33 +29,33 @@ type effectorEntry struct {
 var (
 	foregroundEffectors = make([]*effectorEntry, 0)
 	backgroundEffectors = make([]*effectorEntry, 0)
-
-	backgroundComponents = []DrawComponent.Drawable{
-		Top.SongInfo,
-		Top.Score,
-		Body.TimeGauge,
-	}
-
-	foregroundComponents = []DrawComponent.Drawable{
-		Body.TypeText,
-		Body.ComboText,
-		Body.AccGauge,
-		Body.AchievementGauge,
-		Keyboard.Keyboard,
-		RealTimeInfo.SpeedGauge,
-		RealTimeInfo.CorrectRateText,
-		RealTimeInfo.AchievementRate,
-	}
 )
 
 // Draw draws components and caches them
-func Draw(ctx *DrawComponent.DrawContext) {
-	backgroundEffectors = drawComponents(ctx, backgroundComponents, backgroundEffectors)
-	foregroundEffectors = drawComponents(ctx, foregroundComponents, foregroundEffectors)
+func Draw(ctx *component.DrawContext) {
+	backgroundComponents := []component.Drawable{
+		Top.SongInfo(ctx.Properties),
+		Top.Score(ctx.Point, ctx.FrameCount),
+		Body.TimeGauge(ctx.NormalizedRemainingTime),
+	}
+	backgroundEffectors = drawComponents(ctx.Renderer, backgroundComponents, backgroundEffectors)
+
+	foregroundComponents := []component.Drawable{
+		Body.TypeText(ctx.CurrentSentence),
+		Body.ComboText(ctx.Combo),
+		Body.AccGauge(ctx.CurrentSentence, ctx.AchievementRate, ctx.Rank),
+		Body.AchievementGauge(ctx.AchievementRate),
+		Keyboard.Keyboard(ctx.IsKeyboardDisabled, ctx.CurrentSentence),
+		Keyboard.NextLyrics(!ctx.IsKeyboardDisabled, ctx.NextLyrics),
+		RealTimeInfo.SpeedGauge(ctx.TypingSpeed, ctx.FrameCount),
+		RealTimeInfo.CorrectRateText(ctx.Accuracy),
+		RealTimeInfo.AchievementRate(ctx.AchievementRate),
+	}
+	foregroundEffectors = drawComponents(ctx.Renderer, foregroundComponents, foregroundEffectors)
 }
 
 // AddEffector adds effector with position and duration
-func AddEffector(Pos EffectorPos, Duration int, Effector DrawComponent.DrawableEffect) {
+func AddEffector(Pos EffectorPos, Duration int, Effector component.DrawableEffect) {
 	NewEntry := new(effectorEntry)
 	NewEntry.Drawer = Effector
 	NewEntry.Duration = Duration
@@ -68,7 +70,7 @@ func AddEffector(Pos EffectorPos, Duration int, Effector DrawComponent.DrawableE
 	}
 }
 
-func EffectorCount(Pos EffectorPos) int {
+func effectorCount(Pos EffectorPos) int {
 	switch Pos {
 	case FOREGROUND:
 		return len(foregroundEffectors)
@@ -77,18 +79,18 @@ func EffectorCount(Pos EffectorPos) int {
 		return len(backgroundEffectors)
 
 	default:
-		panic("Unknown effector pos has passed to DrawManager.EffectorCount()")
+		panic("Unknown effector pos has passed to DrawManager.effectorCount()")
 	}
 }
 
 //コンポーネントとエフェクトを描画して残ったエフェクトを返す
-func drawComponents(ctx *DrawComponent.DrawContext, components []DrawComponent.Drawable, effectors []*effectorEntry) []*effectorEntry {
+func drawComponents(renderer *sdl.Renderer, components []component.Drawable, effectors []*effectorEntry) []*effectorEntry {
 	for _, v := range components {
-		v(ctx)
+		v(renderer)
 	}
 
-	EffectorContext := new(DrawComponent.EffectDrawContext)
-	EffectorContext.Renderer = ctx.Renderer
+	EffectorContext := new(component.EffectDrawContext)
+	EffectorContext.Renderer = renderer
 
 	RemainEffectors := make([]*effectorEntry, 0, len(effectors))
 	for _, v := range effectors {

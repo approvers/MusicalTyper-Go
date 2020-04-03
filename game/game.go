@@ -4,12 +4,11 @@ import (
 	"fmt"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
-	DrawComponent "musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/draw/component/mainview"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-	DrawManager "musicaltyper-go/game/draw/manager"
 	Logger "musicaltyper-go/game/logger"
-	GameState2 "musicaltyper-go/game/state"
-	GameSystem "musicaltyper-go/game/system"
+	GameState "musicaltyper-go/game/state"
 	"time"
 
 	"github.com/veandco/go-sdl2/mix"
@@ -61,7 +60,7 @@ func Run(beatmap *Beatmap.Beatmap) {
 	var (
 		Running                  = true
 		FrameCount               = 0
-		GameState                = GameState2.NewGameState(beatmap)
+		gameState                = GameState.NewGameState(beatmap)
 		isTmpNextLyricsPrinting  = false
 		isContNextLyricsPrinting = false
 		//DrawBegin    time.Time
@@ -94,27 +93,47 @@ func Run(beatmap *Beatmap.Beatmap) {
 						isContNextLyricsPrinting = !isContNextLyricsPrinting
 
 					default:
-						GameSystem.ParseKeyInput(Renderer, GameState, key, isTmpNextLyricsPrinting || isContNextLyricsPrinting)
+						gameState.ParseKeyInput(Renderer, key, isTmpNextLyricsPrinting || isContNextLyricsPrinting)
 					}
 				}
 			}
 		}
 
 		FrameCount = (FrameCount + 1) % Constants.FrameRate
-		GameSystem.Update(GameState, float64(time.Now().Sub(MusicStartTime).Milliseconds())/1000.0)
+		gameState.Update(float64(time.Now().Sub(MusicStartTime).Milliseconds()) / 1000.0)
 
-		Context := DrawComponent.DrawContext{
-			Renderer:        Renderer,
-			GameState:       GameState,
-			PrintNextLyrics: isContNextLyricsPrinting || isTmpNextLyricsPrinting,
-			FrameCount:      FrameCount,
-			Window:          Window,
+		var NormalizedRemainingTime float64
+		if len(gameState.Beatmap.Notes) <= gameState.CurrentSentenceIndex+1 {
+			NormalizedRemainingTime = 1
+		} else {
+			CurrentSentenceStartTime := gameState.Beatmap.Notes[gameState.CurrentSentenceIndex].Time
+			NextSentenceStartTime := gameState.Beatmap.Notes[gameState.CurrentSentenceIndex+1].Time
+			CurrentSentenceDuration := NextSentenceStartTime - CurrentSentenceStartTime
+			CurrentTimeInCurrentSentence := CurrentSentenceDuration - gameState.CurrentTime + CurrentSentenceStartTime
+			NormalizedRemainingTime = CurrentTimeInCurrentSentence / CurrentSentenceDuration
+		}
+
+		nextSentenceIndex := gameState.CurrentSentenceIndex + 1
+		Context := component.DrawContext{
+			Renderer:                Renderer,
+			Properties:              beatmap.Properties,
+			CurrentSentence:         *beatmap.Notes[gameState.CurrentSentenceIndex].Sentence,
+			Rank:                    gameState.GetRank(),
+			NormalizedRemainingTime: NormalizedRemainingTime,
+			AchievementRate:         gameState.GetAchievementRate(false),
+			Point:                   gameState.Point,
+			Combo:                   gameState.Combo,
+			NextLyrics:              beatmap.Notes[nextSentenceIndex : nextSentenceIndex+3],
+			Accuracy:                gameState.GetAccuracy(),
+			TypingSpeed:             gameState.GetKeyTypePerSecond(),
+			IsKeyboardDisabled:      isContNextLyricsPrinting || isTmpNextLyricsPrinting,
+			FrameCount:              FrameCount,
 		}
 
 		Renderer.SetDrawColor(255, 243, 224, 0)
 		Renderer.Clear()
 
-		DrawManager.Draw(&Context)
+		mainview.Draw(&Context)
 
 		Renderer.Present()
 		sdl.Delay(1000 / Constants.FrameRate)

@@ -5,9 +5,11 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
-	DrawComponent "musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 func correctRateTextBaseColor() color.Color {
@@ -15,22 +17,23 @@ func correctRateTextBaseColor() color.Color {
 }
 
 // CorrectRateText draws correctness rate by percent text
-func CorrectRateText(c *DrawComponent.DrawContext) {
-	DrawHelper.DrawText(c.Renderer,
-		pos.FromXY(Constants.Margin, 430),
-		DrawHelper.LeftAlign, DrawHelper.SystemFont,
-		"正解率", Constants.TypedTextColor)
+func CorrectRateText(Acc float64) component.Drawable {
+	return func(Renderer *sdl.Renderer) {
+		DrawHelper.DrawText(Renderer,
+			pos.FromXY(Constants.Margin, 430),
+			DrawHelper.LeftAlign, DrawHelper.SystemFont,
+			"正解率", Constants.TypedTextColor)
 
-	Acc := c.GameState.GetAccuracy()
-	DrawHelper.DrawFillRect(c.Renderer, correctRateTextBaseColor(),
-		area.FromXYWH(Constants.Margin+5, 510,
-			int(Acc*250), 3))
+		DrawHelper.DrawFillRect(Renderer, correctRateTextBaseColor(),
+			area.FromXYWH(Constants.Margin+5, 510,
+				int(Acc*250), 3))
 
-	Text := fmt.Sprintf("%05.1f%%", Acc*100)
-	TextColor := Constants.RedColor.Multiply(Acc)
+		Text := fmt.Sprintf("%05.1f%%", Acc*100)
+		TextColor := Constants.RedColor.Multiply(Acc)
 
-	DrawHelper.DrawText(c.Renderer,
-		pos.FromXY(Constants.Margin+5, 430),
-		DrawHelper.LeftAlign, DrawHelper.BigFont,
-		Text, TextColor)
+		DrawHelper.DrawText(Renderer,
+			pos.FromXY(Constants.Margin+5, 430),
+			DrawHelper.LeftAlign, DrawHelper.BigFont,
+			Text, TextColor)
+	}
 }

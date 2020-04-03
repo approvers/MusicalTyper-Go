@@ -1,17 +1,16 @@
-package system
+package state
 
 import (
 	"fmt"
-	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
-	Effects "musicaltyper-go/game/draw/component/effects"
+	"musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/draw/component/effects"
+	"musicaltyper-go/game/draw/component/mainview"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-	DrawManager "musicaltyper-go/game/draw/manager"
 	"musicaltyper-go/game/draw/pos"
 	SEHelper "musicaltyper-go/game/sehelper"
-	GameState "musicaltyper-go/game/state"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -21,91 +20,90 @@ Q. Why is this separated between GameState's method?
 A. To prevent from cyclic dependencies.
 */
 
-var (
-	successEffect = Effects.NewSlideFadeoutText(
+func successEffect() component.DrawableEffect {
+	return effects.NewSlideFadeoutText(
 		"Pass",
 		Constants.GreenThinColor.Darker(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -383), 10,
 	)
+}
 
-	pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
+func pointOnKeyboardEffect() component.DrawableEffect {
+	return effects.NewAbsoluteFadeout(
 		"",
 		Constants.BlueThickColor,
 		DrawHelper.FullFont,
 		pos.FromXY(0, 0), 15,
 	)
+}
 
-	acTextEffect = Effects.NewSlideFadeoutText(
+func acTextEffect() component.DrawableEffect {
+	return effects.NewSlideFadeoutText(
 		"AC",
 		Constants.GreenThickColor,
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
+}
 
-	acBackgroundEffect = Effects.NewBlinkRect(
+func acBackgroundEffect() component.DrawableEffect {
+	return effects.NewBlinkRect(
 		Constants.GreenThinColor.Brighter(50),
 		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
+}
 
-	waTextEffect = Effects.NewSlideFadeoutText(
+func waTextEffect() component.DrawableEffect {
+	return effects.NewSlideFadeoutText(
 		"WA",
 		Constants.BlueThickColor.Brighter(100),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
+}
 
-	waBackgroundEffect = Effects.NewBlinkRect(
+func waBackgroundEffect() component.DrawableEffect {
+	return effects.NewBlinkRect(
 		Constants.BlueThickColor.Brighter(100),
 		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
+}
 
-	missTypeTextEffect = Effects.NewSlideFadeoutText(
+func missTypeTextEffect() component.DrawableEffect {
+	return effects.NewSlideFadeoutText(
 		"MISS",
 		Constants.RedColor.Brighter(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
+}
 
-	missTypeBackgroundEffect = Effects.NewBlinkRect(
+func missTypeBackgroundEffect() component.DrawableEffect {
+	return effects.NewBlinkRect(
 		color.FromRGB(255, 200, 200),
 		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
+}
 
-	tleTextEffect = Effects.NewSlideFadeoutText(
+func tleTextEffect() component.DrawableEffect {
+	return effects.NewSlideFadeoutText(
 		"TLE",
 		Constants.RedColor.Darker(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
+}
 
-	tleBackgroundEffect = Effects.NewBlinkRect(
+func tleBackgroundEffect() component.DrawableEffect {
+	return effects.NewBlinkRect(
 		Constants.RedColor.Brighter(50),
 		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
-)
-
-// Update overrides current time and updates current note
-func Update(s *GameState.GameState, CurrentTime float64) {
-	s.CurrentTime = CurrentTime
-	if len(s.Beatmap.Notes) > s.CurrentSentenceIndex+1 && s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time <= CurrentTime {
-		fmt.Println("Updated index")
-
-		Note := s.Beatmap.Notes[s.CurrentSentenceIndex]
-		CurrentSentence := Note.Sentence
-		if !CurrentSentence.IsFinished && Note.Type == Beatmap.NORMAL {
-			DrawManager.AddEffector(DrawManager.FOREGROUND, 120, tleTextEffect)
-			DrawManager.AddEffector(DrawManager.BACKGROUND, 15, tleBackgroundEffect)
-			SEHelper.Play(SEHelper.TleSE)
-		}
-
-		s.CurrentSentenceIndex++
-		s.IsInputDisabled = s.Beatmap.Notes[s.CurrentSentenceIndex].Type != Beatmap.NORMAL
-	}
 }
 
 // ParseKeyInput handles key input event from sdl
-func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keycode, PrintLyric bool) {
+func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, PrintLyric bool) {
 	if !((code >= 'a' && code <= 'z') || (code >= '0' && code <= '9') || code == '[' || code == ']' || code == ',' || code == '.' || code == ' ') {
 		return
 	}
@@ -122,14 +120,14 @@ func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keyc
 	Point := s.AddPoint(ok, SentenceEnded)
 
 	if !ok {
-		DrawManager.AddEffector(DrawManager.FOREGROUND, 120, missTypeTextEffect)
-		DrawManager.AddEffector(DrawManager.BACKGROUND, 15, missTypeBackgroundEffect)
+		mainview.AddEffector(mainview.FOREGROUND, 120, missTypeTextEffect())
+		mainview.AddEffector(mainview.BACKGROUND, 15, missTypeBackgroundEffect())
 		SEHelper.Play(SEHelper.FailedSE)
 		return
 	}
 
 	s.CountKeyType()
-	DrawManager.AddEffector(DrawManager.FOREGROUND, 30, successEffect)
+	mainview.AddEffector(mainview.FOREGROUND, 30, successEffect())
 
 	if !PrintLyric {
 		KeyPos := DrawHelper.GetKeyPos(KeyChar)
@@ -137,23 +135,22 @@ func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keyc
 		textwidth := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor).W()
 		KeyPos = pos.FromXY(KeyPos.X()-textwidth/2, KeyPos.Y())
 
-		pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
+		mainview.AddEffector(mainview.FOREGROUND, 30, effects.NewAbsoluteFadeout(
 			text,
 			Constants.BlueThickColor,
 			DrawHelper.FullFont,
 			KeyPos, 15,
-		)
-		DrawManager.AddEffector(DrawManager.FOREGROUND, 30, pointOnKeyboardEffect)
+		))
 	}
 
 	if SentenceEnded {
 		if CurrentSentence.MissCount == 0 {
-			DrawManager.AddEffector(DrawManager.FOREGROUND, 120, acTextEffect)
-			DrawManager.AddEffector(DrawManager.BACKGROUND, 15, acBackgroundEffect)
+			mainview.AddEffector(mainview.FOREGROUND, 120, acTextEffect())
+			mainview.AddEffector(mainview.BACKGROUND, 15, acBackgroundEffect())
 			SEHelper.Play(SEHelper.AcSE)
 		} else {
-			DrawManager.AddEffector(DrawManager.FOREGROUND, 120, waTextEffect)
-			DrawManager.AddEffector(DrawManager.BACKGROUND, 15, waBackgroundEffect)
+			mainview.AddEffector(mainview.FOREGROUND, 120, waTextEffect())
+			mainview.AddEffector(mainview.BACKGROUND, 15, waBackgroundEffect())
 			SEHelper.Play(SEHelper.WaSE)
 		}
 	} else {

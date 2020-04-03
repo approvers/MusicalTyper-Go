@@ -1,10 +1,13 @@
 package state
 
 import (
+	"fmt"
 	"math"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/component/mainview"
 	Rank "musicaltyper-go/game/rank"
+	"musicaltyper-go/game/sehelper"
 	"time"
 )
 
@@ -43,6 +46,25 @@ func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	r.KeyInputs = make([]time.Time, 0)
 	r.IsInputDisabled = Map.Notes[0].Type != Beatmap.NORMAL
 	return r
+}
+
+// Update overrides current time and updates current note
+func (s *GameState) Update(CurrentTime float64) {
+	s.CurrentTime = CurrentTime
+	if len(s.Beatmap.Notes) > s.CurrentSentenceIndex+1 && s.Beatmap.Notes[s.CurrentSentenceIndex+1].Time <= CurrentTime {
+		fmt.Println("Updated index")
+
+		Note := s.Beatmap.Notes[s.CurrentSentenceIndex]
+		CurrentSentence := Note.Sentence
+		if !CurrentSentence.IsFinished && Note.Type == Beatmap.NORMAL {
+			mainview.AddEffector(mainview.FOREGROUND, 120, tleTextEffect())
+			mainview.AddEffector(mainview.BACKGROUND, 15, tleBackgroundEffect())
+			sehelper.Play(sehelper.TleSE)
+		}
+
+		s.CurrentSentenceIndex++
+		s.IsInputDisabled = s.Beatmap.Notes[s.CurrentSentenceIndex].Type != Beatmap.NORMAL
+	}
 }
 
 // GetAccuracy calculates accuracy
