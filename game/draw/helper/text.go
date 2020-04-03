@@ -13,15 +13,14 @@ import (
 // FontSize means size of font
 type FontSize uint8
 
-// TextureCache has texture with width and height
-type TextureCache struct {
+type textureWithSize struct {
 	Width, Height int32
 	Texture       *sdl.Texture
 }
 
 var (
 	fontCache    = map[FontSize]*ttf.Font{}
-	textureCache = map[FontSize]map[string]*TextureCache{}
+	textureCache = map[FontSize]map[string]*textureWithSize{}
 )
 
 const (
@@ -39,13 +38,13 @@ const (
 	SystemFont = 16
 )
 
-func getTextureCacheKey(Text string, Color *sdl.Color) string {
+func gettextureWithSizeKey(Text string, Color *sdl.Color) string {
 	return fmt.Sprintf("%s,%d,%d,%d,%d", Text, Color.R, Color.B, Color.B, Color.A)
 }
 
-func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) *TextureCache {
+func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) *textureWithSize {
 	logger := Logger.NewLogger("makeTexture")
-	CacheKey := getTextureCacheKey(Text, Color)
+	CacheKey := gettextureWithSizeKey(Text, Color)
 
 	Texture, TextureExists := textureCache[Size][CacheKey]
 	//fmt.Printf("\"%s\" was %t \n", CacheKey, TextureExists)
@@ -67,10 +66,10 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 
 		TextureFromSurface, Error := Renderer.CreateTextureFromSurface(RenderedText)
 		logger.CheckError(Error)
-		Result := &TextureCache{RenderedText.W, RenderedText.H, TextureFromSurface}
+		Result := &textureWithSize{RenderedText.W, RenderedText.H, TextureFromSurface}
 
 		if _, MapExists := textureCache[Size]; !MapExists {
-			textureCache[Size] = map[string]*TextureCache{}
+			textureCache[Size] = map[string]*textureWithSize{}
 		}
 
 		textureCache[Size][CacheKey] = Result
@@ -166,7 +165,7 @@ func Quit() {
 			t.Texture.Destroy()
 		}
 	}
-	textureCache = map[FontSize]map[string]*TextureCache{}
+	textureCache = map[FontSize]map[string]*textureWithSize{}
 
 	for _, v := range fontCache {
 		v.Close()
