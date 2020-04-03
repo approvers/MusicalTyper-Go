@@ -10,6 +10,8 @@ const (
 	CAPTION
 	// BLANK is a kind of Note, nothing presents
 	BLANK
+	// END is a kind of Note, no Notes exists after it
+	END
 )
 
 // Note has Sentence and its timing
@@ -17,7 +19,6 @@ type Note struct {
 	Type     NoteType
 	Time     float64
 	Sentence *Sentence
-	isEnd    bool
 	Caption  string
 }
 
@@ -54,7 +55,7 @@ func newCaptionNote(Sec float64, Caption string) *Note {
 func endMap(Sec float64) *Note {
 	Result := new(Note)
 	Result.Time = Sec
-	Result.isEnd = true
+	Result.Type = END
 	return Result
 }
 
