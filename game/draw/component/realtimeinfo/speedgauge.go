@@ -3,20 +3,18 @@ package realtimeinfo
 import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/color"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-
-	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/pos"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
-func fastSpeedGaugeAnimateColor() *sdl.Color {
-	return DrawHelper.GetMoreBlackishColor(Constants.RedColor, 30)
+func fastSpeedGaugeAnimateColor() color.Color {
+	return Constants.RedColor.Darker(30)
 }
-func normalSpeedGaugeForegroundColor() *sdl.Color {
-	return DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50)
+func normalSpeedGaugeForegroundColor() color.Color {
+	return Constants.GreenThinColor.Darker(50)
 }
 
 // SpeedGauge draws players's typing speed by text and color

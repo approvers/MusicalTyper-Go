@@ -3,12 +3,11 @@ package keyboard
 import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/color"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/pos"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 // Keyboard  draws virtual keyboard
@@ -27,10 +26,10 @@ func Keyboard(c *DrawComponent.DrawContext) {
 		}
 	} else {
 		if c.GameState.IsInputDisabled {
-			DrawHelper.DrawKeyboard(c.Renderer, "", &sdl.Color{R: 192, G: 192, B: 192, A: 255})
+			DrawHelper.DrawDisabledKeyboard(c.Renderer, "", color.FromRGB(192, 192, 192))
 		} else {
 			CurrentSentence := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex].Sentence
-			DrawHelper.DrawKeyboard(c.Renderer, DrawHelper.Substring(CurrentSentence.GetRemainingRoma(), 0, 1), nil)
+			DrawHelper.DrawKeyboard(c.Renderer, DrawHelper.Substring(CurrentSentence.GetRemainingRoma(), 0, 1))
 		}
 	}
 	//キーボードの下の線

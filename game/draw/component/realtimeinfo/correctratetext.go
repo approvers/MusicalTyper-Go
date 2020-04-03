@@ -3,17 +3,15 @@ package realtimeinfo
 import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/color"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-
-	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/pos"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
-func correctRateTextBaseColor() *sdl.Color {
-	return DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50)
+func correctRateTextBaseColor() color.Color {
+	return Constants.RedColor.Darker(50)
 }
 
 // CorrectRateText draws correctness rate by percent text
@@ -29,11 +27,7 @@ func CorrectRateText(c *DrawComponent.DrawContext) {
 			int(Acc*250), 3))
 
 	Text := fmt.Sprintf("%05.1f%%", Acc*100)
-	TextColor := &sdl.Color{
-		R: uint8(Acc * float64(Constants.RedColor.R)),
-		G: uint8(Acc * float64(Constants.RedColor.G)),
-		B: uint8(Acc * float64(Constants.RedColor.B)),
-		A: 255}
+	TextColor := Constants.RedColor.Multiply(Acc)
 
 	DrawHelper.DrawText(c.Renderer,
 		pos.FromXY(Constants.Margin+5, 430),

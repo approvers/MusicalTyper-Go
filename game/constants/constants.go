@@ -1,7 +1,7 @@
 package constants
 
 import (
-	"github.com/veandco/go-sdl2/sdl"
+	"musicaltyper-go/game/draw/color"
 )
 
 const (
@@ -23,26 +23,26 @@ const (
 
 var (
 	// TextColor is any text color
-	TextColor = &sdl.Color{R: 56, G: 56, B: 62, A: 255}
+	TextColor = color.FromRGB(56, 56, 62)
 	// LyricTextColor is text color of japanese lyric
-	LyricTextColor = &sdl.Color{R: 86, G: 86, B: 92, A: 255}
+	LyricTextColor = color.FromRGB(86, 86, 92)
 	// ComboTextColor is indication text color on occur combo
-	ComboTextColor = &sdl.Color{R: 106, G: 106, B: 112, A: 255}
+	ComboTextColor = color.FromRGB(106, 106, 112)
 	// TypedTextColor is typed text color of roman
-	TypedTextColor = &sdl.Color{R: 156, G: 156, B: 162, A: 255}
+	TypedTextColor = color.FromRGB(156, 156, 162)
 	// RemainingTextColor is text color of roman to be inputted
 	RemainingTextColor = TextColor
 	// GreenThinColor is light green
-	GreenThinColor = &sdl.Color{R: 178, G: 255, B: 89, A: 255}
+	GreenThinColor = color.FromRGB(178, 255, 89)
 	// GreenThickColor is muddy green
-	GreenThickColor = &sdl.Color{R: 0, G: 77, B: 64, A: 255}
+	GreenThickColor = color.FromRGB(0, 77, 64)
 	// BlueThickColor is muddy blue
-	BlueThickColor = &sdl.Color{R: 63, G: 81, B: 181, A: 255}
+	BlueThickColor = color.FromRGB(63, 81, 181)
 	// RedColor is muddy red
-	RedColor = &sdl.Color{R: 250, G: 119, B: 109, A: 255}
+	RedColor = color.FromRGB(250, 119, 109)
 
 	// BackgroundColor is background color of window
-	BackgroundColor = &sdl.Color{R: 255, G: 243, B: 224, A: 0}
+	BackgroundColor = color.FromRGBA(255, 243, 224, 0)
 
 	// OneCharPoint is point per typed correct
 	OneCharPoint = 10

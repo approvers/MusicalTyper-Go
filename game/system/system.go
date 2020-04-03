@@ -4,6 +4,8 @@ import (
 	"fmt"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/color"
 	Effects "musicaltyper-go/game/draw/component/effects"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	DrawManager "musicaltyper-go/game/draw/manager"
@@ -22,64 +24,64 @@ A. To prevent from cyclic dependencies.
 var (
 	successEffect = Effects.NewSlideFadeoutText(
 		"Pass",
-		*DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50),
+		Constants.GreenThinColor.Darker(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -383), 10,
 	)
 
 	pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
 		"",
-		*Constants.BlueThickColor,
+		Constants.BlueThickColor,
 		DrawHelper.FullFont,
 		pos.FromXY(0, 0), 15,
 	)
 
 	acTextEffect = Effects.NewSlideFadeoutText(
 		"AC",
-		*Constants.GreenThickColor,
+		Constants.GreenThickColor,
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
 
 	acBackgroundEffect = Effects.NewBlinkRect(
-		*DrawHelper.GetMoreWhitishColor(Constants.GreenThinColor, 50),
-		&sdl.Rect{X: 0, Y: 60, W: Constants.WindowWidth, H: 130},
+		Constants.GreenThinColor.Brighter(50),
+		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
 
 	waTextEffect = Effects.NewSlideFadeoutText(
 		"WA",
-		*DrawHelper.GetMoreWhitishColor(Constants.BlueThickColor, 100),
+		Constants.BlueThickColor.Brighter(100),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
 
 	waBackgroundEffect = Effects.NewBlinkRect(
-		*DrawHelper.GetMoreWhitishColor(Constants.BlueThickColor, 100),
-		&sdl.Rect{X: 0, Y: 60, W: Constants.WindowWidth, H: 130},
+		Constants.BlueThickColor.Brighter(100),
+		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
 
 	missTypeTextEffect = Effects.NewSlideFadeoutText(
 		"MISS",
-		*DrawHelper.GetMoreWhitishColor(Constants.RedColor, 50),
+		Constants.RedColor.Brighter(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
 
 	missTypeBackgroundEffect = Effects.NewBlinkRect(
-		sdl.Color{R: 255, G: 200, B: 200, A: 255},
-		&sdl.Rect{X: 0, Y: 60, W: Constants.WindowWidth, H: 130},
+		color.FromRGB(255, 200, 200),
+		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
 
 	tleTextEffect = Effects.NewSlideFadeoutText(
 		"TLE",
-		*DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50),
+		Constants.RedColor.Darker(50),
 		DrawHelper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
 
 	tleBackgroundEffect = Effects.NewBlinkRect(
-		*DrawHelper.GetMoreWhitishColor(Constants.RedColor, 50),
-		&sdl.Rect{X: 0, Y: 60, W: Constants.WindowWidth, H: 130},
+		Constants.RedColor.Brighter(50),
+		area.FromXYWH(0, 60, Constants.WindowWidth, 130),
 	)
 )
 
@@ -137,7 +139,7 @@ func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keyc
 
 		pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
 			text,
-			*Constants.BlueThickColor,
+			Constants.BlueThickColor,
 			DrawHelper.FullFont,
 			KeyPos, 15,
 		)

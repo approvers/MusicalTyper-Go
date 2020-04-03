@@ -2,17 +2,15 @@ package body
 
 import (
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/color"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-	"strconv"
-
 	"musicaltyper-go/game/draw/pos"
-
-	"github.com/veandco/go-sdl2/sdl"
+	"strconv"
 )
 
-func comboTextColor() *sdl.Color {
-	return &sdl.Color{R: 126, G: 126, B: 132, A: 255}
+func comboTextColor() color.Color {
+	return color.FromRGB(126, 126, 132)
 }
 
 // ComboText draws combo indication text

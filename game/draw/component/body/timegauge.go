@@ -3,19 +3,17 @@ package body
 import (
 	"math"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/color"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
-
-	"musicaltyper-go/game/draw/area"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
-func foregroundColor() *sdl.Color {
-	return DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 50)
+func foregroundColor() color.Color {
+	return Constants.BackgroundColor.Darker(50)
 }
-func backgroundColor() *sdl.Color {
-	return DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 25)
+func backgroundColor() color.Color {
+	return Constants.BackgroundColor.Darker(25)
 }
 
 // TimeGauge draws remainings time gauge

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/color"
 	"musicaltyper-go/game/draw/pos"
 	"musicaltyper-go/game/draw/size"
 	Logger "musicaltyper-go/game/logger"
@@ -41,11 +42,11 @@ const (
 	SystemFont = 16
 )
 
-func gettextureWithSizeKey(Text string, Color *sdl.Color) string {
-	return fmt.Sprintf("%s,%d,%d,%d,%d", Text, Color.R, Color.B, Color.B, Color.A)
+func gettextureWithSizeKey(Text string, Color color.Color) string {
+	return fmt.Sprintf("%s,%s", Text, Color.String())
 }
 
-func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) *textureWithSize {
+func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color color.Color) *textureWithSize {
 	logger := Logger.NewLogger("makeTexture")
 	CacheKey := gettextureWithSizeKey(Text, Color)
 
@@ -63,7 +64,7 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 			Font = LoadedFont
 		}
 
-		RenderedText, Error := Font.RenderUTF8Blended(Text, *Color)
+		RenderedText, Error := Font.RenderUTF8Blended(Text, *Color.Cast())
 		logger.CheckError(Error)
 		defer RenderedText.Free()
 
@@ -85,7 +86,7 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 }
 
 // DrawText renders text
-func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color *sdl.Color) (int, int) {
+func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color color.Color) (int, int) {
 	logger := Logger.NewLogger("DrawText")
 	if Text == "" {
 		return 0, 0
@@ -126,31 +127,31 @@ func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size F
 
 // DrawThickLine renders thick line
 //fixme: 計算ガバガバなので斜めの線とか引くと多分バグる
-func DrawThickLine(Renderer *sdl.Renderer, from, to pos.Pos, Color *sdl.Color, Thickness int) {
-	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
+func DrawThickLine(Renderer *sdl.Renderer, from, to pos.Pos, Color color.Color, Thickness int) {
+	Color.ProxyColor(Renderer)
 	Renderer.DrawRect(area.FromTwoPos(from, to).ToRect())
 }
 
 // DrawLine render line
-func DrawLine(Renderer *sdl.Renderer, from, to pos.Pos, Color *sdl.Color) {
+func DrawLine(Renderer *sdl.Renderer, from, to pos.Pos, Color color.Color) {
 	DrawThickLine(Renderer, from, to, Color, 1)
 }
 
 // GetTextSize calculates dimension of text by actual rendering
-func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) size.Size {
+func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color color.Color) size.Size {
 	Texture := makeTexture(Renderer, Size, Text, Color)
 	return size.FromWH(int(Texture.Width), int(Texture.Height))
 }
 
 // DrawFillRect renders filled rect
-func DrawFillRect(Renderer *sdl.Renderer, Color *sdl.Color, a area.Area) {
-	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
+func DrawFillRect(Renderer *sdl.Renderer, Color color.Color, a area.Area) {
+	Color.ProxyColor(Renderer)
 	Renderer.FillRect(a.ToRect())
 }
 
 // DrawLineRect render rect by lines
-func DrawLineRect(Renderer *sdl.Renderer, Color *sdl.Color, a area.Area, thickness int) {
-	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
+func DrawLineRect(Renderer *sdl.Renderer, Color color.Color, a area.Area, thickness int) {
+	Color.ProxyColor(Renderer)
 	X, Y, Width, Height, Thickness := int32(a.X()), int32(a.Y()), int32(a.W()), int32(a.H()), int32(thickness)
 
 	Rects := []sdl.Rect{
