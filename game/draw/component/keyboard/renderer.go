@@ -1,9 +1,10 @@
-package helper
+package keyboard
 
 import (
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
+	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
 	"strings"
 
@@ -12,7 +13,7 @@ import (
 
 const (
 	startY       = 193
-	fontSize     = FullFont
+	fontSize     = helper.FullFont
 	keyMargin    = 5
 	keySize      = 40
 	keyLineWidth = 2
@@ -24,7 +25,7 @@ var (
 )
 
 // DrawKeyboard renders virtual keyboard
-func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
+func drawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
 	HighlightKey = strings.ToLower(HighlightKey)
 	for Row := 0; Row < 4; Row++ {
 		Keys := KeyboardKeys[Row]
@@ -37,9 +38,9 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
 			Area := area.FromXYWH(RectPosX, RectPosY, keySize, keySize)
 
 			if HighlightThisKey {
-				DrawFillRect(Renderer, Constants.GreenThickColor, Area)
+				helper.DrawFillRect(Renderer, Constants.GreenThickColor, Area)
 			}
-			DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
+			helper.DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
 
 			Color := Constants.TextColor
 			if HighlightThisKey {
@@ -49,17 +50,17 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
 			}
 
 			Key = strings.ToUpper(Key)
-			TextSize := GetTextSize(Renderer, fontSize, Key, Color)
-			DrawText(Renderer,
+			TextSize := helper.GetTextSize(Renderer, fontSize, Key, Color)
+			helper.DrawText(Renderer,
 				pos.FromXY(StartPos+(keySize+keyMargin)*KeyIndex+keySize/2-TextSize.W()/2,
 					startY+(keySize+keyMargin)*Row+keySize/2-TextSize.H()/2),
-				LeftAlign, fontSize, Key, Color)
+				helper.LeftAlign, fontSize, Key, Color)
 		}
 	}
 }
 
 // DrawDisabledKeyboard renders disabled virtual keyboard
-func DrawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor color.Color) {
+func drawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor color.Color) {
 	HighlightKey = strings.ToLower(HighlightKey)
 	for Row := 0; Row < 4; Row++ {
 		Keys := KeyboardKeys[Row]
@@ -72,11 +73,11 @@ func DrawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, Backgroun
 			Area := area.FromXYWH(RectPosX, RectPosY, keySize, keySize)
 
 			if HighlightThisKey {
-				DrawFillRect(Renderer, Constants.GreenThickColor, Area)
+				helper.DrawFillRect(Renderer, Constants.GreenThickColor, Area)
 			} else {
-				DrawFillRect(Renderer, BackgroundColor, Area)
+				helper.DrawFillRect(Renderer, BackgroundColor, Area)
 			}
-			DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
+			helper.DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
 
 			Color := Constants.TextColor
 			if HighlightThisKey {
@@ -86,11 +87,11 @@ func DrawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, Backgroun
 			}
 
 			Key = strings.ToUpper(Key)
-			TextSize := GetTextSize(Renderer, fontSize, Key, Color)
-			DrawText(Renderer,
+			TextSize := helper.GetTextSize(Renderer, fontSize, Key, Color)
+			helper.DrawText(Renderer,
 				pos.FromXY(StartPos+(keySize+keyMargin)*KeyIndex+keySize/2-TextSize.W()/2,
 					startY+(keySize+keyMargin)*Row+keySize/2-TextSize.H()/2),
-				LeftAlign, fontSize, Key, Color)
+				helper.LeftAlign, fontSize, Key, Color)
 		}
 	}
 }

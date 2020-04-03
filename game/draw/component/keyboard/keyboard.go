@@ -16,9 +16,9 @@ func Keyboard(isDisabled bool, currentSentence beatmap.Sentence) component.Drawa
 	return func(Renderer *sdl.Renderer) {
 		if isDisabled {
 			return
-			// DrawHelper.DrawDisabledKeyboard(Renderer, "", color.FromRGB(192, 192, 192))
+			// drawDisabledKeyboard(Renderer, "", color.FromRGB(192, 192, 192))
 		}
-		DrawHelper.DrawKeyboard(Renderer, DrawHelper.Substring(currentSentence.GetRemainingRoma(), 0, 1))
+		drawKeyboard(Renderer, DrawHelper.Substring(currentSentence.GetRemainingRoma(), 0, 1))
 		//キーボードの下の線
 		DrawHelper.DrawThickLine(Renderer,
 			pos.FromXY(0, 375), pos.FromXY(Constants.WindowWidth, 375), Constants.TypedTextColor, 2)

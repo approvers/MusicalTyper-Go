@@ -7,6 +7,7 @@ import (
 	"musicaltyper-go/game/draw/color"
 	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/component/effects"
+	"musicaltyper-go/game/draw/component/keyboard"
 	"musicaltyper-go/game/draw/component/mainview"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
@@ -130,7 +131,7 @@ func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, Prin
 	mainview.AddEffector(mainview.FOREGROUND, 30, successEffect())
 
 	if !PrintLyric {
-		KeyPos := DrawHelper.GetKeyPos(KeyChar)
+		KeyPos := keyboard.GetKeyPos(KeyChar)
 		text := fmt.Sprintf("+%d", Point)
 		textwidth := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor).W()
 		KeyPos = pos.FromXY(KeyPos.X()-textwidth/2, KeyPos.Y())
