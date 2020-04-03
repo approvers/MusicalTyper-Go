@@ -9,11 +9,8 @@ import (
 	"musicaltyper-go/game/draw/pos"
 )
 
-// AccGauge presents accuracy guage and player rank
-type AccGauge struct{}
-
-// Draw draws accuracy guage and player rank
-func (s AccGauge) Draw(c *DrawComponent.DrawContext) {
+// AccGauge draws accuracy guage and player rank
+func AccGauge(c *DrawComponent.DrawContext) {
 	CurrentSentence := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex].Sentence
 	RankPosX := int(Constants.WindowWidth * c.GameState.GetAchievementRate(true))
 

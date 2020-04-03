@@ -7,18 +7,19 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/area"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
-// TimeGauge presents remaining time gauge
-type TimeGauge struct{}
+func foregroundColor() *sdl.Color {
+	return DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 50)
+}
+func backgroundColor() *sdl.Color {
+	return DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 25)
+}
 
-var (
-	foregroundColor = DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 50)
-	backgroundColor = DrawHelper.GetMoreBlackishColor(Constants.BackgroundColor, 25)
-)
-
-// Draw draws remainings time gauge
-func (s TimeGauge) Draw(c *DrawComponent.DrawContext) {
+// TimeGauge draws remainings time gauge
+func TimeGauge(c *DrawComponent.DrawContext) {
 	var Ratio float64
 	if len(c.GameState.Beatmap.Notes) <= c.GameState.CurrentSentenceIndex+1 {
 		Ratio = 1
@@ -31,6 +32,6 @@ func (s TimeGauge) Draw(c *DrawComponent.DrawContext) {
 	}
 
 	RemainingTimeGaugeWidth := int(math.Floor(Ratio * Constants.WindowWidth))
-	DrawHelper.DrawFillRect(c.Renderer, backgroundColor, area.FromXYWH(0, 60, Constants.WindowWidth, 130))
-	DrawHelper.DrawFillRect(c.Renderer, foregroundColor, area.FromXYWH(0, 60, RemainingTimeGaugeWidth, 130))
+	DrawHelper.DrawFillRect(c.Renderer, backgroundColor(), area.FromXYWH(0, 60, Constants.WindowWidth, 130))
+	DrawHelper.DrawFillRect(c.Renderer, foregroundColor(), area.FromXYWH(0, 60, RemainingTimeGaugeWidth, 130))
 }

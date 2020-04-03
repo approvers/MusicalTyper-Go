@@ -9,11 +9,8 @@ import (
 	"musicaltyper-go/game/draw/pos"
 )
 
-// Score presents current score
-type Score struct{}
-
-// Draw draws current score by colored text
-func (s Score) Draw(c *DrawComponent.DrawContext) {
+// Score draws current score by colored text
+func Score(c *DrawComponent.DrawContext) {
 	Text := fmt.Sprintf("%08d", c.GameState.Point)
 	if c.GameState.Point < 0 {
 		ScoreColor := Constants.BlueThickColor

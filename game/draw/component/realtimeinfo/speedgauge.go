@@ -8,18 +8,19 @@ import (
 
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/pos"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
-// SpeedGauge presents player's typing speed
-type SpeedGauge struct{}
+func fastSpeedGaugeAnimateColor() *sdl.Color {
+	return DrawHelper.GetMoreBlackishColor(Constants.RedColor, 30)
+}
+func normalSpeedGaugeForegroundColor() *sdl.Color {
+	return DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50)
+}
 
-var (
-	fastSpeedGaugeAnimateColor      = DrawHelper.GetMoreBlackishColor(Constants.RedColor, 30)
-	normalSpeedGaugeForegroundColor = DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50)
-)
-
-// Draw draws players's typing speed by text and color
-func (s SpeedGauge) Draw(c *DrawComponent.DrawContext) {
+// SpeedGauge draws players's typing speed by text and color
+func SpeedGauge(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		pos.FromXY(Constants.Margin, 382),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
@@ -31,7 +32,7 @@ func (s SpeedGauge) Draw(c *DrawComponent.DrawContext) {
 		//4key/secを超えていたら、赤色でアニメーション
 		Color := Constants.RedColor
 		if !(c.FrameCount%10 < 5) {
-			Color = fastSpeedGaugeAnimateColor
+			Color = fastSpeedGaugeAnimateColor()
 		}
 		DrawHelper.DrawFillRect(c.Renderer, Color, Area)
 	} else {
@@ -39,7 +40,7 @@ func (s SpeedGauge) Draw(c *DrawComponent.DrawContext) {
 		DrawHelper.DrawFillRect(c.Renderer, Constants.GreenThinColor, Area)
 
 		GaugeWidth := c.GameState.GetKeyTypePerSecond() / 4 * (Constants.WindowWidth * 2)
-		DrawHelper.DrawFillRect(c.Renderer, normalSpeedGaugeForegroundColor,
+		DrawHelper.DrawFillRect(c.Renderer, normalSpeedGaugeForegroundColor(),
 			area.FromXYWH(Constants.Margin, 405,
 				int(GaugeWidth), 20))
 	}

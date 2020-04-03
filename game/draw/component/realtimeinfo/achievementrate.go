@@ -9,11 +9,8 @@ import (
 	"musicaltyper-go/game/draw/pos"
 )
 
-// AchievementRate presents achievement rate
-type AchievementRate struct{}
-
-// Draw draws achievement rate by percent text
-func (s AchievementRate) Draw(c *DrawComponent.DrawContext) {
+// AchievementRate draws achievement rate by percent text
+func AchievementRate(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		pos.FromXY(Constants.Margin+320, 430),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,

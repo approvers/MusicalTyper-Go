@@ -11,15 +11,12 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-// ComboText presents indication text when occured combo
-type ComboText struct{}
+func comboTextColor() *sdl.Color {
+	return &sdl.Color{R: 126, G: 126, B: 132, A: 255}
+}
 
-var (
-	comboTextColor = &sdl.Color{R: 126, G: 126, B: 132, A: 255}
-)
-
-// Draw draws combo indication text
-func (s ComboText) Draw(c *DrawComponent.DrawContext) {
+// ComboText draws combo indication text
+func ComboText(c *DrawComponent.DrawContext) {
 	ComboTextWidth, _ :=
 		DrawHelper.DrawText(c.Renderer,
 			pos.FromXY(Constants.Margin-12, 157),
@@ -29,5 +26,5 @@ func (s ComboText) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		pos.FromXY(ComboTextWidth+5, 165),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
-		"chain", comboTextColor)
+		"chain", comboTextColor())
 }

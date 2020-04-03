@@ -11,11 +11,8 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-// Keyboard presents virtual keyboard area
-type Keyboard struct{}
-
-// Draw draws virtual keyboard area
-func (s Keyboard) Draw(c *DrawComponent.DrawContext) {
+// Keyboard  draws virtual keyboard
+func Keyboard(c *DrawComponent.DrawContext) {
 	if c.PrintNextLyrics {
 		for i := 0; i < 3; i++ {
 			Index := i + c.GameState.CurrentSentenceIndex + 1

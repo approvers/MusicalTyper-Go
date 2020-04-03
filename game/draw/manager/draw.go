@@ -29,20 +29,20 @@ var (
 	backgroundEffectors = make([]*effectorEntry, 0)
 
 	backgroundComponents = []DrawComponent.Drawable{
-		Top.SongInfo{},
-		Top.Score{},
-		Body.TimeGauge{},
+		Top.SongInfo,
+		Top.Score,
+		Body.TimeGauge,
 	}
 
 	foregroundComponents = []DrawComponent.Drawable{
-		Body.TypeText{},
-		Body.ComboText{},
-		Body.AccGauge{},
-		Body.AchievementGauge{},
-		Keyboard.Keyboard{},
-		RealTimeInfo.SpeedGauge{},
-		RealTimeInfo.CorrectRateText{},
-		RealTimeInfo.AchievementRate{},
+		Body.TypeText,
+		Body.ComboText,
+		Body.AccGauge,
+		Body.AchievementGauge,
+		Keyboard.Keyboard,
+		RealTimeInfo.SpeedGauge,
+		RealTimeInfo.CorrectRateText,
+		RealTimeInfo.AchievementRate,
 	}
 )
 
@@ -84,7 +84,7 @@ func EffectorCount(Pos EffectorPos) int {
 //コンポーネントとエフェクトを描画して残ったエフェクトを返す
 func drawComponents(ctx *DrawComponent.DrawContext, components []DrawComponent.Drawable, effectors []*effectorEntry) []*effectorEntry {
 	for _, v := range components {
-		v.Draw(ctx)
+		v(ctx)
 	}
 
 	EffectorContext := new(DrawComponent.EffectDrawContext)

@@ -8,11 +8,8 @@ import (
 	"musicaltyper-go/game/draw/area"
 )
 
-// AchievementGauge presents achivement guage
-type AchievementGauge struct{}
-
-// Draw draws achivement guage
-func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
+// AchievementGauge draws achivement guage
+func AchievementGauge(c *DrawComponent.DrawContext) {
 	//達成率ゲージ
 	if Rate := c.GameState.GetAchievementRate(false); Rate > 0 {
 		DrawHelper.DrawFillRect(c.Renderer, Constants.RedColor, area.FromXYWH(0, 187, int(Constants.WindowWidth*Rate), 3))

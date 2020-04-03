@@ -12,22 +12,19 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-// CorrectRateText presents correctness rate
-type CorrectRateText struct{}
+func correctRateTextBaseColor() *sdl.Color {
+	return DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50)
+}
 
-var (
-	correctRateTextBaseColor = DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50)
-)
-
-// Draw draws correctness rate by percent text
-func (s CorrectRateText) Draw(c *DrawComponent.DrawContext) {
+// CorrectRateText draws correctness rate by percent text
+func CorrectRateText(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
 		pos.FromXY(Constants.Margin, 430),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
 		"正解率", Constants.TypedTextColor)
 
 	Acc := c.GameState.GetAccuracy()
-	DrawHelper.DrawFillRect(c.Renderer, correctRateTextBaseColor,
+	DrawHelper.DrawFillRect(c.Renderer, correctRateTextBaseColor(),
 		area.FromXYWH(Constants.Margin+5, 510,
 			int(Acc*250), 3))
 

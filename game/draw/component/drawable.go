@@ -1,14 +1,13 @@
 package component
 
 import (
-	"github.com/veandco/go-sdl2/sdl"
 	GameState "musicaltyper-go/game/state"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 // Drawable is renderer with DrawContext
-type Drawable interface {
-	Draw(*DrawContext)
-}
+type Drawable func(*DrawContext)
 
 // DrawContext is whole of state to present
 type DrawContext struct {

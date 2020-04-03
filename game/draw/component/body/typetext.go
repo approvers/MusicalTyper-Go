@@ -8,17 +8,14 @@ import (
 	"musicaltyper-go/game/draw/pos"
 )
 
-// TypeText presents hiragana, roman, and japanese lyrics text
-type TypeText struct{}
-
 func hiraganaPos() pos.Pos { return pos.FromXY(Constants.WindowWidth/2, 80) }
 
 func romaPos() pos.Pos { return pos.FromXY(Constants.WindowWidth/2, 130) }
 
 func lyricPos() pos.Pos { return pos.FromXY(Constants.Margin-12, 60) }
 
-// Draw draws hiragana, roman, and japanese lyrics text
-func (s TypeText) Draw(c *DrawComponent.DrawContext) {
+// TypeText draws hiragana, roman, and japanese lyrics text
+func TypeText(c *DrawComponent.DrawContext) {
 	CurrentNote := c.GameState.Beatmap.Notes[c.GameState.CurrentSentenceIndex]
 	CurrentSentence := CurrentNote.Sentence
 
