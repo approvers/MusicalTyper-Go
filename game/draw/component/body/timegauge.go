@@ -5,6 +5,8 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
+
+	"musicaltyper-go/game/draw/area"
 )
 
 // TimeGauge presents remaining time gauge
@@ -29,6 +31,6 @@ func (s TimeGauge) Draw(c *DrawComponent.DrawContext) {
 	}
 
 	RemainingTimeGaugeWidth := int(math.Floor(Ratio * Constants.WindowWidth))
-	DrawHelper.DrawFillRect(c.Renderer, backgroundColor, 0, 60, Constants.WindowWidth, 130)
-	DrawHelper.DrawFillRect(c.Renderer, foregroundColor, 0, 60, RemainingTimeGaugeWidth, 130)
+	DrawHelper.DrawFillRect(c.Renderer, backgroundColor, area.FromXYWH(0, 60, Constants.WindowWidth, 130))
+	DrawHelper.DrawFillRect(c.Renderer, foregroundColor, area.FromXYWH(0, 60, RemainingTimeGaugeWidth, 130))
 }

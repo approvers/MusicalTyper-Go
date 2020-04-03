@@ -7,6 +7,7 @@ import (
 	Effects "musicaltyper-go/game/draw/component/effects"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	DrawManager "musicaltyper-go/game/draw/manager"
+	"musicaltyper-go/game/draw/pos"
 	SEHelper "musicaltyper-go/game/sehelper"
 	GameState "musicaltyper-go/game/state"
 
@@ -23,21 +24,21 @@ var (
 		"Pass",
 		*DrawHelper.GetMoreBlackishColor(Constants.GreenThinColor, 50),
 		DrawHelper.AlphabetFont,
-		-150, -383, 10,
+		pos.FromXY(-150, -383), 10,
 	)
 
 	pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
 		"",
 		*Constants.BlueThickColor,
 		DrawHelper.FullFont,
-		0, 0, 15,
+		pos.FromXY(0, 0), 15,
 	)
 
 	acTextEffect = Effects.NewSlideFadeoutText(
 		"AC",
 		*Constants.GreenThickColor,
 		DrawHelper.AlphabetFont,
-		-170, -222, 20,
+		pos.FromXY(-170, -222), 20,
 	)
 
 	acBackgroundEffect = Effects.NewBlinkRect(
@@ -49,7 +50,7 @@ var (
 		"WA",
 		*DrawHelper.GetMoreWhitishColor(Constants.BlueThickColor, 100),
 		DrawHelper.AlphabetFont,
-		-170, -222, 20,
+		pos.FromXY(-170, -222), 20,
 	)
 
 	waBackgroundEffect = Effects.NewBlinkRect(
@@ -61,7 +62,7 @@ var (
 		"MISS",
 		*DrawHelper.GetMoreWhitishColor(Constants.RedColor, 50),
 		DrawHelper.AlphabetFont,
-		-150, -222, 10,
+		pos.FromXY(-150, -222), 10,
 	)
 
 	missTypeBackgroundEffect = Effects.NewBlinkRect(
@@ -73,7 +74,7 @@ var (
 		"TLE",
 		*DrawHelper.GetMoreBlackishColor(Constants.RedColor, 50),
 		DrawHelper.AlphabetFont,
-		-150, -222, 10,
+		pos.FromXY(-150, -222), 10,
 	)
 
 	tleBackgroundEffect = Effects.NewBlinkRect(
@@ -129,16 +130,16 @@ func ParseKeyInput(renderer *sdl.Renderer, s *GameState.GameState, code sdl.Keyc
 	DrawManager.AddEffector(DrawManager.FOREGROUND, 30, successEffect)
 
 	if !PrintLyric {
-		x, y := DrawHelper.GetKeyPos(KeyChar)
+		KeyPos := DrawHelper.GetKeyPos(KeyChar)
 		text := fmt.Sprintf("+%d", Point)
-		textwidth, _ := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor)
-		x -= textwidth / 2
+		textwidth := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor).W()
+		KeyPos = pos.FromXY(KeyPos.X()-textwidth/2, KeyPos.Y())
 
 		pointOnKeyboardEffect = Effects.NewAbsoluteFadeout(
 			text,
 			*Constants.BlueThickColor,
 			DrawHelper.FullFont,
-			x, y, 15,
+			KeyPos, 15,
 		)
 		DrawManager.AddEffector(DrawManager.FOREGROUND, 30, pointOnKeyboardEffect)
 	}

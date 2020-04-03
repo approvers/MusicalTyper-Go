@@ -2,6 +2,8 @@ package helper
 
 import (
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/pos"
 	"strings"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -31,13 +33,14 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *
 			HighlightThisKey := strings.ToLower(HighlightKey) == strings.ToLower(Key)
 			RectPosX := StartPos + (keySize+keyMargin)*KeyIndex
 			RectPosY := startY + (keySize+keyMargin)*Row
+			Area := area.FromXYWH(RectPosX, RectPosY, keySize, keySize)
 
 			if HighlightThisKey {
-				DrawFillRect(Renderer, Constants.GreenThickColor, RectPosX, RectPosY, keySize, keySize)
+				DrawFillRect(Renderer, Constants.GreenThickColor, Area)
 			} else if BackgroundColor != nil {
-				DrawFillRect(Renderer, BackgroundColor, RectPosX, RectPosY, keySize, keySize)
+				DrawFillRect(Renderer, BackgroundColor, Area)
 			}
-			DrawLineRect(Renderer, Constants.TextColor, RectPosX, RectPosY, keySize, keySize, keyLineWidth)
+			DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
 
 			Color := Constants.TextColor
 			if HighlightThisKey {
@@ -47,22 +50,25 @@ func DrawKeyboard(Renderer *sdl.Renderer, HighlightKey string, BackgroundColor *
 			}
 
 			Key = strings.ToUpper(Key)
-			TextWidth, TextHeight := GetTextSize(Renderer, fontSize, Key, Color)
-			DrawText(Renderer, StartPos+(keySize+keyMargin)*KeyIndex+keySize/2-TextWidth/2, startY+(keySize+keyMargin)*Row+keySize/2-TextHeight/2, LeftAlign, fontSize, Key, Color)
+			TextSize := GetTextSize(Renderer, fontSize, Key, Color)
+			DrawText(Renderer,
+				pos.FromXY(StartPos+(keySize+keyMargin)*KeyIndex+keySize/2-TextSize.W()/2,
+					startY+(keySize+keyMargin)*Row+keySize/2-TextSize.H()/2),
+				LeftAlign, fontSize, Key, Color)
 		}
 	}
 }
 
 // GetKeyPos calculates position from string of key
-func GetKeyPos(key string) (x, y int) {
+func GetKeyPos(key string) pos.Pos {
 	Size := keySize + keyMargin
 	for i, v := range KeyboardKeys {
 		Index := strings.Index(v, key)
 		if Index != -1 {
-			y = startY + i*Size
-			x = (Constants.WindowWidth-Size*len(v))/2 + Index*Size + keySize/2
-			return
+			x := (Constants.WindowWidth-Size*len(v))/2 + Index*Size + keySize/2
+			y := startY + i*Size
+			return pos.FromXY(x, y)
 		}
 	}
-	return 0, 0
+	return pos.FromXY(0, 0)
 }

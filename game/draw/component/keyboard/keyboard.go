@@ -6,14 +6,16 @@ import (
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 
+	"musicaltyper-go/game/draw/pos"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-// KeyboardArea presents virtual keyboard area
-type KeyboardArea struct{}
+// Keyboard presents virtual keyboard area
+type Keyboard struct{}
 
 // Draw draws virtual keyboard area
-func (s KeyboardArea) Draw(c *DrawComponent.DrawContext) {
+func (s Keyboard) Draw(c *DrawComponent.DrawContext) {
 	if c.PrintNextLyrics {
 		for i := 0; i < 3; i++ {
 			Index := i + c.GameState.CurrentSentenceIndex + 1
@@ -22,9 +24,9 @@ func (s KeyboardArea) Draw(c *DrawComponent.DrawContext) {
 			}
 			Note := c.GameState.Beatmap.Notes[Index]
 
-			DrawHelper.DrawText(c.Renderer, 5, 193+60*i, DrawHelper.LeftAlign, DrawHelper.SystemFont, fmt.Sprintf("[%d]", Index), Constants.TextColor)
-			DrawHelper.DrawText(c.Renderer, 5, 210+60*i, DrawHelper.LeftAlign, DrawHelper.FullFont, Note.Sentence.HiraganaSentence, Constants.TextColor)
-			DrawHelper.DrawText(c.Renderer, 5, 230+60*i, DrawHelper.LeftAlign, DrawHelper.SystemFont, Note.Sentence.GetRoma(), Constants.TextColor)
+			DrawHelper.DrawText(c.Renderer, pos.FromXY(5, 193+60*i), DrawHelper.LeftAlign, DrawHelper.SystemFont, fmt.Sprintf("[%d]", Index), Constants.TextColor)
+			DrawHelper.DrawText(c.Renderer, pos.FromXY(5, 210+60*i), DrawHelper.LeftAlign, DrawHelper.FullFont, Note.Sentence.HiraganaSentence, Constants.TextColor)
+			DrawHelper.DrawText(c.Renderer, pos.FromXY(5, 230+60*i), DrawHelper.LeftAlign, DrawHelper.SystemFont, Note.Sentence.GetRoma(), Constants.TextColor)
 		}
 	} else {
 		if c.GameState.IsInputDisabled {

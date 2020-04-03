@@ -4,6 +4,8 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
+
+	"musicaltyper-go/game/draw/pos"
 )
 
 // SongInfo presents title, author, and singer
@@ -24,6 +26,6 @@ func (s SongInfo) Draw(c *DrawComponent.DrawContext) {
 		AuthorText = Singer
 	}
 
-	DrawHelper.DrawText(c.Renderer, Constants.WindowWidth-2, 0, DrawHelper.RightAlign, DrawHelper.AlphabetFont, Title, Constants.TextColor)
-	DrawHelper.DrawText(c.Renderer, Constants.WindowWidth-5, 33, DrawHelper.RightAlign, DrawHelper.SystemFont, AuthorText, Constants.TypedTextColor)
+	DrawHelper.DrawText(c.Renderer, pos.FromXY(Constants.WindowWidth-2, 0), DrawHelper.RightAlign, DrawHelper.AlphabetFont, Title, Constants.TextColor)
+	DrawHelper.DrawText(c.Renderer, pos.FromXY(Constants.WindowWidth-5, 33), DrawHelper.RightAlign, DrawHelper.SystemFont, AuthorText, Constants.TypedTextColor)
 }

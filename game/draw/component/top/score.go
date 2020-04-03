@@ -5,6 +5,8 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
+
+	"musicaltyper-go/game/draw/pos"
 )
 
 // Score presents current score
@@ -18,8 +20,8 @@ func (s Score) Draw(c *DrawComponent.DrawContext) {
 		if c.FrameCount%20 < 10 {
 			ScoreColor = Constants.RedColor
 		}
-		DrawHelper.DrawText(c.Renderer, 5, 20, DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, ScoreColor)
+		DrawHelper.DrawText(c.Renderer, pos.FromXY(5, 20), DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, ScoreColor)
 	} else {
-		DrawHelper.DrawText(c.Renderer, 5, 20, DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, Constants.BlueThickColor)
+		DrawHelper.DrawText(c.Renderer, pos.FromXY(5, 20), DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, Constants.BlueThickColor)
 	}
 }

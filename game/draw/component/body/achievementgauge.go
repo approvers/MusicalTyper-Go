@@ -4,6 +4,8 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
+
+	"musicaltyper-go/game/draw/area"
 )
 
 // AchievementGauge presents achivement guage
@@ -13,7 +15,7 @@ type AchievementGauge struct{}
 func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
 	//達成率ゲージ
 	if Rate := c.GameState.GetAchievementRate(false); Rate > 0 {
-		DrawHelper.DrawFillRect(c.Renderer, Constants.RedColor, 0, 187, int(Constants.WindowWidth*Rate), 3)
+		DrawHelper.DrawFillRect(c.Renderer, Constants.RedColor, area.FromXYWH(0, 187, int(Constants.WindowWidth*Rate), 3))
 	}
 
 	Color := Constants.BlueThickColor
@@ -21,5 +23,5 @@ func (s AchievementGauge) Draw(c *DrawComponent.DrawContext) {
 		Color = Constants.GreenThickColor
 	}
 
-	DrawHelper.DrawFillRect(c.Renderer, Color, 0, 187, int(Constants.WindowWidth*c.GameState.GetAchievementRate(true)), 3)
+	DrawHelper.DrawFillRect(c.Renderer, Color, area.FromXYWH(0, 187, int(Constants.WindowWidth*c.GameState.GetAchievementRate(true)), 3))
 }

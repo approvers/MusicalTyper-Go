@@ -6,6 +6,8 @@ import (
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	"strconv"
 
+	"musicaltyper-go/game/draw/pos"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -20,12 +22,12 @@ var (
 func (s ComboText) Draw(c *DrawComponent.DrawContext) {
 	ComboTextWidth, _ :=
 		DrawHelper.DrawText(c.Renderer,
-			Constants.Margin-12, 157,
+			pos.FromXY(Constants.Margin-12, 157),
 			DrawHelper.LeftAlign, DrawHelper.FullFont,
 			strconv.Itoa(c.GameState.Combo), Constants.ComboTextColor)
 
 	DrawHelper.DrawText(c.Renderer,
-		ComboTextWidth+5, 165,
+		pos.FromXY(ComboTextWidth+5, 165),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
 		"chain", comboTextColor)
 }

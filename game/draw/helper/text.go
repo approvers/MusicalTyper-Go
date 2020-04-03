@@ -3,6 +3,9 @@ package helper
 import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/pos"
+	"musicaltyper-go/game/draw/size"
 	Logger "musicaltyper-go/game/logger"
 	"time"
 
@@ -82,13 +85,14 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.
 }
 
 // DrawText renders text
-func DrawText(Renderer *sdl.Renderer, x, y int, alignment AlignmentType, Size FontSize, Text string, Color *sdl.Color) (int, int) {
+func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color *sdl.Color) (int, int) {
 	logger := Logger.NewLogger("DrawText")
 	if Text == "" {
 		return 0, 0
 	}
 
 	Texture := makeTexture(Renderer, Size, Text, Color)
+	x, y := p.X(), p.Y()
 
 	var Rect sdl.Rect
 	switch alignment {
@@ -134,21 +138,21 @@ func DrawLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color) {
 }
 
 // GetTextSize calculates dimension of text by actual rendering
-func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) (int, int) {
+func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color *sdl.Color) size.Size {
 	Texture := makeTexture(Renderer, Size, Text, Color)
-	return int(Texture.Width), int(Texture.Height)
+	return size.FromWH(int(Texture.Width), int(Texture.Height))
 }
 
 // DrawFillRect renders filled rect
-func DrawFillRect(Renderer *sdl.Renderer, Color *sdl.Color, x, y, width, height int) {
+func DrawFillRect(Renderer *sdl.Renderer, Color *sdl.Color, a area.Area) {
 	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
-	Renderer.FillRect(&sdl.Rect{X: int32(x), Y: int32(y), W: int32(width), H: int32(height)})
+	Renderer.FillRect(a.ToRect())
 }
 
 // DrawLineRect render rect by lines
-func DrawLineRect(Renderer *sdl.Renderer, Color *sdl.Color, x, y, width, height, thickness int) {
+func DrawLineRect(Renderer *sdl.Renderer, Color *sdl.Color, a area.Area, thickness int) {
 	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
-	X, Y, Width, Height, Thickness := int32(x), int32(y), int32(width), int32(height), int32(thickness)
+	X, Y, Width, Height, Thickness := int32(a.X()), int32(a.Y()), int32(a.W()), int32(a.H()), int32(thickness)
 
 	Rects := []sdl.Rect{
 		{X: X, Y: Y, W: Width, H: Thickness},

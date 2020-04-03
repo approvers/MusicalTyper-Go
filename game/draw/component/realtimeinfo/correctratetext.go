@@ -6,6 +6,9 @@ import (
 	DrawComponent "musicaltyper-go/game/draw/component"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 
+	"musicaltyper-go/game/draw/area"
+	"musicaltyper-go/game/draw/pos"
+
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -19,14 +22,14 @@ var (
 // Draw draws correctness rate by percent text
 func (s CorrectRateText) Draw(c *DrawComponent.DrawContext) {
 	DrawHelper.DrawText(c.Renderer,
-		Constants.Margin, 430,
+		pos.FromXY(Constants.Margin, 430),
 		DrawHelper.LeftAlign, DrawHelper.SystemFont,
 		"正解率", Constants.TypedTextColor)
 
 	Acc := c.GameState.GetAccuracy()
 	DrawHelper.DrawFillRect(c.Renderer, correctRateTextBaseColor,
-		Constants.Margin+5, 510,
-		int(Acc*250), 3)
+		area.FromXYWH(Constants.Margin+5, 510,
+			int(Acc*250), 3))
 
 	Text := fmt.Sprintf("%05.1f%%", Acc*100)
 	TextColor := &sdl.Color{
@@ -36,7 +39,7 @@ func (s CorrectRateText) Draw(c *DrawComponent.DrawContext) {
 		A: 255}
 
 	DrawHelper.DrawText(c.Renderer,
-		Constants.Margin+5, 430,
+		pos.FromXY(Constants.Margin+5, 430),
 		DrawHelper.LeftAlign, DrawHelper.BigFont,
 		Text, TextColor)
 }
