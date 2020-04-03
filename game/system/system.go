@@ -66,7 +66,7 @@ var (
 	)
 
 	missTypeBackgroundEffect = Effects.NewBlinkRect(
-		sdl.Color{255, 200, 200, 255},
+		sdl.Color{R: 255, G: 200, B: 200, A: 255},
 		&sdl.Rect{X: 0, Y: 60, W: Constants.WindowWidth, H: 130},
 	)
 
