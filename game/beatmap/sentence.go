@@ -4,6 +4,7 @@ import (
 	"fmt"
 	DrawHelper "musicaltyper-go/game/draw/helper"
 	"strings"
+	"unicode/utf8"
 )
 
 // Sentence has state for typing roman string
@@ -49,7 +50,7 @@ func (s *Sentence) GetTypedText() string {
 
 // GetRemainingText returns substring of hiragana after typed index
 func (s *Sentence) GetRemainingText() string {
-	return DrawHelper.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, DrawHelper.Length(s.HiraganaSentence))
+	return DrawHelper.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, length(s.HiraganaSentence))
 }
 
 // GetTypedRoma returns typed roman
@@ -81,7 +82,7 @@ func (s *Sentence) GetRemainingRoma() string {
 	for _, v := range s.SolvedSentence {
 		Result += v.RomaStyles[0]
 	}
-	return DrawHelper.Substring(Result, DrawHelper.Length(s.GetTypedRoma()), DrawHelper.Length(Result))
+	return DrawHelper.Substring(Result, length(s.GetTypedRoma()), length(Result))
 }
 
 // GetRoma returns whole of roman string
@@ -138,12 +139,15 @@ func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 		CurrentChar.RomaStyles = RemainSuggests
 		CurrentChar.TypingIndex++
 		return true, false
-	} else {
-		s.CurrentCharacterIndex++
-		if len(s.SolvedSentence) == s.CurrentCharacterIndex {
-			s.IsFinished = true
-			return true, true
-		}
-		return true, false
 	}
+	s.CurrentCharacterIndex++
+	if len(s.SolvedSentence) == s.CurrentCharacterIndex {
+		s.IsFinished = true
+		return true, true
+	}
+	return true, false
+}
+
+func length(s string) int {
+	return utf8.RuneCountInString(s)
 }
