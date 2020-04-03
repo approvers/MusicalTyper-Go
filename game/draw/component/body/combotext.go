@@ -4,7 +4,7 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/color"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
 	"strconv"
 
@@ -19,14 +19,14 @@ func comboTextColor() color.Color {
 func ComboText(Combo int) component.Drawable {
 	return func(Renderer *sdl.Renderer) {
 		ComboTextWidth, _ :=
-			DrawHelper.DrawText(Renderer,
+			helper.DrawText(Renderer,
 				pos.FromXY(Constants.Margin-12, 157),
-				DrawHelper.LeftAlign, DrawHelper.FullFont,
+				helper.LeftAlign, helper.FullFont,
 				strconv.Itoa(Combo), Constants.ComboTextColor)
 
-		DrawHelper.DrawText(Renderer,
+		helper.DrawText(Renderer,
 			pos.FromXY(ComboTextWidth+5, 165),
-			DrawHelper.LeftAlign, DrawHelper.SystemFont,
+			helper.LeftAlign, helper.SystemFont,
 			"chain", comboTextColor())
 	}
 }

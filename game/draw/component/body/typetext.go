@@ -4,7 +4,7 @@ import (
 	"musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/pos"
 
@@ -21,14 +21,14 @@ func lyricPos() pos.Pos { return pos.FromXY(Constants.Margin-12, 60) }
 func TypeText(CurrentSentence beatmap.Sentence) component.Drawable {
 	return func(Renderer *sdl.Renderer) {
 		//ひらがな
-		DrawHelper.DrawText(Renderer, hiraganaPos(), DrawHelper.RightAlign, DrawHelper.JapaneseFont, CurrentSentence.GetTypedText(), Constants.TypedTextColor)
-		DrawHelper.DrawText(Renderer, hiraganaPos(), DrawHelper.LeftAlign, DrawHelper.JapaneseFont, CurrentSentence.GetRemainingText(), Constants.RemainingTextColor)
+		helper.DrawText(Renderer, hiraganaPos(), helper.RightAlign, helper.JapaneseFont, CurrentSentence.GetTypedText(), Constants.TypedTextColor)
+		helper.DrawText(Renderer, hiraganaPos(), helper.LeftAlign, helper.JapaneseFont, CurrentSentence.GetRemainingText(), Constants.RemainingTextColor)
 
 		//ローマ字
-		DrawHelper.DrawText(Renderer, romaPos(), DrawHelper.RightAlign, DrawHelper.FullFont, CurrentSentence.GetTypedRoma(), Constants.TypedTextColor)
-		DrawHelper.DrawText(Renderer, romaPos(), DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.GetRemainingRoma(), Constants.RemainingTextColor)
+		helper.DrawText(Renderer, romaPos(), helper.RightAlign, helper.FullFont, CurrentSentence.GetTypedRoma(), Constants.TypedTextColor)
+		helper.DrawText(Renderer, romaPos(), helper.LeftAlign, helper.FullFont, CurrentSentence.GetRemainingRoma(), Constants.RemainingTextColor)
 
 		//歌詞
-		DrawHelper.DrawText(Renderer, lyricPos(), DrawHelper.LeftAlign, DrawHelper.FullFont, CurrentSentence.OriginalSentence, Constants.LyricTextColor)
+		helper.DrawText(Renderer, lyricPos(), helper.LeftAlign, helper.FullFont, CurrentSentence.OriginalSentence, Constants.LyricTextColor)
 	}
 }

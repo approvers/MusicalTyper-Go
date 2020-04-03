@@ -2,7 +2,7 @@ package beatmap
 
 import (
 	"fmt"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 	"strings"
 	"unicode/utf8"
 )
@@ -45,12 +45,12 @@ func NewSentence(OriginalSentence, HiraganaSentence string) *Sentence {
 
 // GetTypedText returns substring of hiragana before typed index
 func (s *Sentence) GetTypedText() string {
-	return DrawHelper.Substring(s.HiraganaSentence, 0, s.CurrentCharacterIndex)
+	return helper.Substring(s.HiraganaSentence, 0, s.CurrentCharacterIndex)
 }
 
 // GetRemainingText returns substring of hiragana after typed index
 func (s *Sentence) GetRemainingText() string {
-	return DrawHelper.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, length(s.HiraganaSentence))
+	return helper.Substring(s.HiraganaSentence, s.CurrentCharacterIndex, length(s.HiraganaSentence))
 }
 
 // GetTypedRoma returns typed roman
@@ -66,7 +66,7 @@ func (s *Sentence) GetTypedRoma() string {
 
 	if len(s.SolvedSentence) > s.CurrentCharacterIndex {
 		CurrentCharacter := s.SolvedSentence[s.CurrentCharacterIndex]
-		Result += DrawHelper.Substring(CurrentCharacter.RomaStyles[0], 0, CurrentCharacter.TypingIndex)
+		Result += helper.Substring(CurrentCharacter.RomaStyles[0], 0, CurrentCharacter.TypingIndex)
 	}
 
 	return Result
@@ -82,7 +82,7 @@ func (s *Sentence) GetRemainingRoma() string {
 	for _, v := range s.SolvedSentence {
 		Result += v.RomaStyles[0]
 	}
-	return DrawHelper.Substring(Result, length(s.GetTypedRoma()), length(Result))
+	return helper.Substring(Result, length(s.GetTypedRoma()), length(Result))
 }
 
 // GetRoma returns whole of roman string

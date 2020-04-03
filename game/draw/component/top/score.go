@@ -4,7 +4,7 @@ import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/pos"
 
@@ -20,9 +20,9 @@ func Score(Point int, FrameCount int) component.Drawable {
 			if FrameCount%20 < 10 {
 				ScoreColor = Constants.RedColor
 			}
-			DrawHelper.DrawText(Renderer, pos.FromXY(5, 20), DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, ScoreColor)
+			helper.DrawText(Renderer, pos.FromXY(5, 20), helper.LeftAlign, helper.AlphabetFont, Text, ScoreColor)
 		} else {
-			DrawHelper.DrawText(Renderer, pos.FromXY(5, 20), DrawHelper.LeftAlign, DrawHelper.AlphabetFont, Text, Constants.BlueThickColor)
+			helper.DrawText(Renderer, pos.FromXY(5, 20), helper.LeftAlign, helper.AlphabetFont, Text, Constants.BlueThickColor)
 		}
 	}
 }

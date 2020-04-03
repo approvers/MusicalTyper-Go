@@ -6,7 +6,7 @@ import (
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -33,7 +33,7 @@ func TimeGauge(normalizedRemainingTime float64) component.Drawable {
 		}*/
 
 		RemainingTimeGaugeWidth := int(math.Floor(normalizedRemainingTime * Constants.WindowWidth))
-		DrawHelper.DrawFillRect(Renderer, backgroundColor(), area.FromXYWH(0, 60, Constants.WindowWidth, 130))
-		DrawHelper.DrawFillRect(Renderer, foregroundColor(), area.FromXYWH(0, 60, RemainingTimeGaugeWidth, 130))
+		helper.DrawFillRect(Renderer, backgroundColor(), area.FromXYWH(0, 60, Constants.WindowWidth, 130))
+		helper.DrawFillRect(Renderer, foregroundColor(), area.FromXYWH(0, 60, RemainingTimeGaugeWidth, 130))
 	}
 }

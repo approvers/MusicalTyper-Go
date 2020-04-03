@@ -9,7 +9,7 @@ import (
 	"musicaltyper-go/game/draw/component/effects"
 	"musicaltyper-go/game/draw/component/keyboard"
 	"musicaltyper-go/game/draw/component/mainview"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
 	SEHelper "musicaltyper-go/game/sehelper"
 
@@ -25,7 +25,7 @@ func successEffect() component.DrawableEffect {
 	return effects.NewSlideFadeoutText(
 		"Pass",
 		Constants.GreenThinColor.Darker(50),
-		DrawHelper.AlphabetFont,
+		helper.AlphabetFont,
 		pos.FromXY(-150, -383), 10,
 	)
 }
@@ -34,7 +34,7 @@ func pointOnKeyboardEffect() component.DrawableEffect {
 	return effects.NewAbsoluteFadeout(
 		"",
 		Constants.BlueThickColor,
-		DrawHelper.FullFont,
+		helper.FullFont,
 		pos.FromXY(0, 0), 15,
 	)
 }
@@ -43,7 +43,7 @@ func acTextEffect() component.DrawableEffect {
 	return effects.NewSlideFadeoutText(
 		"AC",
 		Constants.GreenThickColor,
-		DrawHelper.AlphabetFont,
+		helper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
 }
@@ -59,7 +59,7 @@ func waTextEffect() component.DrawableEffect {
 	return effects.NewSlideFadeoutText(
 		"WA",
 		Constants.BlueThickColor.Brighter(100),
-		DrawHelper.AlphabetFont,
+		helper.AlphabetFont,
 		pos.FromXY(-170, -222), 20,
 	)
 }
@@ -75,7 +75,7 @@ func missTypeTextEffect() component.DrawableEffect {
 	return effects.NewSlideFadeoutText(
 		"MISS",
 		Constants.RedColor.Brighter(50),
-		DrawHelper.AlphabetFont,
+		helper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
 }
@@ -91,7 +91,7 @@ func tleTextEffect() component.DrawableEffect {
 	return effects.NewSlideFadeoutText(
 		"TLE",
 		Constants.RedColor.Darker(50),
-		DrawHelper.AlphabetFont,
+		helper.AlphabetFont,
 		pos.FromXY(-150, -222), 10,
 	)
 }
@@ -133,13 +133,13 @@ func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, Prin
 	if !PrintLyric {
 		KeyPos := keyboard.GetKeyPos(KeyChar)
 		text := fmt.Sprintf("+%d", Point)
-		textwidth := DrawHelper.GetTextSize(renderer, DrawHelper.FullFont, text, Constants.BlueThickColor).W()
+		textwidth := helper.GetTextSize(renderer, helper.FullFont, text, Constants.BlueThickColor).W()
 		KeyPos = pos.FromXY(KeyPos.X()-textwidth/2, KeyPos.Y())
 
 		mainview.AddEffector(mainview.FOREGROUND, 30, effects.NewAbsoluteFadeout(
 			text,
 			Constants.BlueThickColor,
-			DrawHelper.FullFont,
+			helper.FullFont,
 			KeyPos, 15,
 		))
 	}

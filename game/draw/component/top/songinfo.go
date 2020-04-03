@@ -3,7 +3,7 @@ package top
 import (
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/pos"
 
@@ -26,7 +26,7 @@ func SongInfo(Properties map[string]string) component.Drawable {
 			AuthorText = Singer
 		}
 
-		DrawHelper.DrawText(Renderer, pos.FromXY(Constants.WindowWidth-2, 0), DrawHelper.RightAlign, DrawHelper.AlphabetFont, Title, Constants.TextColor)
-		DrawHelper.DrawText(Renderer, pos.FromXY(Constants.WindowWidth-5, 33), DrawHelper.RightAlign, DrawHelper.SystemFont, AuthorText, Constants.TypedTextColor)
+		helper.DrawText(Renderer, pos.FromXY(Constants.WindowWidth-2, 0), helper.RightAlign, helper.AlphabetFont, Title, Constants.TextColor)
+		helper.DrawText(Renderer, pos.FromXY(Constants.WindowWidth-5, 33), helper.RightAlign, helper.SystemFont, AuthorText, Constants.TypedTextColor)
 	}
 }

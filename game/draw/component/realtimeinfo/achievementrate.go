@@ -4,7 +4,7 @@ import (
 	"fmt"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 
 	"musicaltyper-go/game/draw/pos"
 
@@ -14,15 +14,15 @@ import (
 // AchievementRate draws achievement rate by percent text
 func AchievementRate(achievementRate float64) component.Drawable {
 	return func(Renderer *sdl.Renderer) {
-		DrawHelper.DrawText(Renderer,
+		helper.DrawText(Renderer,
 			pos.FromXY(Constants.Margin+320, 430),
-			DrawHelper.LeftAlign, DrawHelper.SystemFont,
+			helper.LeftAlign, helper.SystemFont,
 			"達成率", Constants.TypedTextColor)
 
 		Text := fmt.Sprintf("%05.1f%%", achievementRate*100)
-		DrawHelper.DrawText(Renderer,
+		helper.DrawText(Renderer,
 			pos.FromXY(Constants.Margin+330, 430),
-			DrawHelper.LeftAlign, DrawHelper.BigFont,
+			helper.LeftAlign, helper.BigFont,
 			Text, Constants.BlueThickColor)
 	}
 }

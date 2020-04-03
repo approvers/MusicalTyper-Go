@@ -6,7 +6,7 @@ import (
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/component/mainview"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 	Logger "musicaltyper-go/game/logger"
 	GameState "musicaltyper-go/game/state"
 	"time"
@@ -30,7 +30,7 @@ func Run(beatmap *Beatmap.Beatmap) {
 	Logger.CheckError(ttf.Init())
 	defer ttf.Quit()
 
-	defer DrawHelper.Quit()
+	defer helper.Quit()
 
 	Logger.CheckError(mix.OpenAudio(44100, mix.DEFAULT_FORMAT, 2, 4096))
 	defer mix.CloseAudio()

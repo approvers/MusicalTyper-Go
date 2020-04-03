@@ -4,7 +4,7 @@ import (
 	"musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	DrawHelper "musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/rank"
 
 	"musicaltyper-go/game/draw/area"
@@ -22,14 +22,14 @@ func AccGauge(CurrentSentence beatmap.Sentence, achievementRate float64, rank ra
 		Acc := CurrentSentence.GetAccuracy()
 		GaugeArea := area.FromXYWH(0, 60, int(Acc), 3)
 		if Acc == 1 {
-			DrawHelper.DrawFillRect(Renderer, Constants.RedColor, GaugeArea)
+			helper.DrawFillRect(Renderer, Constants.RedColor, GaugeArea)
 		} else {
-			DrawHelper.DrawFillRect(Renderer, Constants.GreenThickColor, GaugeArea)
+			helper.DrawFillRect(Renderer, Constants.GreenThickColor, GaugeArea)
 		}
 		//正解率ゲージの上に出るランク
-		DrawHelper.DrawText(Renderer,
+		helper.DrawText(Renderer,
 			pos.FromXY(RankPosX, 168),
-			DrawHelper.RightAlign, DrawHelper.SystemFont,
+			helper.RightAlign, helper.SystemFont,
 			rank.Text(), Constants.TypedTextColor)
 	}
 }
