@@ -21,6 +21,29 @@ func FromXYWH(x, y, w, h int) Area {
 	}
 }
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func abs(a int) int {
+	if 0 < a {
+		return a
+	}
+	return -a
+}
+
+// FromTwoPos returns area that contains specified two points
+func FromTwoPos(a, b pos.Pos) Area {
+	x := min(a.X(), b.X())
+	y := min(a.Y(), b.Y())
+	w := abs(a.X() - b.X())
+	h := abs(a.Y() - b.Y())
+	return FromXYWH(x, y, w, h)
+}
+
 // X returns x coordinate of area
 func (a Area) X() int {
 	return a.p.X()

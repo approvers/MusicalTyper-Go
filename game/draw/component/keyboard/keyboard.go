@@ -34,5 +34,6 @@ func Keyboard(c *DrawComponent.DrawContext) {
 		}
 	}
 	//キーボードの下の線
-	DrawHelper.DrawThickLine(c.Renderer, 0, 375, Constants.WindowWidth, 375, Constants.TypedTextColor, 2)
+	DrawHelper.DrawThickLine(c.Renderer,
+		pos.FromXY(0, 375), pos.FromXY(Constants.WindowWidth, 375), Constants.TypedTextColor, 2)
 }

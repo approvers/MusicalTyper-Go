@@ -126,15 +126,14 @@ func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size F
 
 // DrawThickLine renders thick line
 //fixme: 計算ガバガバなので斜めの線とか引くと多分バグる
-func DrawThickLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color, Thickness int) {
+func DrawThickLine(Renderer *sdl.Renderer, from, to pos.Pos, Color *sdl.Color, Thickness int) {
 	Renderer.SetDrawColor(Color.R, Color.G, Color.B, Color.A)
-	X, Y, DistX, DistY := int32(x), int32(y), int32(dstx), int32(dsty)
-	Renderer.DrawRect(&sdl.Rect{X: X, Y: Y, W: DistX - X, H: DistY - Y})
+	Renderer.DrawRect(area.FromTwoPos(from, to).ToRect())
 }
 
 // DrawLine render line
-func DrawLine(Renderer *sdl.Renderer, x, y, dstx, dsty int, Color *sdl.Color) {
-	DrawThickLine(Renderer, x, y, dstx, dsty, Color, 1)
+func DrawLine(Renderer *sdl.Renderer, from, to pos.Pos, Color *sdl.Color) {
+	DrawThickLine(Renderer, from, to, Color, 1)
 }
 
 // GetTextSize calculates dimension of text by actual rendering
