@@ -4,6 +4,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 	"musicaltyper-go/game/beatmap"
 	"musicaltyper-go/game/rank"
+	"time"
 )
 
 // Drawable is renderer with DrawContext
@@ -24,4 +25,5 @@ type DrawContext struct {
 	TypingSpeed             int
 	IsKeyboardDisabled      bool
 	FrameCount              int
+	DrawBeginTime           *time.Time
 }

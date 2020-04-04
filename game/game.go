@@ -36,7 +36,7 @@ func Run(beatmap *beatmap.Beatmap) {
 	defer mix.CloseAudio()
 	mix.AllocateChannels(constants.AudioChannelNum)
 
-	mix.VolumeMusic(mix.MAX_VOLUME / 3)
+	mix.VolumeMusic(mix.MAX_VOLUME / 10)
 	Music, Error := mix.LoadMUS(beatmap.Properties["song_data"])
 	Logger.CheckError(Error)
 
@@ -115,6 +115,7 @@ func Run(beatmap *beatmap.Beatmap) {
 		}
 
 		nextSentenceIndex := gameState.CurrentSentenceIndex + 1
+		Time := time.Now()
 		Context := component.DrawContext{
 			Renderer:                Renderer,
 			Properties:              beatmap.Properties,
@@ -129,6 +130,7 @@ func Run(beatmap *beatmap.Beatmap) {
 			TypingSpeed:             gameState.GetKeyTypePerSecond(),
 			IsKeyboardDisabled:      isContNextLyricsPrinting || isTmpNextLyricsPrinting,
 			FrameCount:              FrameCount,
+			DrawBeginTime:           &Time,
 		}
 
 		Renderer.SetDrawColor(255, 243, 224, 0)

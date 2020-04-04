@@ -52,6 +52,8 @@ func Draw(ctx *component.DrawContext) {
 		RealTimeInfo.AchievementRate(ctx.AchievementRate),
 	}
 	foregroundEffectors = drawComponents(ctx.Renderer, foregroundComponents, foregroundEffectors)
+
+	Top.Drawtime(ctx.DrawBeginTime, ctx.FrameCount, len(foregroundEffectors), len(backgroundEffectors))(ctx.Renderer)
 }
 
 // AddEffector adds effector with position and duration
