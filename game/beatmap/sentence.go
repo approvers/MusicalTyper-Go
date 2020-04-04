@@ -107,7 +107,7 @@ func (s *Sentence) GetRoma() string {
 
 // GetAccuracy return accuracy of user typed
 func (s *Sentence) GetAccuracy() float64 {
-	Misses, Types := 1, 118
+	Misses, Types := 1, 1
 	if s.TypeCount > 0 {
 		Types = s.TypeCount
 	}
