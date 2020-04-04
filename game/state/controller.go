@@ -105,7 +105,7 @@ func tleBackgroundEffect() component.DrawableEffect {
 
 // ParseKeyInput handles key input event from sdl
 func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, PrintLyric bool) {
-	if !((code >= 'a' && code <= 'z') || (code >= '0' && code <= '9') || code == '[' || code == ']' || code == ',' || code == '.' || code == ' ') {
+	if !((code >= 'a' && code <= 'z') || (code >= '0' && code <= '9') || code == '[' || code == ']' || code == ',' || code == '.' || code == ' ' || code == '-') {
 		return
 	}
 
@@ -145,6 +145,8 @@ func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, Prin
 	}
 
 	if SentenceEnded {
+		s.IsInputDisabled = true
+
 		if CurrentSentence.MissCount == 0 {
 			mainview.AddEffector(mainview.FOREGROUND, 120, acTextEffect())
 			mainview.AddEffector(mainview.BACKGROUND, 15, acBackgroundEffect())

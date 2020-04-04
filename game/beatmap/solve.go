@@ -7,29 +7,76 @@ import (
 	"musicaltyper-go/game/logger"
 )
 
-var (
-	// SmallCharacters are small characters in hiragana
-	SmallCharacters = []string{"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "っ", "ゃ", "ゅ", "ょ"}
-)
-
 // Solve divides hiragana string to slice of Character
 func Solve(HiraganaSentence string) []*Character {
 	Result := make([]*Character, 0)
-	for _, c := range strings.Split(HiraganaSentence, "") {
-		var (
-			Roma = getRoma(c)
-		)
+
+	Chars := strings.Split(HiraganaSentence, "")
+	for i, c := range Chars {
+		RomaStyles := make([]*RomaStyle, 0)
+
+		for _, v := range GetRoma(c) {
+			RomaStyles = append(RomaStyles, &RomaStyle{
+				Forwards: 1,
+				Roma:     v,
+			})
+		}
+
+		if i < len(Chars)-1 {
+			for _, v := range GetShortStyleRoma(c + Chars[i+1]) {
+				if v == "" {
+					break
+				}
+				RomaStyles = append(RomaStyles, &RomaStyle{
+					Forwards: 2,
+					Roma:     v,
+				})
+			}
+		}
 
 		Result = append(Result, &Character{
-			Character:   c,
-			RomaStyles:  Roma,
-			TypingIndex: 0,
+			Character:  c,
+			RomaStyles: RomaStyles,
 		})
 	}
+
+	//っ
+	for i, r := range Result {
+		if r.Character != "っ" {
+			continue
+		}
+
+		if len(Result) <= i+1 {
+			continue
+		}
+
+		for _, v := range Result[i+1].RomaStyles {
+			if len(v.Roma) == 1 {
+				continue
+			}
+
+			r.RomaStyles = append(r.RomaStyles, &RomaStyle{
+				Forwards: v.Forwards + 1,
+				Roma:     GetSmallTsuPattern(v.Roma),
+			})
+		}
+	}
+
 	return Result
 }
 
-func getRoma(Character string) []string {
+func GetSmallTsuPattern(src string) string {
+	runes := []rune(src)
+	result := []rune{runes[0], runes[0]}
+
+	for i := 1; i < len(runes); i++ {
+		result = append(result, runes[i])
+	}
+
+	return string(result)
+}
+
+func GetRoma(Character string) []string {
 	switch Character {
 	case "あ":
 		return []string{"a"}
@@ -207,6 +254,9 @@ func getRoma(Character string) []string {
 	case "ょ":
 		return []string{"lyo", "xyo"}
 
+	case "ゔ":
+		return []string{"vu"}
+
 	case "、":
 		return []string{","}
 	case "。":
@@ -215,14 +265,26 @@ func getRoma(Character string) []string {
 		return []string{"-"}
 	case " ", "　":
 		return []string{" "}
+
 	default:
+		switch char := ([]rune(Character))[0]; {
+		case char >= 'A' && char <= 'Z':
+			return []string{strings.ToLower(string(char))}
+
+		case char >= 'a' && char <= 'z':
+			return []string{string(char)}
+
+		case char >= '0' && char <= '9':
+			return []string{string(char)}
+		}
+
 		log := logger.NewLogger("GetRoma")
 		log.FatalError(fmt.Sprintf("fixme: Unknown charcter \"%s\"", Character))
 		return nil
 	}
 }
 
-func getShortStyleRoma(Character string) []string {
+func GetShortStyleRoma(Character string) []string {
 	switch Character {
 	case "きゃ":
 		return []string{"kya"}

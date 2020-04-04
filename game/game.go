@@ -62,7 +62,6 @@ func Run(beatmap *beatmap.Beatmap) {
 		Running                  = true
 		FrameCount               = 0
 		gameState                = state.NewGameState(beatmap)
-		isTmpNextLyricsPrinting  = false
 		isContNextLyricsPrinting = false
 		//DrawBegin    time.Time
 		//DrawFinish time.Time
@@ -76,25 +75,16 @@ func Run(beatmap *beatmap.Beatmap) {
 
 			case *sdl.KeyboardEvent:
 				key := e.Keysym.Sym
-				switch e.Type {
-				case sdl.KEYUP:
-					if key == sdl.K_SPACE {
-						isTmpNextLyricsPrinting = false
-					}
-
-				case sdl.KEYDOWN:
+				if e.Type == sdl.KEYDOWN {
 					switch key {
 					case sdl.K_ESCAPE:
 						Running = false
-
-					case sdl.K_SPACE:
-						isTmpNextLyricsPrinting = true
 
 					case sdl.K_LSHIFT, sdl.K_RSHIFT:
 						isContNextLyricsPrinting = !isContNextLyricsPrinting
 
 					default:
-						gameState.ParseKeyInput(Renderer, key, isTmpNextLyricsPrinting || isContNextLyricsPrinting)
+						gameState.ParseKeyInput(Renderer, key, isContNextLyricsPrinting)
 					}
 				}
 			}
@@ -128,7 +118,7 @@ func Run(beatmap *beatmap.Beatmap) {
 			NextLyrics:              beatmap.Notes[nextSentenceIndex : nextSentenceIndex+3],
 			Accuracy:                gameState.GetAccuracy(),
 			TypingSpeed:             gameState.GetKeyTypePerSecond(),
-			IsKeyboardDisabled:      isContNextLyricsPrinting || isTmpNextLyricsPrinting,
+			IsKeyboardDisabled:      isContNextLyricsPrinting,
 			FrameCount:              FrameCount,
 			DrawBeginTime:           &Time,
 		}
