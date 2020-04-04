@@ -8,9 +8,9 @@ import (
 	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/component/effects"
 	"musicaltyper-go/game/draw/component/keyboard"
-	"musicaltyper-go/game/draw/component/mainview"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
+	"musicaltyper-go/game/draw/view/mainview"
 	SEHelper "musicaltyper-go/game/sehelper"
 
 	"github.com/veandco/go-sdl2/sdl"

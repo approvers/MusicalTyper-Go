@@ -2,8 +2,9 @@ package beatmap
 
 import (
 	"fmt"
-	Logger "musicaltyper-go/game/logger"
 	"strings"
+
+	"musicaltyper-go/game/logger"
 )
 
 var (
@@ -11,7 +12,7 @@ var (
 	SmallCharacters = []string{"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "っ", "ゃ", "ゅ", "ょ"}
 )
 
-// Solve devides hiragana string to slice of Character
+// Solve divides hiragana string to slice of Character
 func Solve(HiraganaSentence string) []*Character {
 	Result := make([]*Character, 0)
 	for _, c := range strings.Split(HiraganaSentence, "") {
@@ -215,7 +216,7 @@ func getRoma(Character string) []string {
 	case " ", "　":
 		return []string{" "}
 	default:
-		log := Logger.NewLogger("GetRoma")
+		log := logger.NewLogger("GetRoma")
 		log.FatalError(fmt.Sprintf("fixme: Unknown charcter \"%s\"", Character))
 		return nil
 	}

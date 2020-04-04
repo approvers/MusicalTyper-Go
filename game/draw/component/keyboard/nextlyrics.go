@@ -3,7 +3,7 @@ package keyboard
 import (
 	"fmt"
 	"musicaltyper-go/game/beatmap"
-	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
@@ -23,9 +23,9 @@ func NextLyrics(isDisabled bool, nextLyrics []*beatmap.Note) component.Drawable 
 			}
 			Note := nextLyrics[i]
 
-			helper.DrawText(Renderer, pos.FromXY(5, 193+60*i), helper.LeftAlign, helper.SystemFont, fmt.Sprintf("[%d]", i), Constants.TextColor)
-			helper.DrawText(Renderer, pos.FromXY(5, 210+60*i), helper.LeftAlign, helper.FullFont, Note.Sentence.HiraganaSentence, Constants.TextColor)
-			helper.DrawText(Renderer, pos.FromXY(5, 230+60*i), helper.LeftAlign, helper.SystemFont, Note.Sentence.GetRoma(), Constants.TextColor)
+			helper.DrawText(Renderer, pos.FromXY(5, 193+60*i), helper.LeftAlign, helper.SystemFont, fmt.Sprintf("[%d]", i), constants.TextColor)
+			helper.DrawText(Renderer, pos.FromXY(5, 210+60*i), helper.LeftAlign, helper.FullFont, Note.Sentence.HiraganaSentence, constants.TextColor)
+			helper.DrawText(Renderer, pos.FromXY(5, 230+60*i), helper.LeftAlign, helper.SystemFont, Note.Sentence.GetRoma(), constants.TextColor)
 		}
 	}
 }

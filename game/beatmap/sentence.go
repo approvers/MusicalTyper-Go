@@ -2,9 +2,10 @@ package beatmap
 
 import (
 	"fmt"
-	"musicaltyper-go/game/draw/helper"
 	"strings"
 	"unicode/utf8"
+
+	"musicaltyper-go/game/draw/helper"
 )
 
 // Sentence has state for typing roman string

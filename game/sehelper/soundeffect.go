@@ -1,6 +1,7 @@
 package sehelper
 
 import (
+	Constants "musicaltyper-go/game/constants"
 	Logger "musicaltyper-go/game/logger"
 
 	"github.com/veandco/go-sdl2/mix"
@@ -32,6 +33,8 @@ const (
 
 var (
 	seCache = map[SEType]*mix.Chunk{}
+
+	channel = 0
 )
 
 // Play plays sound effect
@@ -44,6 +47,11 @@ func Play(seType SEType) {
 		seCache[seType] = LoadedSE
 		SE = LoadedSE
 	}
-	_, Err := SE.Play(1, 0)
+	_, Err := SE.Play(channel, 0)
 	logger.CheckError(Err)
+
+	channel++
+	if channel == Constants.AudioChannelNum-1 {
+		channel = 0
+	}
 }

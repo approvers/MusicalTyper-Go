@@ -8,7 +8,10 @@ type Size struct {
 
 // FromWH makes Size from width and height amount
 func FromWH(w, h int) Size {
-	return Size{width: w, height: h}
+	return Size{
+		width:  w,
+		height: h,
+	}
 }
 
 // W returns width of Size

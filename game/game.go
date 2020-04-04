@@ -2,13 +2,13 @@ package game
 
 import (
 	"fmt"
-	Beatmap "musicaltyper-go/game/beatmap"
-	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/beatmap"
+	"musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/component"
-	"musicaltyper-go/game/draw/component/mainview"
 	"musicaltyper-go/game/draw/helper"
-	Logger "musicaltyper-go/game/logger"
-	GameState "musicaltyper-go/game/state"
+	"musicaltyper-go/game/draw/view/mainview"
+	"musicaltyper-go/game/logger"
+	"musicaltyper-go/game/state"
 	"time"
 
 	"github.com/veandco/go-sdl2/mix"
@@ -16,9 +16,9 @@ import (
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-// Run runs game with Beatmap
-func Run(beatmap *Beatmap.Beatmap) {
-	Logger := Logger.NewLogger("GameRun")
+// Run runs game with beatmap
+func Run(beatmap *beatmap.Beatmap) {
+	Logger := logger.NewLogger("GameRun")
 
 	Logger.CheckError(sdl.Init(sdl.INIT_VIDEO))
 	Logger.CheckError(sdl.Init(sdl.INIT_AUDIO))
@@ -32,8 +32,9 @@ func Run(beatmap *Beatmap.Beatmap) {
 
 	defer helper.Quit()
 
-	Logger.CheckError(mix.OpenAudio(44100, mix.DEFAULT_FORMAT, 2, 4096))
+	Logger.CheckError(mix.OpenAudio(44100, mix.DEFAULT_FORMAT, 2, 1024))
 	defer mix.CloseAudio()
+	mix.AllocateChannels(constants.AudioChannelNum)
 
 	mix.VolumeMusic(mix.MAX_VOLUME / 3)
 	Music, Error := mix.LoadMUS(beatmap.Properties["song_data"])
@@ -44,11 +45,11 @@ func Run(beatmap *Beatmap.Beatmap) {
 	defer Music.Free()
 
 	Window, Error := sdl.CreateWindow(
-		Constants.WindowTitle,
+		constants.WindowTitle,
 		sdl.WINDOWPOS_UNDEFINED,
 		sdl.WINDOWPOS_UNDEFINED,
-		Constants.WindowWidth,
-		Constants.WindowHeight,
+		constants.WindowWidth,
+		constants.WindowHeight,
 		sdl.WINDOW_OPENGL)
 	Logger.CheckError(Error)
 	defer Window.Destroy()
@@ -60,7 +61,7 @@ func Run(beatmap *Beatmap.Beatmap) {
 	var (
 		Running                  = true
 		FrameCount               = 0
-		gameState                = GameState.NewGameState(beatmap)
+		gameState                = state.NewGameState(beatmap)
 		isTmpNextLyricsPrinting  = false
 		isContNextLyricsPrinting = false
 		//DrawBegin    time.Time
@@ -99,7 +100,7 @@ func Run(beatmap *Beatmap.Beatmap) {
 			}
 		}
 
-		FrameCount = (FrameCount + 1) % Constants.FrameRate
+		FrameCount = (FrameCount + 1) % constants.FrameRate
 		gameState.Update(float64(time.Now().Sub(MusicStartTime).Milliseconds()) / 1000.0)
 
 		var NormalizedRemainingTime float64
@@ -136,6 +137,6 @@ func Run(beatmap *Beatmap.Beatmap) {
 		mainview.Draw(&Context)
 
 		Renderer.Present()
-		sdl.Delay(1000 / Constants.FrameRate)
+		sdl.Delay(1000 / constants.FrameRate)
 	}
 }

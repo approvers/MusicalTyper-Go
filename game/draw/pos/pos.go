@@ -8,7 +8,10 @@ type Pos struct {
 
 // FromXY makes Pos from x and y coordinates
 func FromXY(x, y int) Pos {
-	return Pos{x: x, y: y}
+	return Pos{
+		x: x,
+		y: y,
+	}
 }
 
 // X returns x coordinate of Pos

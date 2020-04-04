@@ -1,10 +1,9 @@
 package component
 
 import (
+	"github.com/veandco/go-sdl2/sdl"
 	"musicaltyper-go/game/beatmap"
 	"musicaltyper-go/game/rank"
-
-	"github.com/veandco/go-sdl2/sdl"
 )
 
 // Drawable is renderer with DrawContext

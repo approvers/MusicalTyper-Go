@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
-	Logger "musicaltyper-go/game/logger"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"musicaltyper-go/game/logger"
 
 	"github.com/saintfish/chardet"
 	"golang.org/x/text/encoding/japanese"
@@ -34,7 +35,7 @@ func NewBeatmap() *Beatmap {
 
 // LoadMap makes Beatmap from file in passed path
 func LoadMap(path string) *Beatmap {
-	logger := Logger.NewLogger("LoadMap")
+	logger := logger.NewLogger("LoadMap")
 
 	File, Err := os.OpenFile(path, os.O_RDONLY, 0666)
 	logger.CheckError(Err)
@@ -170,7 +171,7 @@ func parseSpecialCommand(s string) string {
 //return -> isUTF-8. true means UTF-8, false means Shift_JIS.
 //if detected something else, consider as an error to prevent depressing errors.
 func detectEncoding(path string) bool {
-	Logger := Logger.NewLogger("detectEncoding")
+	Logger := logger.NewLogger("detectEncoding")
 
 	Data, Err := ioutil.ReadFile(path)
 	Logger.CheckError(Err)

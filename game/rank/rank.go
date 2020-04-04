@@ -22,20 +22,20 @@ func (r Rank) Text() string {
 
 var (
 	ranks = [...]Rank{
-		Rank{200, "Wow"},
-		Rank{150, "Unexpected"},
-		Rank{125, "Very God"},
-		Rank{100, "God"},
-		Rank{99.5, "Pro"},
-		Rank{99, "Genius"},
-		Rank{98, "Geki-tsuyo"},
-		Rank{97, "tsuyotsuyo"},
-		Rank{94, "AAA"},
-		Rank{90, "AA"},
-		Rank{80, "A"},
-		Rank{60, "B"},
-		Rank{40, "C"},
-		Rank{20, "D"},
-		Rank{10, "E"},
-		Rank{0, "F"}}
+		{200, "Wow"},
+		{150, "Unexpected"},
+		{125, "Very God"},
+		{100, "God"},
+		{99.5, "Pro"},
+		{99, "Genius"},
+		{98, "Geki-tsuyo"},
+		{97, "tsuyotsuyo"},
+		{94, "AAA"},
+		{90, "AA"},
+		{80, "A"},
+		{60, "B"},
+		{40, "C"},
+		{20, "D"},
+		{10, "E"},
+		{0, "F"}}
 )

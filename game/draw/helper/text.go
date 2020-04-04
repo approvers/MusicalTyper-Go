@@ -64,7 +64,7 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color color
 			Font = LoadedFont
 		}
 
-		RenderedText, Error := Font.RenderUTF8Blended(Text, *Color.Cast())
+		RenderedText, Error := Font.RenderUTF8Blended(Text, *Color.ToSDLColor())
 		logger.CheckError(Error)
 		defer RenderedText.Free()
 
@@ -128,7 +128,7 @@ func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size F
 // DrawThickLine renders thick line
 //fixme: 計算ガバガバなので斜めの線とか引くと多分バグる
 func DrawThickLine(Renderer *sdl.Renderer, from, to pos.Pos, Color color.Color, Thickness int) {
-	Color.ProxyColor(Renderer)
+	Color.ApplyColor(Renderer)
 	Renderer.DrawRect(area.FromTwoPos(from, to).ToRect())
 }
 
@@ -145,20 +145,49 @@ func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color color
 
 // DrawFillRect renders filled rect
 func DrawFillRect(Renderer *sdl.Renderer, Color color.Color, a area.Area) {
-	Color.ProxyColor(Renderer)
+	Color.ApplyColor(Renderer)
 	Renderer.FillRect(a.ToRect())
 }
 
 // DrawLineRect render rect by lines
 func DrawLineRect(Renderer *sdl.Renderer, Color color.Color, a area.Area, thickness int) {
-	Color.ProxyColor(Renderer)
-	X, Y, Width, Height, Thickness := int32(a.X()), int32(a.Y()), int32(a.W()), int32(a.H()), int32(thickness)
+	Color.ApplyColor(Renderer)
+
+	var (
+		X         = int32(a.X())
+		Y         = int32(a.Y())
+		Width     = int32(a.W())
+		Height    = int32(a.H())
+		Thickness = int32(thickness)
+	)
 
 	Rects := []sdl.Rect{
-		{X: X, Y: Y, W: Width, H: Thickness},
-		{X: X, Y: Y, W: Thickness, H: Height},
-		{X: X + Width - Thickness, Y: Y, W: Thickness, H: Height},
-		{X: X, Y: Y + Height - Thickness, W: Width, H: Thickness}}
+		{
+			X: X,
+			Y: Y,
+			W: Width,
+			H: Thickness,
+		},
+		{
+			X: X,
+			Y: Y,
+			W: Thickness,
+			H: Height,
+		},
+		{
+			X: X + Width - Thickness,
+			Y: Y,
+			W: Thickness,
+			H: Height,
+		},
+		{
+			X: X,
+			Y: Y + Height - Thickness,
+			W: Width,
+			H: Thickness,
+		},
+	}
+
 	Renderer.DrawRects(Rects)
 }
 
@@ -169,7 +198,6 @@ func Quit() {
 			t.Texture.Destroy()
 		}
 	}
-	textureCache = map[FontSize]map[string]*textureWithSize{}
 
 	for _, v := range fontCache {
 		v.Close()

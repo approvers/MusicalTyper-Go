@@ -10,7 +10,9 @@ type logger struct {
 
 // NewLogger makes logger with entryname
 func NewLogger(Entryname string) logger {
-	return logger{SectionName: Entryname}
+	return logger{
+		SectionName: Entryname,
+	}
 }
 
 func (e *logger) CheckError(err error) {

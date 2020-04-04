@@ -19,6 +19,26 @@ const (
 
 	// PrintTextureLog is flag whether to log about texture
 	PrintTextureLog = false
+
+	// AudioChannelNum is the number of will be allocated sound channels.
+	AudioChannelNum = 32
+
+	// OneCharPoint is point per typed correct
+	OneCharPoint = 10
+	// PerfectPoint is extra point when no mistakes
+	PerfectPoint = 100
+	// SectionPerfectPoint is extra point when no mistakes while the section
+	SectionPerfectPoint = 300
+	// SpecialPoint has no meanings
+	SpecialPoint = 50
+	// ClearPoint is extra point when player cleared
+	ClearPoint = 50
+	// MissPoint is added if user mistook
+	MissPoint = -30
+	// CouldntTypeCount is point per one character missed to type roman, added when timeout
+	CouldntTypeCount = -2
+	// IdealTypeSpeed is provisional typing speed used for predication of perfect score
+	IdealTypeSpeed = 3
 )
 
 var (
@@ -43,21 +63,4 @@ var (
 
 	// BackgroundColor is background color of window
 	BackgroundColor = color.FromRGBA(255, 243, 224, 0)
-
-	// OneCharPoint is point per typed correct
-	OneCharPoint = 10
-	// PerfectPoint is extra point when no mistakes
-	PerfectPoint = 100
-	// SectionPerfectPoint is extra point when no mistakes while the section
-	SectionPerfectPoint = 300
-	// SpecialPoint has no meanings
-	SpecialPoint = 50
-	// ClearPoint is extra point when player cleared
-	ClearPoint = 50
-	// MissPoint is added if user mistook
-	MissPoint = -30
-	// CouldntTypeCount is point per one character missed to type roman, added when timeout
-	CouldntTypeCount = -2
-	// IdealTypeSpeed is provisional typing speed used for predication of perfect score
-	IdealTypeSpeed = 3
 )

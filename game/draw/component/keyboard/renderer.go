@@ -1,7 +1,7 @@
 package keyboard
 
 import (
-	Constants "musicaltyper-go/game/constants"
+	"musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
 	"musicaltyper-go/game/draw/helper"
@@ -29,7 +29,7 @@ func drawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
 	HighlightKey = strings.ToLower(HighlightKey)
 	for Row := 0; Row < 4; Row++ {
 		Keys := KeyboardKeys[Row]
-		StartPos := (Constants.WindowWidth - ((keySize + keyMargin) * len(Keys))) / 2
+		StartPos := (constants.WindowWidth - ((keySize + keyMargin) * len(Keys))) / 2
 
 		for KeyIndex, Key := range strings.Split(Keys, "") {
 			HighlightThisKey := strings.ToLower(HighlightKey) == strings.ToLower(Key)
@@ -38,15 +38,15 @@ func drawKeyboard(Renderer *sdl.Renderer, HighlightKey string) {
 			Area := area.FromXYWH(RectPosX, RectPosY, keySize, keySize)
 
 			if HighlightThisKey {
-				helper.DrawFillRect(Renderer, Constants.GreenThickColor, Area)
+				helper.DrawFillRect(Renderer, constants.GreenThickColor, Area)
 			}
-			helper.DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
+			helper.DrawLineRect(Renderer, constants.TextColor, Area, keyLineWidth)
 
-			Color := Constants.TextColor
+			Color := constants.TextColor
 			if HighlightThisKey {
 				Color = Color.Invert()
 			} else if Key == "f" || Key == "j" {
-				Color = Constants.BlueThickColor
+				Color = constants.BlueThickColor
 			}
 
 			Key = strings.ToUpper(Key)
@@ -64,7 +64,7 @@ func drawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, Backgroun
 	HighlightKey = strings.ToLower(HighlightKey)
 	for Row := 0; Row < 4; Row++ {
 		Keys := KeyboardKeys[Row]
-		StartPos := (Constants.WindowWidth - ((keySize + keyMargin) * len(Keys))) / 2
+		StartPos := (constants.WindowWidth - ((keySize + keyMargin) * len(Keys))) / 2
 
 		for KeyIndex, Key := range strings.Split(Keys, "") {
 			HighlightThisKey := strings.ToLower(HighlightKey) == strings.ToLower(Key)
@@ -73,17 +73,17 @@ func drawDisabledKeyboard(Renderer *sdl.Renderer, HighlightKey string, Backgroun
 			Area := area.FromXYWH(RectPosX, RectPosY, keySize, keySize)
 
 			if HighlightThisKey {
-				helper.DrawFillRect(Renderer, Constants.GreenThickColor, Area)
+				helper.DrawFillRect(Renderer, constants.GreenThickColor, Area)
 			} else {
 				helper.DrawFillRect(Renderer, BackgroundColor, Area)
 			}
-			helper.DrawLineRect(Renderer, Constants.TextColor, Area, keyLineWidth)
+			helper.DrawLineRect(Renderer, constants.TextColor, Area, keyLineWidth)
 
-			Color := Constants.TextColor
+			Color := constants.TextColor
 			if HighlightThisKey {
 				Color = Color.Invert()
 			} else if Key == "f" || Key == "j" {
-				Color = Constants.BlueThickColor
+				Color = constants.BlueThickColor
 			}
 
 			Key = strings.ToUpper(Key)
@@ -102,7 +102,7 @@ func GetKeyPos(key string) pos.Pos {
 	for i, v := range KeyboardKeys {
 		Index := strings.Index(v, key)
 		if Index != -1 {
-			x := (Constants.WindowWidth-Size*len(v))/2 + Index*Size + keySize/2
+			x := (constants.WindowWidth-Size*len(v))/2 + Index*Size + keySize/2
 			y := startY + i*Size
 			return pos.FromXY(x, y)
 		}

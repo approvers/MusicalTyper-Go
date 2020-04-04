@@ -26,24 +26,6 @@ func FromRGBA(r, g, b, a uint8) Color {
 	}
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func clamp(a int) uint8 {
-	return uint8(max(0, min(255, a)))
-}
-
 // WithTransparency makes new Color with transparency 0.0 (transparent) ~ 1.0 (opaque)
 func (c Color) WithTransparency(alpha float64) Color {
 	return Color{
@@ -93,8 +75,8 @@ func (c Color) Invert() Color {
 	}
 }
 
-// Cast casts Color to sdl.Color
-func (c Color) Cast() *sdl.Color {
+// ToSDLColor casts Color to sdl.Color
+func (c Color) ToSDLColor() *sdl.Color {
 	return &sdl.Color{
 		R: c.r,
 		G: c.g,
@@ -103,11 +85,29 @@ func (c Color) Cast() *sdl.Color {
 	}
 }
 
-// ProxyColor sets color to sdl.Renderer
-func (c Color) ProxyColor(renderer *sdl.Renderer) {
+// ApplyColor sets color to sdl.Renderer
+func (c Color) ApplyColor(renderer *sdl.Renderer) {
 	renderer.SetDrawColor(c.r, c.g, c.b, c.a)
 }
 
 func (c Color) String() string {
 	return fmt.Sprintf("%d,%d,%d,%d", c.r, c.g, c.b, c.a)
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func clamp(a int) uint8 {
+	return uint8(max(0, min(255, a)))
 }

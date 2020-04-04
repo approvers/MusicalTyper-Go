@@ -5,7 +5,7 @@ import (
 	"math"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
-	"musicaltyper-go/game/draw/component/mainview"
+	"musicaltyper-go/game/draw/view/mainview"
 	Rank "musicaltyper-go/game/rank"
 	"musicaltyper-go/game/sehelper"
 	"time"
