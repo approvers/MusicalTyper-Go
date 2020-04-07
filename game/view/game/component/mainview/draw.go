@@ -1,11 +1,11 @@
 package mainview
 
 import (
-	"musicaltyper-go/game/draw/component"
-	Body "musicaltyper-go/game/draw/component/body"
-	Keyboard "musicaltyper-go/game/draw/component/keyboard"
-	RealTimeInfo "musicaltyper-go/game/draw/component/realtimeinfo"
-	Top "musicaltyper-go/game/draw/component/top"
+	"musicaltyper-go/game/view/game/component"
+	Body "musicaltyper-go/game/view/game/component/body"
+	Keyboard "musicaltyper-go/game/view/game/component/keyboard"
+	RealTimeInfo "musicaltyper-go/game/view/game/component/realtimeinfo"
+	Top "musicaltyper-go/game/view/game/component/top"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -52,8 +52,6 @@ func Draw(ctx *component.DrawContext) {
 		RealTimeInfo.AchievementRate(ctx.AchievementRate),
 	}
 	foregroundEffectors = drawComponents(ctx.Renderer, foregroundComponents, foregroundEffectors)
-
-	Top.Drawtime(ctx.DrawBeginTime, ctx.FrameCount, len(foregroundEffectors), len(backgroundEffectors))(ctx.Renderer)
 }
 
 // AddEffector adds effector with position and duration

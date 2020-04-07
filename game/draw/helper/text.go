@@ -42,16 +42,16 @@ const (
 	SystemFont = 16
 )
 
-func gettextureWithSizeKey(Text string, Color color.Color) string {
+func genTextureCacheKey(Text string, Color color.Color) string {
 	return fmt.Sprintf("%s,%s", Text, Color.String())
 }
 
-func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color color.Color) *textureWithSize {
+// return -> texture, isFromCache
+func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color color.Color, ShouldCache bool) (*textureWithSize, bool) {
 	logger := Logger.NewLogger("makeTexture")
-	CacheKey := gettextureWithSizeKey(Text, Color)
 
+	CacheKey := genTextureCacheKey(Text, Color)
 	Texture, TextureExists := textureCache[Size][CacheKey]
-	//fmt.Printf("\"%s\" was %t \n", CacheKey, TextureExists)
 
 	if !TextureExists {
 		Begin := time.Now()
@@ -76,23 +76,25 @@ func makeTexture(Renderer *sdl.Renderer, Size FontSize, Text string, Color color
 			textureCache[Size] = map[string]*textureWithSize{}
 		}
 
-		textureCache[Size][CacheKey] = Result
-		Texture = Result
-		if Constants.PrintTextureLog {
-			fmt.Printf("Created \"%s\" texture. Key: %s Size:%d. Took %dμs\n", Text, CacheKey, Size, time.Now().Sub(Begin).Microseconds())
+		if ShouldCache {
+			textureCache[Size][CacheKey] = Result
+			if Constants.PrintTextureLog {
+				fmt.Printf("Created \"%s\" texture. Key: %s Size:%d. Took %dμs\n", Text, CacheKey, Size, time.Now().Sub(Begin).Microseconds())
+			}
 		}
+		return Result, false
 	}
-	return Texture
+
+	return Texture, true
 }
 
-// DrawText renders text
-func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color color.Color) (int, int) {
+func drawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color color.Color, ShouldCache bool) (int, int) {
 	logger := Logger.NewLogger("DrawText")
 	if Text == "" {
 		return 0, 0
 	}
 
-	Texture := makeTexture(Renderer, Size, Text, Color)
+	Texture, isCached := makeTexture(Renderer, Size, Text, Color, ShouldCache)
 	x, y := p.X(), p.Y()
 
 	var Rect sdl.Rect
@@ -122,7 +124,21 @@ func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size F
 
 	Error := Renderer.Copy(Texture.Texture, nil, &Rect)
 	logger.CheckError(Error)
+
+	if !ShouldCache && !isCached {
+		Texture.Texture.Destroy()
+	}
+
 	return int(Texture.Width), int(Texture.Height)
+}
+
+// DrawText renders text
+func DrawText(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color color.Color) (int, int) {
+	return drawText(Renderer, p, alignment, Size, Text, Color, true)
+}
+
+func DrawTextWithoutCache(Renderer *sdl.Renderer, p pos.Pos, alignment AlignmentType, Size FontSize, Text string, Color color.Color) (int, int) {
+	return drawText(Renderer, p, alignment, Size, Text, Color, false)
 }
 
 // DrawThickLine renders thick line
@@ -139,7 +155,7 @@ func DrawLine(Renderer *sdl.Renderer, from, to pos.Pos, Color color.Color) {
 
 // GetTextSize calculates dimension of text by actual rendering
 func GetTextSize(Renderer *sdl.Renderer, Size FontSize, Text string, Color color.Color) size.Size {
-	Texture := makeTexture(Renderer, Size, Text, Color)
+	Texture, _ := makeTexture(Renderer, Size, Text, Color, true)
 	return size.FromWH(int(Texture.Width), int(Texture.Height))
 }
 

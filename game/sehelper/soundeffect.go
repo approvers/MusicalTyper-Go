@@ -33,7 +33,6 @@ const (
 
 var (
 	seCache = map[SEType]*mix.Chunk{}
-
 	channel = 0
 )
 

@@ -2,12 +2,13 @@ package top
 
 import (
 	"fmt"
-	"github.com/veandco/go-sdl2/sdl"
 	"musicaltyper-go/game/constants"
-	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
+	"musicaltyper-go/game/view/game/component"
 	"time"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
 
 // Drawtime draws draw stats.(μs, effect count)
@@ -39,6 +40,6 @@ func Drawtime(DrawBeginTime *time.Time, Framecount, FGEffectCount, BGEffectCount
 			BGEffectCount,
 		)
 
-		helper.DrawText(Renderer, pos.FromXY(3, -3), helper.LeftAlign, helper.SystemFont, Text, constants.TextColor)
+		helper.DrawTextWithoutCache(Renderer, pos.FromXY(3, -3), helper.LeftAlign, helper.SystemFont, Text, constants.TextColor)
 	}
 }

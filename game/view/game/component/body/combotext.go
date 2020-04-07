@@ -3,9 +3,9 @@ package body
 import (
 	"musicaltyper-go/game/constants"
 	"musicaltyper-go/game/draw/color"
-	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
+	"musicaltyper-go/game/view/game/component"
 	"strconv"
 
 	"github.com/veandco/go-sdl2/sdl"

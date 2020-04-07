@@ -2,35 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06aa61ba-09eb-42aa-89cf-0f4ed86b7feb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/DrawManager/Draw.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/DrawableEffect.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Effects/AbsoluteFadeout.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Effects/BlinkScreen.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/DrawComponents/Effects/SlideFadeoutText.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Game/GameSystem/GameSystem.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Beatmap.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Beatmap.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Element.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Element.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Sentence.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Beatmap/Solve.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Beatmap/Solve.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Constants/Constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Constants/Constants.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/Caller/Draw.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/Drawable.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/Drawable.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/KeyboardArea/KeyboardArea.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/KeyboardArea/KeyboardArea.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TypeText.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/MainArea/TypeText.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/AchievementRate.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/AchievementRate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/CorrectRateText.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/CorrectRateText.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/SpeedGauge.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawComponents/RealTimeInfoArea/SpeedGauge.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawHelper/Color.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Color.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawHelper/Keyboard.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Keyboard.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawHelper/Math.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Math.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawHelper/SoundEffect.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/SEHelper/SoundEffect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/DrawHelper/Text.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/DrawHelper/Text.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Game.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Game.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/Logger/Logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/Logger/Logger.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Game/State/GameState.go" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/GameState/GameState.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/body/accgauge.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/body/achievementgauge.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/body/combotext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/body/timegauge.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/body/typetext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/drawable.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/drawableeffect.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/effects/absolutefadeout.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/effects/blinkrect.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/effects/slidefadeouttext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/keyboard/keyboard.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/keyboard/nextlyrics.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/keyboard/renderer.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/mainview/draw.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/realtimeinfo/achievementrate.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/realtimeinfo/correctratetext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/realtimeinfo/speedgauge.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/top/drawtime.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/top/score.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/component/top/songinfo.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/helper/text.go" beforeDir="false" afterPath="$PROJECT_DIR$/../game/draw/helper/text.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/draw/view/mainview/draw.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/game.go" beforeDir="false" afterPath="$PROJECT_DIR$/../game/game.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/sehelper/soundeffect.go" beforeDir="false" afterPath="$PROJECT_DIR$/../game/sehelper/soundeffect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/state/controller.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../game/state/state.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,17 +71,10 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Game/DrawComponents/Interface/Drawable.go" />
-    <property name="settings.editor.selected.configurable" value="go.autoimport" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/../Game/Constants" />
-      <recent name="$PROJECT_DIR$/../Game" />
-      <recent name="$PROJECT_DIR$/../Game/DrawComponents" />
-      <recent name="$PROJECT_DIR$/../Game/GameState" />
-      <recent name="$PROJECT_DIR$/../Game/GameSystem" />
-    </key>
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
       <recent name="$PROJECT_DIR$/../Game/DrawComponents/Interface" />
       <recent name="$PROJECT_DIR$/../Game" />
@@ -91,8 +84,15 @@
       <recent name="$PROJECT_DIR$/.." />
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../game" />
+      <recent name="$PROJECT_DIR$/../game/draw/view/mainview" />
+      <recent name="$PROJECT_DIR$/../Game/Constants" />
+      <recent name="$PROJECT_DIR$/../Game" />
+      <recent name="$PROJECT_DIR$/../Game/DrawComponents" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build musicaltyper-go">
     <configuration name="go build MusicalTyper-Go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="MusicalTyper-Go" />
       <working_directory value="$PROJECT_DIR$" />
@@ -102,8 +102,23 @@
       <package value="MusicalTyper-Go" />
       <method v="2" />
     </configuration>
+    <configuration name="go build musicaltyper-go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="MusicalTyper-Go" />
+      <working_directory value="$PROJECT_DIR$/.." />
+      <parameters value="samplescore.tsc" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/../main.go" />
+      <package value="musicaltyper-go" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build MusicalTyper-Go" />
+      <item itemvalue="Go Build.go build musicaltyper-go" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build musicaltyper-go" />
         <item itemvalue="Go Build.go build MusicalTyper-Go" />
       </list>
     </recent_temporary>
@@ -133,34 +148,38 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2795" y="381" width="800" height="673" key="#Vim_Emulation/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585309675268" />
-    <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584516217492">
+    <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586216243583">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584516217492" />
-    <state x="2878" y="515" width="631" height="399" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584365529573">
+    <state x="2658" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586216243583" />
+    <state x="2878" y="515" width="667" height="395" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586217353757">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state x="2878" y="515" width="631" height="399" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584365529573" />
+    <state x="2878" y="515" width="667" height="395" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586217353757" />
+    <state x="2871" y="343" width="648" height="749" key="#go_build_MusicalTyper-Go" timestamp="1586209634869">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2871" y="343" width="648" height="749" key="#go_build_MusicalTyper-Go/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586209634869" />
     <state x="2982" y="476" width="424" height="480" key="FileChooserDialogImpl" timestamp="1585573419776">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2982" y="476" width="424" height="480" key="FileChooserDialogImpl/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585573419776" />
-    <state width="2514" height="230" key="GridCell.Tab.0.bottom" timestamp="1585596328622">
+    <state width="2514" height="203" key="GridCell.Tab.0.bottom" timestamp="1586223553421">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585596328622" />
-    <state width="2514" height="230" key="GridCell.Tab.0.center" timestamp="1585596328622">
+    <state width="2514" height="203" key="GridCell.Tab.0.bottom/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586223553421" />
+    <state width="2514" height="203" key="GridCell.Tab.0.center" timestamp="1586223553421">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="230" key="GridCell.Tab.0.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585596328622" />
-    <state width="2514" height="230" key="GridCell.Tab.0.left" timestamp="1585596328622">
+    <state width="2514" height="203" key="GridCell.Tab.0.center/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586223553421" />
+    <state width="2514" height="203" key="GridCell.Tab.0.left" timestamp="1586223553421">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="230" key="GridCell.Tab.0.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585596328622" />
-    <state width="2514" height="230" key="GridCell.Tab.0.right" timestamp="1585596328622">
+    <state width="2514" height="203" key="GridCell.Tab.0.left/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586223553421" />
+    <state width="2514" height="203" key="GridCell.Tab.0.right" timestamp="1586223553421">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state width="2514" height="230" key="GridCell.Tab.0.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585596328622" />
+    <state width="2514" height="203" key="GridCell.Tab.0.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586223553421" />
     <state width="2514" height="351" key="GridCell.Tab.1.bottom" timestamp="1585498567496">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -177,10 +196,10 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state width="2514" height="351" key="GridCell.Tab.1.right/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585498567496" />
-    <state x="3141" y="148" width="1022" height="1019" key="SettingsEditor" timestamp="1585506806013">
+    <state x="3141" y="148" width="1022" height="1019" key="SettingsEditor" timestamp="1586217371156">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
-    <state x="3141" y="148" width="1022" height="1019" key="SettingsEditor/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585506806013" />
+    <state x="3141" y="148" width="1022" height="1019" key="SettingsEditor/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586217371156" />
     <state x="2971" y="387" width="457" height="662" key="com.goide.refactor.move.GoMoveDeclarationDialog" timestamp="1585573457779">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
@@ -189,10 +208,10 @@
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>
     <state x="2672" y="300" width="1046" height="836" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1585572121815" />
-    <state x="2020" y="100" width="2360" height="1240" key="dock-window-1" timestamp="1584605196384">
-      <screen x="1920" y="0" width="2560" height="1440" />
+    <state x="-157" y="130" width="1717" height="902" key="dock-window-1" timestamp="1586208345674">
+      <screen x="0" y="0" width="1920" height="1032" />
     </state>
-    <state x="2020" y="100" width="2360" height="1240" key="dock-window-1/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1584605196384" />
+    <state x="-157" y="130" width="1717" height="902" key="dock-window-1/0.0.1920.1032/4480.0.1920.1080/1920.0.2560.1440@1920.0.2560.1440" timestamp="1586208345674" />
     <state x="2020" y="100" width="2360" height="1240" key="dock-window-2" timestamp="1584610084769">
       <screen x="1920" y="0" width="2560" height="1440" />
     </state>

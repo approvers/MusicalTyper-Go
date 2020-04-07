@@ -3,7 +3,7 @@ package effects
 import (
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/color"
-	"musicaltyper-go/game/draw/component"
+	"musicaltyper-go/game/view/game/component"
 
 	"github.com/veandco/go-sdl2/sdl"
 )

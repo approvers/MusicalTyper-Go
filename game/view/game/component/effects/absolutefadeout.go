@@ -2,9 +2,9 @@ package effects
 
 import (
 	"musicaltyper-go/game/draw/color"
-	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/draw/pos"
+	"musicaltyper-go/game/view/game/component"
 )
 
 // NewAbsoluteFadeout generates effect that draws text with fading out

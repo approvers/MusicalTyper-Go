@@ -1,24 +1,20 @@
-package state
+package mainview
 
 import (
 	"fmt"
 	"math"
 	Beatmap "musicaltyper-go/game/beatmap"
 	Constants "musicaltyper-go/game/constants"
-	"musicaltyper-go/game/draw/view/mainview"
+	"musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/draw/pos"
 	Rank "musicaltyper-go/game/rank"
 	"musicaltyper-go/game/sehelper"
+	"musicaltyper-go/game/view/game/component/effects"
+	"musicaltyper-go/game/view/game/component/keyboard"
 	"time"
+
+	"github.com/veandco/go-sdl2/sdl"
 )
-
-// ResultType is unused
-type ResultType int
-
-// Result is unused
-type Result struct {
-	Count     int
-	MissCount int
-}
 
 // GameState has whole of state to manage game logic
 type GameState struct {
@@ -57,8 +53,8 @@ func (s *GameState) Update(CurrentTime float64) {
 		Note := s.Beatmap.Notes[s.CurrentSentenceIndex]
 		CurrentSentence := Note.Sentence
 		if !CurrentSentence.IsFinished && Note.Type == Beatmap.NORMAL {
-			mainview.AddEffector(mainview.FOREGROUND, 120, tleTextEffect())
-			mainview.AddEffector(mainview.BACKGROUND, 15, tleBackgroundEffect())
+			AddEffector(FOREGROUND, 120, tleTextEffect)
+			AddEffector(BACKGROUND, 15, tleBackgroundEffect)
 			sehelper.Play(sehelper.TleSE)
 		}
 
@@ -156,4 +152,66 @@ func (s *GameState) AddTLEPoint() {
 	s.PerfectPoint += Constants.OneCharPoint*TextLen*40 + Constants.ClearPoint + Constants.PerfectPoint
 	s.TotalMissCount += TextLen
 	CurrentSentence.MissCount += TextLen
+}
+
+// ParseKeyInput handles key input event from sdl
+func (s *GameState) ParseKeyInput(renderer *sdl.Renderer, code sdl.Keycode, PrintLyric bool) {
+	if !((code >= 'a' && code <= 'z') || (code >= '0' && code <= '9') || code == '[' || code == ']' || code == ',' || code == '.' || code == ' ' || code == '-') {
+		return
+	}
+
+	if s.IsInputDisabled {
+		sehelper.Play(sehelper.UnneccesarySE)
+		return
+	}
+
+	KeyChar := string(code)
+	CurrentSentence := s.Beatmap.Notes[s.CurrentSentenceIndex].Sentence
+	ok, SentenceEnded := CurrentSentence.JudgeKeyInput(KeyChar)
+
+	Point := s.AddPoint(ok, SentenceEnded)
+
+	if !ok {
+		AddEffector(FOREGROUND, 120, missTypeTextEffect)
+		AddEffector(BACKGROUND, 15, missTypeBackgroundEffect)
+		sehelper.Play(sehelper.FailedSE)
+		return
+	}
+
+	s.CountKeyType()
+	AddEffector(FOREGROUND, 30, successEffect)
+
+	if !PrintLyric {
+		KeyPos := keyboard.GetKeyPos(KeyChar)
+		text := fmt.Sprintf("+%d", Point)
+		textwidth := helper.GetTextSize(renderer, helper.FullFont, text, Constants.BlueThickColor).W()
+		KeyPos = pos.FromXY(KeyPos.X()-textwidth/2, KeyPos.Y())
+
+		AddEffector(FOREGROUND, 30, effects.NewAbsoluteFadeout(
+			text,
+			Constants.BlueThickColor,
+			helper.FullFont,
+			KeyPos, 15,
+		))
+	}
+
+	if SentenceEnded {
+		s.IsInputDisabled = true
+
+		if CurrentSentence.MissCount == 0 {
+			AddEffector(FOREGROUND, 120, acTextEffect)
+			AddEffector(BACKGROUND, 15, acBackgroundEffect)
+			sehelper.Play(sehelper.AcSE)
+		} else {
+			AddEffector(FOREGROUND, 120, waTextEffect)
+			AddEffector(BACKGROUND, 15, waBackgroundEffect)
+			sehelper.Play(sehelper.WaSE)
+		}
+	} else {
+		if s.GetKeyTypePerSecond() > 4 {
+			sehelper.Play(sehelper.FastSE)
+		} else {
+			sehelper.Play(sehelper.SuccessSE)
+		}
+	}
 }

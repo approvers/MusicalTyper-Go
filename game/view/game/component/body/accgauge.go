@@ -3,9 +3,9 @@ package body
 import (
 	"musicaltyper-go/game/beatmap"
 	"musicaltyper-go/game/constants"
-	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
 	"musicaltyper-go/game/rank"
+	"musicaltyper-go/game/view/game/component"
 
 	"musicaltyper-go/game/draw/area"
 	"musicaltyper-go/game/draw/pos"

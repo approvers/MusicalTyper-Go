@@ -3,8 +3,8 @@ package keyboard
 import (
 	"musicaltyper-go/game/beatmap"
 	"musicaltyper-go/game/constants"
-	"musicaltyper-go/game/draw/component"
 	"musicaltyper-go/game/draw/helper"
+	"musicaltyper-go/game/view/game/component"
 
 	"musicaltyper-go/game/draw/pos"
 
@@ -21,6 +21,10 @@ func Keyboard(isDisabled bool, currentSentence beatmap.Sentence) component.Drawa
 		drawKeyboard(Renderer, helper.Substring(currentSentence.GetRemainingRoma(), 0, 1))
 		//キーボードの下の区切り線
 		helper.DrawThickLine(Renderer,
-			pos.FromXY(0, 375), pos.FromXY(constants.WindowWidth, 375), constants.TypedTextColor, 2)
+			pos.FromXY(0, 375),
+			pos.FromXY(constants.WindowWidth, 375),
+			constants.TypedTextColor,
+			2,
+		)
 	}
 }
