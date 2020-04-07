@@ -16,8 +16,24 @@ func FromAchievementRate(rate float64) Rank {
 	return ranks[len(ranks)-1]
 }
 
+func (r Rank) GetNextRank() (*Rank, bool) {
+	for i, v := range ranks {
+		if r.bottom == v.bottom {
+			if i == 0 {
+				return nil, false
+			}
+			return &ranks[i-1], true
+		}
+	}
+	return nil, false
+}
+
 func (r Rank) Text() string {
 	return r.text
+}
+
+func (r Rank) BorderRate() float64 {
+	return r.bottom
 }
 
 var (

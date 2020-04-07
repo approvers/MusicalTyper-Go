@@ -9,6 +9,7 @@ import (
 	Keyboard "musicaltyper-go/game/view/game/component/keyboard"
 	RealTimeInfo "musicaltyper-go/game/view/game/component/realtimeinfo"
 	Top "musicaltyper-go/game/view/game/component/top"
+	"musicaltyper-go/game/view/result"
 	"time"
 
 	"github.com/veandco/go-sdl2/mix"
@@ -21,6 +22,7 @@ type gameView struct {
 	printingNextLyrics bool
 	musicStartTime     *time.Time
 	state              *GameState
+	music              *mix.Music
 }
 
 func NewMainView(beatmap *beatmap.Beatmap) view.View {
@@ -33,19 +35,32 @@ func NewMainView(beatmap *beatmap.Beatmap) view.View {
 		printingNextLyrics: false,
 		musicStartTime:     &MusicStartTime,
 		state:              NewGameState(beatmap),
+		music:              Music,
 	}
 	return &result
 }
 
-func (view *gameView) GetName() string {
+func (v *gameView) GetName() string {
 	return "GameView"
 }
 
-func (view *gameView) PollEvent() view.Event {
+var GameResult *result.GameResult = nil
+
+func (v *gameView) PollEvent() view.Event {
+	if GameResult != nil {
+		mix.HaltMusic()
+		v.music.Free()
+		v.state.stopTypeSpeedCalcDaemon <- true
+
+		ev := view.ChangeViewEvent{
+			ToChangeView: result.NewResultView(GameResult),
+		}
+		return &ev
+	}
 	return nil
 }
 
-func (view *gameView) HandleSDLEvent(renderer *sdl.Renderer, event sdl.Event) bool {
+func (v *gameView) HandleSDLEvent(renderer *sdl.Renderer, event sdl.Event) bool {
 	switch e := event.(type) {
 	case *sdl.KeyboardEvent:
 		key := e.Keysym.Sym
@@ -55,11 +70,11 @@ func (view *gameView) HandleSDLEvent(renderer *sdl.Renderer, event sdl.Event) bo
 				return false
 
 			case sdl.K_LSHIFT, sdl.K_RSHIFT:
-				view.printingNextLyrics = !view.printingNextLyrics
+				v.printingNextLyrics = !v.printingNextLyrics
 				return true
 
 			default:
-				view.state.ParseKeyInput(renderer, key, view.printingNextLyrics)
+				v.state.ParseKeyInput(renderer, key, v.printingNextLyrics)
 			}
 		}
 	}
@@ -67,38 +82,51 @@ func (view *gameView) HandleSDLEvent(renderer *sdl.Renderer, event sdl.Event) bo
 	return true
 }
 
-func (view *gameView) Draw(Renderer *sdl.Renderer) {
-	Beatmap := view.state.Beatmap
+func (v *gameView) Draw(Renderer *sdl.Renderer) {
+	Beatmap := v.state.Beatmap
 
-	view.frameCount = (view.frameCount + 1) % constants.FrameRate
-	view.state.Update(float64(time.Now().Sub(*view.musicStartTime).Milliseconds()) / 1000.0)
+	v.frameCount = (v.frameCount + 1) % constants.FrameRate
+	v.state.Update(float64(time.Now().Sub(*v.musicStartTime).Milliseconds()) / 1000.0)
+
+	if Beatmap.Notes[v.state.CurrentSentenceIndex].Type == beatmap.END {
+		GameResult = &result.GameResult{
+			Rank:            v.state.GetRank(),
+			Point:           v.state.Point,
+			TypeSpeed:       v.state.GetKeyTypePerSecond(),
+			Accuracy:        v.state.GetAccuracy(),
+			AchievementRate: v.state.GetAchievementRate(false),
+			MapInfo:         v.state.Beatmap.Properties,
+		}
+		return
+	}
 
 	var (
 		NormalizedRemainingTime float64 = 0
 		Properties                      = Beatmap.Properties
-		CurrentSentenceIndex            = view.state.CurrentSentenceIndex
+		CurrentSentenceIndex            = v.state.CurrentSentenceIndex
 		CurrentSentence                 = *Beatmap.Notes[CurrentSentenceIndex].Sentence
-		NextLyrics                      = view.state.Beatmap.Notes[CurrentSentenceIndex+1 : CurrentSentenceIndex+4]
-		FrameCount                      = view.frameCount
-		Combo                           = view.state.Combo
-		Point                           = view.state.Point
-		IsKeyboardDisabled              = view.printingNextLyrics
-		Rank                            = view.state.GetRank()
-		Accuracy                        = view.state.GetAccuracy()
-		TypingSpeed                     = view.state.GetKeyTypePerSecond()
-		AchievementRate                 = view.state.GetAchievementRate(false)
+		NextLyrics                      = v.state.Beatmap.Notes[CurrentSentenceIndex+1 : CurrentSentenceIndex+4]
+		FrameCount                      = v.frameCount
+		Combo                           = v.state.Combo
+		Point                           = v.state.Point
+		IsKeyboardDisabled              = v.printingNextLyrics
+		IsInputDisabled                 = v.state.IsInputDisabled
+		Rank                            = v.state.GetRank()
+		Accuracy                        = v.state.GetAccuracy()
+		TypingSpeed                     = v.state.GetKeyTypePerSecond()
+		AchievementRate                 = v.state.GetAchievementRate(false)
 		DrawBeginTime                   = time.Now()
 	)
 
-	if len(view.state.Beatmap.Notes) <= view.state.CurrentSentenceIndex+1 {
+	if len(v.state.Beatmap.Notes) <= v.state.CurrentSentenceIndex+1 {
 		NormalizedRemainingTime = 1
 	} else {
 		var (
-			CurrentSentenceStartTime = view.state.Beatmap.Notes[CurrentSentenceIndex].Time
-			NextSentenceStartTime    = view.state.Beatmap.Notes[CurrentSentenceIndex+1].Time
+			CurrentSentenceStartTime = v.state.Beatmap.Notes[CurrentSentenceIndex].Time
+			NextSentenceStartTime    = v.state.Beatmap.Notes[CurrentSentenceIndex+1].Time
 			CurrentSentenceDuration  = NextSentenceStartTime - CurrentSentenceStartTime
 		)
-		NormalizedRemainingTime = (CurrentSentenceDuration - view.state.CurrentTime + CurrentSentenceStartTime) / CurrentSentenceDuration
+		NormalizedRemainingTime = (CurrentSentenceDuration - v.state.CurrentTime + CurrentSentenceStartTime) / CurrentSentenceDuration
 	}
 
 	Renderer.SetDrawColor(255, 243, 224, 0)
@@ -116,7 +144,7 @@ func (view *gameView) Draw(Renderer *sdl.Renderer) {
 		Body.ComboText(Combo),
 		Body.AccGauge(CurrentSentence, AchievementRate, Rank),
 		Body.AchievementGauge(AchievementRate),
-		Keyboard.Keyboard(IsKeyboardDisabled, CurrentSentence),
+		Keyboard.Keyboard(IsKeyboardDisabled, IsInputDisabled, CurrentSentence),
 		Keyboard.NextLyrics(!IsKeyboardDisabled, NextLyrics),
 		RealTimeInfo.SpeedGauge(TypingSpeed, FrameCount),
 		RealTimeInfo.CorrectRateText(Accuracy),

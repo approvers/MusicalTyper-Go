@@ -17,7 +17,7 @@ var (
 )
 
 // SpeedGauge draws players's typing speed by text and color
-func SpeedGauge(typingSpeed int, FrameCount int) component.Drawable {
+func SpeedGauge(typingSpeed float64, FrameCount int) component.Drawable {
 	return func(Renderer *sdl.Renderer) {
 		helper.DrawText(Renderer,
 			pos.FromXY(constants.Margin, 382),
@@ -37,7 +37,7 @@ func SpeedGauge(typingSpeed int, FrameCount int) component.Drawable {
 			//そうでなければ普通に描画。
 			helper.DrawFillRect(Renderer, constants.GreenThinColor, Area)
 
-			GaugeWidth := typingSpeed / 4 * (constants.WindowWidth * 2)
+			GaugeWidth := int(typingSpeed / 4.0 * float64(constants.WindowWidth-constants.Margin*2))
 			helper.DrawFillRect(Renderer, normalSpeedGaugeForegroundColor,
 				area.FromXYWH(constants.Margin, 405, GaugeWidth, 20),
 			)
@@ -45,7 +45,7 @@ func SpeedGauge(typingSpeed int, FrameCount int) component.Drawable {
 		helper.DrawText(Renderer,
 			pos.FromXY(constants.WindowWidth/2, 402),
 			helper.Center, helper.SystemFont,
-			fmt.Sprintf("%2d Char/sec", typingSpeed), constants.TextColor,
+			fmt.Sprintf("%4.2f Char/sec", typingSpeed), constants.TextColor,
 		)
 	}
 }

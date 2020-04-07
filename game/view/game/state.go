@@ -11,6 +11,7 @@ import (
 	"musicaltyper-go/game/sehelper"
 	"musicaltyper-go/game/view/game/component/effects"
 	"musicaltyper-go/game/view/game/component/keyboard"
+	"sync"
 	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
@@ -33,6 +34,12 @@ type GameState struct {
 	IsInputDisabled bool
 
 	KeyInputs []time.Time
+
+	KeyInputSpeedMutex sync.Mutex
+	KeyInputSpeedSum   int
+	KeyInputSpeedCount int
+
+	stopTypeSpeedCalcDaemon chan bool
 }
 
 // NewGameState makes GameState from Beatmap
@@ -41,7 +48,53 @@ func NewGameState(Map *Beatmap.Beatmap) *GameState {
 	r.Beatmap = Map
 	r.KeyInputs = make([]time.Time, 0)
 	r.IsInputDisabled = Map.Notes[0].Type != Beatmap.NORMAL
+	r.stopTypeSpeedCalcDaemon = make(chan bool)
+
+	go calcTypeSpeed(r)
+
 	return r
+}
+
+func calcTypeSpeed(state *GameState) {
+	ticker := time.NewTicker(100 * time.Millisecond)
+	Continue := true
+	DontErase := false
+
+	for Continue {
+		select {
+		case <-state.stopTypeSpeedCalcDaemon:
+			Continue = false
+
+		case <-ticker.C:
+			if !state.IsInputDisabled {
+				state.KeyInputSpeedMutex.Lock()
+
+				now := time.Now()
+				remains := make([]time.Time, 0, len(state.KeyInputs))
+
+				for _, v := range state.KeyInputs {
+					if (now.Sub(v).Milliseconds() < 100) && !DontErase {
+						remains = append(remains, v)
+					}
+				}
+				state.KeyInputs = remains
+				state.KeyInputSpeedSum += len(remains) * 10
+				state.KeyInputSpeedCount++
+
+				fmt.Print("[CalcTypeSpeedDaemon] ThisTime:", len(remains)*10, "Average:", float64(state.KeyInputSpeedSum)/float64(state.KeyInputSpeedCount))
+
+				if DontErase {
+					fmt.Println(" Didn't Erase.")
+					DontErase = false
+				}
+
+				state.KeyInputSpeedMutex.Unlock()
+			} else {
+				DontErase = true
+			}
+
+		}
+	}
 }
 
 // Update overrides current time and updates current note
@@ -95,21 +148,22 @@ func (s *GameState) GetRank() Rank.Rank {
 
 // CountKeyType records time when typed any key
 func (s *GameState) CountKeyType() {
+	s.KeyInputSpeedMutex.Lock()
+	defer s.KeyInputSpeedMutex.Unlock()
+
 	s.KeyInputs = append(s.KeyInputs, time.Now())
 }
 
 // GetKeyTypePerSecond calculates typed times per second from records from CountKeyType
-func (s *GameState) GetKeyTypePerSecond() int {
-	now := time.Now()
-	remains := make([]time.Time, 0, len(s.KeyInputs))
+func (s *GameState) GetKeyTypePerSecond() float64 {
+	s.KeyInputSpeedMutex.Lock()
+	defer s.KeyInputSpeedMutex.Unlock()
 
-	for _, v := range s.KeyInputs {
-		if now.Sub(v).Milliseconds() < 1000 {
-			remains = append(remains, v)
-		}
+	if s.KeyInputSpeedCount == 0 {
+		return 0
 	}
-	s.KeyInputs = remains
-	return len(remains)
+
+	return float64(s.KeyInputSpeedSum) / float64(s.KeyInputSpeedCount)
 }
 
 // AddPoint decides and adds point with flags
@@ -120,7 +174,7 @@ func (s *GameState) AddPoint(isTypeOK, isThisSentenceEnded bool) (point int) {
 		s.TotalCorrectCount++
 		s.Combo++
 
-		point = int(float64(Constants.OneCharPoint*10*s.GetKeyTypePerSecond()) * float64(s.Combo/10))
+		point = int(Constants.OneCharPoint * 10 * s.GetKeyTypePerSecond() * float64(s.Combo/10))
 		s.Point += point
 		s.PerfectPoint += Constants.OneCharPoint * 10 * Constants.IdealTypeSpeed * s.Combo / 10
 

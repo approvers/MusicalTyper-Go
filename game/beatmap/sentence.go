@@ -2,6 +2,7 @@ package beatmap
 
 import (
 	"fmt"
+	"musicaltyper-go/game/constants"
 	"strings"
 	"unicode/utf8"
 
@@ -126,10 +127,10 @@ func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 		isCharEnded   = false
 	)
 
-	fmt.Print("Input:\"" + input + "\" Guesses: [ ")
+	printRomaLog("Input:\"" + input + "\" Guesses: [ ")
 	for _, v := range CurrentChar.RomaStyles {
 		if strings.Split(v.Roma, "")[CurrentChar.TypingIndex] == input {
-			fmt.Print("\"" + v.Roma + "\" ")
+			printRomaLog("\"" + v.Roma + "\" ")
 			RemainGuesses = append(RemainGuesses, v)
 			if CurrentChar.TypingIndex+1 == len(v.Roma) {
 				isCharEnded = true
@@ -137,11 +138,11 @@ func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 			}
 		}
 	}
-	fmt.Print("]")
+	printRomaLog("]")
 
 	if !isCharEnded {
 		if len(RemainGuesses) == 0 {
-			fmt.Println(" denied.")
+			printRomaLog(" denied.")
 			return false, false
 		}
 
@@ -150,7 +151,7 @@ func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 		fmt.Println(" approved.")
 		return true, false
 	}
-	fmt.Println(" approved.")
+	printRomaLog(" approved.")
 
 	s.CurrentCharacterIndex += RemainGuesses[0].Forwards
 
@@ -159,6 +160,12 @@ func (s *Sentence) JudgeKeyInput(input string) (ok, isThisSentenceEnded bool) {
 		return true, true
 	}
 	return true, false
+}
+
+func printRomaLog(msg string) {
+	if constants.PrintRomaJudgeCheck {
+		fmt.Println(msg)
+	}
 }
 
 func length(s string) int {

@@ -64,7 +64,6 @@ func Run(beatmap *beatmap.Beatmap) {
 			switch event.(type) {
 			case *sdl.QuitEvent:
 				Running = false
-
 			default:
 				Running = CurrentView.HandleSDLEvent(Renderer, event)
 			}
@@ -76,6 +75,7 @@ func Run(beatmap *beatmap.Beatmap) {
 			switch ev := event.(type) {
 			case *view.ChangeViewEvent:
 				CurrentView = ev.ToChangeView
+				fmt.Println("Changed view to", CurrentView.GetName())
 			}
 		}
 

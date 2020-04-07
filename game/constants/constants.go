@@ -18,7 +18,9 @@ const (
 	Margin = 15
 
 	// PrintTextureLog is flag whether to log about texture
-	PrintTextureLog = false
+	PrintTextureLog     = false
+	PrintRomaJudgeCheck = false
+	Print
 
 	// AudioChannelNum is the number of will be allocated sound channels.
 	AudioChannelNum = 32
